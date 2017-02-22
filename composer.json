@@ -1,0 +1,22 @@
+{
+    "name": "story/cms",
+    "require": {
+        "php": ">=5.6.3",
+        "laravel/framework": "5.4.*",
+        "spatie/laravel-analytics": "^2.4.0",
+        "barryvdh/laravel-debugbar": "^2.3"
+    },
+    "require-dev": {
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "Story\\Cms\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Story\\CmsTest\\": "test"
+        }
+    }
+}
