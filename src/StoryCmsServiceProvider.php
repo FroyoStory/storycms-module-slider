@@ -26,7 +26,7 @@ class StoryCmsServiceProvider extends ServiceProvider
 
     /**
      * Register custom service provider
-     * 
+     *
      * @return void
      */
     protected function registerServices()
@@ -34,7 +34,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
 
         if (env('APP_ENV') !== 'production') {
-            
+
         }
     }
 
@@ -53,5 +53,25 @@ class StoryCmsServiceProvider extends ServiceProvider
             ['prefix' => 'backend', 'middleware' => ['web'], 'namespace' => $this->namespace . '\\Backend\\Controllers'], function() {
             require __DIR__.'/../routes/backend.php';
         });
+    }
+
+    /**
+     * Get navigation config for cms
+     *
+     * @return array
+     */
+    public static function navigation()
+    {
+        return [
+            'backend' => [
+                'cms' => [
+                    'title' => 'content',
+                    'groups' => [
+                        'elements' => ['pages', 'posts']
+                    ]
+                ]
+            ]
+        ];
+
     }
 }

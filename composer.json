@@ -1,5 +1,5 @@
 {
-    "name": "story/cms",
+    "name": "storycms/cms",
     "require": {
         "php": ">=5.6.3",
         "laravel/framework": "5.4.*",
@@ -7,7 +7,7 @@
         "barryvdh/laravel-debugbar": "^2.3"
     },
     "require-dev": {
-        
+
     },
     "autoload": {
         "psr-4": {
