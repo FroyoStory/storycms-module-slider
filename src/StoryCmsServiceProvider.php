@@ -31,6 +31,8 @@ class StoryCmsServiceProvider extends ServiceProvider
      */
     protected function registerServices()
     {
+        $this->app->register(\Story\Theme\ThemeServiceProvider::class);
+
         $loader = AliasLoader::getInstance();
 
         if (env('APP_ENV') !== 'production') {
@@ -49,9 +51,10 @@ class StoryCmsServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(__DIR__.'/../routes/web.php');
 
-        Route::group(
-            ['prefix' => 'backend', 'middleware' => ['web'], 'namespace' => $this->namespace . '\\Backend\\Controllers'], function() {
-            require __DIR__.'/../routes/backend.php';
+        Route::group(['prefix' => 'backend'], function() {
+            Route::middleware('web')
+                ->namespace($this->namespace . '\\Backend\\Controllers')
+                ->group(__DIR__.'/../routes/backend.php');
         });
     }
 
