@@ -31,6 +31,7 @@ class StoryCmsServiceProvider extends ServiceProvider
      */
     protected function registerServices()
     {
+        $this->app->register(\Story\Core\CoreServiceProvider::class);
         $this->app->register(\Story\Theme\ThemeServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
@@ -48,8 +49,8 @@ class StoryCmsServiceProvider extends ServiceProvider
     public function register()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(__DIR__.'/../routes/web.php');
+            ->namespace($this->namespace)
+            ->group(__DIR__.'/../routes/web.php');
 
         Route::group(['prefix' => 'backend'], function() {
             Route::middleware('web')
@@ -67,11 +68,27 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         return [
             'backend' => [
+                'dashboard' => [
+                    'title' => 'Dashboard',
+                    'font' => 'dashboard'
+                ],
                 'cms' => [
-                    'title' => 'content',
+                    'title' => 'Content',
+                    'font'  => 'chrome_reader_mode',
                     'groups' => [
                         'elements' => ['pages', 'posts']
                     ]
+                ],
+                'user' => [
+                    'title' => 'Member',
+                    'font'  => 'people',
+                    'groups' => [
+                        'groups' => ['member', 'roles']
+                    ]
+                ],
+                'system' => [
+                    'title' => 'System',
+                    'font'  => 'settings'
                 ]
             ]
         ];
