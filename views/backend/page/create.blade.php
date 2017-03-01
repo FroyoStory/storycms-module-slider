@@ -6,7 +6,7 @@
 <div class="page-header">
   <div class="page-header-content">
     <div class="page-title">
-      <h1>Create Post</h1>
+      <h1>Create Pages</h1>
     </div>
   </div>
 </div>
@@ -27,17 +27,23 @@
         <div role="tabpanel" class="tab-pane active" id="post-pages" style="padding-top: 20px">
           <div class="row">
             <div class="col-md-8">
-              <div class="form-group">
-                <label>Post Title</label>
+              <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                <label>Post Title *</label>
                 <input type="text" name="title" class="form-control">
+                @if ($errors->has('title'))
+                  <small class="help-block">{{ $errors->first('title') }}</small>
+                @endif
               </div>
-              <div class="form-group">
+              <div class="form-group {{ $errors->has('body') ? 'has-error' : '' }}">
                 <textarea class="editor" name="body"></textarea>
+                @if ($errors->has('body'))
+                  <small class="help-block">{{ $errors->first('body') }}</small>
+                @endif
               </div>
             </div>
             <div class="col-md-4">
 
-              <div class="panel panel-default">
+{{--               <div class="panel panel-default">
                 <div class="panel-heading">Translations</div>
                 <table class="table">
                   <tbody>
@@ -48,7 +54,7 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              </div> --}}
 
               <div class="panel panel-default">
                 <div class="panel-heading">Page Detail</div>
@@ -60,12 +66,6 @@
                       <option value="DRAFT">Draft</option>
                       <option value="PUBLISHED">Published</option>
                       <option value="PENDING">Pending</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Post Category</label>
-                    <select id="post-slug" class="form-control" name="category_id">
-                      <option value="">Select status</option>
                     </select>
                   </div>
                 </div>

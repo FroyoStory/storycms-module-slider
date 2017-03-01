@@ -20,6 +20,7 @@ class CreatePostTable extends Migration
             $table->enum('status', ['DRAFT', 'PUBLISHED', 'PENDING'])->default('DRAFT');
             $table->integer('user_id')->unsigned();
             $table->timestamp('published_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

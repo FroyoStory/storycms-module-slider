@@ -2,43 +2,67 @@
 
 namespace Story\Cms\Backend\Controllers;
 
-use Story\Cms\Models\Repositories\PostRepository;
-use Story\Cms\Backend\Requests\PostRequest;
+use Illuminate\Http\Request;
+use Story\Cms\Models\Repositories\PageRepository;
+use Story\Cms\Backend\Requests\PageRequest;
 
 class PageController extends Controller
 {
-    protected $posts;
+    protected $page;
 
-    public function __construct(PostRepository $posts)
+    public function __construct(PageRepository $page)
     {
-        $this->posts = $posts;
+        $this->page = $page;
     }
 
     public function index()
     {
-        $this->data['posts'] = $this->posts->get();
+        $this->data['pages'] = $this->page->all();
 
-        return $this->view('post.index');
+        return $this->view('page.index');
     }
 
     public function create()
     {
-        return $this->view('post.create');
+        return $this->view('page.create');
     }
 
-    public function store(PostRequest $request)
+    public function store(PageRequest $request)
     {
-        $this->posts->create($request);
+        $page = $this->page->create($request);
+
+        if (!$page) {
+            session()->flash('message', 'Unable to create page');
+        } else {
+            session()->flash('info', 'Page was created');
+        }
+
+        return redirect()->back();
     }
 
-    public function edit()
+    public function edit(Request $request, $id)
     {
-        return $this->view('post.create');
+        $page = $this->page->findById($id);
+
+        $this->data['pk']       = $id;
+        $this->data['page']     = $page;
+        $this->data['trans']    = $page->translate($request->input('locale'));
+
+        return $this->view('page.edit');
     }
 
-    public function update()
+    public function update(PageRequest $request, $id)
     {
+        $page = $this->page->findById($id);
+        $page = $this->page->update($page, $request);
 
+        if (!$page) {
+            session()->flash('message', 'Unable to create page');
+        } else {
+            session()->flash('info', 'Category was updated');
+        }
+
+        return redirect()->back();
     }
 
     public function destroy()

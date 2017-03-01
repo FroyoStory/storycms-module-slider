@@ -17,6 +17,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('pages/{id}', 'PageController@update');
         Route::delete('pages/{id}', 'PageController@destroy');
 
+        Route::get('post', 'PostController@index');
+        Route::get('post/add', 'PostController@create');
+        Route::post('post', 'PostController@store');
+        Route::get('post/{id}', 'PostController@edit');
+        Route::put('post/{id}', 'PostController@update');
+        Route::delete('post/{id}', 'PostController@destroy');
+
         Route::get('category', 'CategoryController@index');
         Route::post('category', 'CategoryController@store');
         Route::get('category/{id}', 'CategoryController@edit');

@@ -35,7 +35,9 @@
             <td>{{ $category->slug }}</td>
             @foreach (config()->get('translatable.locales') as $locale)
             <td>
-              <a href="/backend/cms/elements/category/{{ $category->id }}?locale={{ $locale }}"><i class="material-icons font-size-14">create</i> </a>
+              <a href="/backend/cms/elements/category/{{ $category->id }}?locale={{ $locale }}">
+                <i class="material-icons font-size-14">create</i>
+              </a>
             </td>
             @endforeach
           </tr>

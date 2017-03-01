@@ -5,10 +5,16 @@ namespace Story\Cms\Models;
 use Story\Core\Model;
 use Dimsav\Translatable\Translatable;
 use Story\Cms\Models\Observers\PostObserver;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
     use Translatable;
+    use SoftDeletes;
+
+    const DRAFT = 'DRAFT';
+    const PUBLISHED = 'PUBLISHED';
+    const PENDING = 'PENDING';
 
     public $translationModel = 'Story\Cms\Models\Translatable\PostTranslation';
     public $translatedAttributes = [
@@ -30,6 +36,11 @@ class Post extends Model
     {
         parent::boot();
         static::observe(new PostObserver);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

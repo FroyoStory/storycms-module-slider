@@ -6,11 +6,11 @@
 <div class="page-header">
   <div class="page-header-content">
     <div class="page-title">
-      <h1>Pages</h1>
+      <h1>POST</h1>
     </div>
     <div class="heading-elements">
       <div class="heading-btn-group">
-        <a href="/backend/cms/elements/pages/add" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>ADD NEW</span></a>
+        <a href="/backend/cms/elements/post/add" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>ADD NEW</span></a>
       </div>
     </div>
   </div>

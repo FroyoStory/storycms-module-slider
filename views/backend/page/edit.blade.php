@@ -6,7 +6,7 @@
 <div class="page-header">
   <div class="page-header-content">
     <div class="page-title">
-      <h1>Create Post</h1>
+      <h1>Create Pages</h1>
     </div>
   </div>
 </div>
@@ -14,8 +14,9 @@
 <div class="container-fluid">
   <div>
 
-    <form action="/backend/cms/elements/pages/" method="POST" accept-charset="UTF-8">
+    <form action="/backend/cms/elements/pages/{{ $page->id }}" method="POST" accept-charset="UTF-8">
       {{ csrf_field() }}
+      <input type="hidden" name="_method" value="PUT">
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
@@ -27,29 +28,21 @@
         <div role="tabpanel" class="tab-pane active" id="post-pages" style="padding-top: 20px">
           <div class="row">
             <div class="col-md-8">
-              <div class="form-group">
-                <label>Post Title</label>
-                <input type="text" name="title" class="form-control">
+              <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                <label>Post Title *</label>
+                <input type="text" name="title" class="form-control" value="{{ $trans->title }}">
+                @if ($errors->has('title'))
+                  <small class="help-block">{{ $errors->first('title') }}</small>
+                @endif
               </div>
-              <div class="form-group">
-                <textarea class="editor" name="body"></textarea>
+              <div class="form-group {{ $errors->has('body') ? 'has-error' : '' }}">
+                <textarea class="editor" name="body">{{ $trans->body }}</textarea>
+                @if ($errors->has('body'))
+                  <small class="help-block">{{ $errors->first('body') }}</small>
+                @endif
               </div>
             </div>
             <div class="col-md-4">
-
-              <div class="panel panel-default">
-                <div class="panel-heading">Translations</div>
-                <table class="table">
-                  <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td>Indonesia</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
               <div class="panel panel-default">
                 <div class="panel-heading">Page Detail</div>
                 <div class="panel-body">
@@ -57,15 +50,9 @@
                     <label>Post Status</label>
                     <select id="post-slug" class="form-control" name="status">
                       <option value="">Select status</option>
-                      <option value="DRAFT">Draft</option>
-                      <option value="PUBLISHED">Published</option>
-                      <option value="PENDING">Pending</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Post Category</label>
-                    <select id="post-slug" class="form-control" name="category_id">
-                      <option value="">Select status</option>
+                      <option value="DRAFT" {{ $page->status == 'DRAFT' ? 'selected': '' }}>Draft</option>
+                      <option value="PUBLISHED" {{ $page->status == 'PUBLISHED' ? 'selected': '' }}>Published</option>
+                      <option value="PENDING" {{ $page->status == 'PENDING' ? 'selected': '' }}>Pending</option>
                     </select>
                   </div>
                 </div>
@@ -76,15 +63,15 @@
                 <div class="panel-body">
                   <div class="form-group">
                     <label>Meta Title</label>
-                    <input type="text" class="form-control" name="meta_title">
+                    <input type="text" class="form-control" name="meta_title" value="{{ $trans->meta_title }}">
                   </div>
                   <div class="form-group">
                     <label>Meta Description</label>
-                    <textarea class="form-control" name="meta_description"></textarea>
+                    <textarea class="form-control" name="meta_description">{{ $trans->meta_description }}</textarea>
                   </div>
                   <div class="form-group">
                     <label>Meta Keyword</label>
-                    <textarea class="form-control" name="meta_keyword"></textarea>
+                    <textarea class="form-control" name="meta_keyword">{{ $trans->meta_keyword }}</textarea>
                   </div>
                 </div>
               </div>
@@ -94,7 +81,8 @@
           <hr />
 
           <div class="from-group">
-            <button class="btn btn-primary" type="submit">Save pages</button>
+            <input type="hidden" name="locale" value="{{ request()->input('locale') }}">
+            <button class="btn btn-primary" type="submit">Update pages</button>
             <a href="/backend/cms/elements/pages/" class="btn btn-link">Back to articles</a>
           </div>
         </div>
