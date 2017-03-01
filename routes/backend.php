@@ -2,14 +2,15 @@
 
 Route::get('auth', 'Auth\LoginController@showLoginForm');
 Route::post('auth', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout');
 Route::get('auth/forgot', 'Auth\ForgotController@index');
 Route::post('auth/forgot', 'Auth\ForgotController@store');
 
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
 
-    Route::group(['prefix' => 'cms/elements'], function() {
+    Route::group(['prefix' => 'cms/elements'], function () {
         Route::get('pages', 'PageController@index');
         Route::get('pages/add', 'PageController@create');
         Route::post('pages', 'PageController@store');
@@ -31,13 +32,20 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('category/{id}', 'CategoryController@destroy');
     });
 
-    Route::group(['prefix' => 'user/groups'], function() {
+    Route::group(['prefix' => 'user/groups'], function () {
         Route::get('member', 'UserController@index');
         Route::get('member/add', 'UserController@create');
         Route::post('member', 'UserController@store');
         Route::get('member/{id}', 'UserController@edit');
         Route::put('member/{id}', 'UserController@update');
         Route::delete('member/{id}', 'UserController@destroy');
+    });
+
+    Route::group(['prefix' => 'system/setting'], function () {
+        Route::get('general', 'Settings\\GeneralController@index');
+        Route::post('general', 'Settings\\GeneralController@store');
+        Route::get('media', 'Settings\\MediaController@index');
+        Route::post('media', 'Settings\\MediaController@store');
     });
 });
 

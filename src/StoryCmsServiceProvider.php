@@ -39,7 +39,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
 
         if (env('APP_ENV') !== 'production') {
-
+            $loader->alias('Configuration', \Story\Models\Configuration::class);
         }
     }
 
@@ -93,7 +93,10 @@ class StoryCmsServiceProvider extends ServiceProvider
                 ],
                 'system' => [
                     'title' => 'System',
-                    'font'  => 'settings'
+                    'font'  => 'settings',
+                    'groups' => [
+                        'setting' => ['general']
+                    ]
                 ]
             ]
         ];
