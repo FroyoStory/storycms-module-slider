@@ -7,4 +7,9 @@ Route::post('auth', 'Auth\LoginController@store');
 Route::get('auth/forgot', 'Auth\ForgotController@index');
 Route::post('auth/forgot', 'Auth\ForgotController@store');
 
-Route::get('cms/post', 'PostController@index');
+
+Route::group(['prefix' => 'cms/elements'], function() {
+    Route::get('pages', 'PostController@index');
+    Route::get('pages/add', 'PostController@create');
+});
+

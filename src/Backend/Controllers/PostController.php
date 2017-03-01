@@ -8,4 +8,9 @@ class PostController extends Controller
     {
         return $this->view('post.index');
     }
+
+    public function create()
+    {
+        return $this->view('post.create');
+    }
 }
