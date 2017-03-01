@@ -5,29 +5,29 @@ namespace Story\Cms\Backend\Controllers;
 class UserController extends Controller
 {
 
-	public function index()
-	{
+    public function index()
+    {
         return $this->view('user.index');
-	}
-	public function store()
-	{
+    }
+    public function store()
+    {
 
-	}
-	public function edit()
-	{
+    }
+    public function edit()
+    {
 
-	}
-	public function create()
-	{
+    }
+    public function create()
+    {
 
-	}
-	public function update()
-	{
+    }
+    public function update()
+    {
 
-	}
-	public function destroy()
-	{
+    }
+    public function destroy()
+    {
 
-	}
+    }
 
 }
