@@ -5,9 +5,8 @@ namespace Story\Cms\Backend\Controllers;
 use Story\Cms\Models\Repositories\PostRepository;
 use Story\Cms\Backend\Requests\PostRequest;
 
-class PostController extends Controller
+class PageController extends Controller
 {
-
     protected $posts;
 
     public function __construct(PostRepository $posts)

@@ -10,14 +10,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'HomeController@index');
 
     Route::group(['prefix' => 'cms/elements'], function() {
-        Route::get('pages', 'PostController@index');
-        Route::get('pages/add', 'PostController@create');
-        Route::post('pages', 'PostController@store');
+        Route::get('pages', 'PageController@index');
+        Route::get('pages/add', 'PageController@create');
+        Route::post('pages', 'PageController@store');
+        Route::get('pages/{id}', 'PageController@edit');
+        Route::put('pages/{id}', 'PageController@update');
+        Route::delete('pages/{id}', 'PageController@destroy');
 
         Route::get('category', 'CategoryController@index');
         Route::post('category', 'CategoryController@store');
         Route::get('category/{id}', 'CategoryController@edit');
-        Route::post('category/{id}', 'CategoryController@update');
+        Route::put('category/{id}', 'CategoryController@update');
         Route::delete('category/{id}', 'CategoryController@destroy');
     });
 
@@ -26,7 +29,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('member/add', 'UserController@create');
         Route::post('member', 'UserController@store');
         Route::get('member/{id}', 'UserController@edit');
-        Route::post('member/{id}', 'UserController@update');
+        Route::put('member/{id}', 'UserController@update');
         Route::delete('member/{id}', 'UserController@destroy');
     });
 });

@@ -28,19 +28,36 @@ class CategoryController extends Controller
 
         if (!$category) {
             session()->flash('message', 'Unable to create category');
+        } else {
+            session()->flash('info', 'Category was created');
         }
 
         return redirect()->back();
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
+        $category = $this->categories->findById($id);
+
+        $this->data['pk']         = $id;
+        $this->data['category']   = $category->translate($request->input('locale'));
+        $this->data['categories'] = $this->categories->all();
+
         return $this->view('category.edit');
     }
 
-    public function update()
+    public function update(CategoryRequest $request, $id)
     {
+        $category = $this->categories->findById($id);
+        $category = $this->categories->update($category, $request);
 
+        if (!$category) {
+            session()->flash('message', 'Unable to create category');
+        } else {
+            session()->flash('info', 'Category was updated');
+        }
+
+        return redirect()->back();
     }
 
     public function destroy()

@@ -13,9 +13,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">Edit category</div>
-      </div>
+      @include('cms::backend.category._edit')
     </div>
   </div>
 </div>
