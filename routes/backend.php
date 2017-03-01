@@ -12,6 +12,13 @@ Route::group(['prefix' => 'cms/elements'], function() {
     Route::get('pages', 'PostController@index');
     Route::get('pages/add', 'PostController@create');
     Route::post('pages', 'PostController@store');
+
+    Route::get('category', 'CategoryController@index');
+    Route::get('category/add', 'CategoryController@create');
+    Route::post('category', 'CategoryController@store');
+    Route::get('category/{id}', 'CategoryController@edit');
+    Route::post('category/{id}', 'CategoryController@update');
+    Route::delete('category/{id}', 'CategoryController@destroy');
 });
 
 Route::group(['prefix' => 'user/groups'], function() {

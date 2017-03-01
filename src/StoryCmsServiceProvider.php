@@ -78,7 +78,7 @@ class StoryCmsServiceProvider extends ServiceProvider
                     'title' => 'Content',
                     'font'  => 'chrome_reader_mode',
                     'groups' => [
-                        'elements' => ['pages', 'posts']
+                        'elements' => ['category','pages', 'posts']
                     ]
                 ],
                 'user' => [
