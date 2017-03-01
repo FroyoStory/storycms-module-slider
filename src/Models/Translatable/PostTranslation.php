@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Core\Models\Translatable;
+namespace Story\Cms\Models\Translatable;
 
 use App;
 use Story\Core\Model;

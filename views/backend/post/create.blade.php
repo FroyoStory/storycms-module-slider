@@ -64,7 +64,7 @@
                   </div>
                   <div class="form-group">
                     <label>Post Category</label>
-                    <select id="post-slug" class="form-control" name="status">
+                    <select id="post-slug" class="form-control" name="category_id">
                       <option value="">Select status</option>
                     </select>
                   </div>

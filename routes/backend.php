@@ -11,6 +11,7 @@ Route::post('auth/forgot', 'Auth\ForgotController@store');
 Route::group(['prefix' => 'cms/elements'], function() {
     Route::get('pages', 'PostController@index');
     Route::get('pages/add', 'PostController@create');
+    Route::post('pages', 'PostController@store');
 });
 
 Route::group(['prefix' => 'user/groups'], function() {
