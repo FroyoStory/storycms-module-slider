@@ -1,33 +1,35 @@
 {
-    "name": "storycms/cms",
-    "require": {
-        "php": ">=5.6.3",
-        "laravel/framework": "5.4.*",
-        "barryvdh/laravel-debugbar": "^2.3",
-        "storycms/theme": "dev-master"
+  "name": "storycms/cms",
+  "require": {
+    "php": ">=5.6.3",
+    "laravel/framework": "5.4.*",
+    "barryvdh/laravel-debugbar": "^2.3",
+    "dimsav/laravel-translatable": "^6.0",
+    "kalnoy/nestedset": "^4.2",
+    "storycms/theme": "dev-master"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "PT Froyo Kreatif Indonesia",
+      "email": "hello@froyo.co.id"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "PT Froyo Kreatif Indonesia",
-            "email": "hello@froyo.co.id"
-        },
-        {
-            "name": "Purwandi",
-            "email": "purwandi@froyo.co.id"
-        }
-    ],
-    "require-dev": {
-
-    },
-    "autoload": {
-        "psr-4": {
-            "Story\\Cms\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Story\\CmsTest\\": "test"
-        }
+    {
+      "name": "Purwandi",
+      "email": "purwandi@froyo.co.id"
     }
+  ],
+  "require-dev": {
+
+  },
+  "autoload": {
+    "psr-4": {
+        "Story\\Cms\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Story\\CmsTest\\": "test"
+    }
+  }
 }

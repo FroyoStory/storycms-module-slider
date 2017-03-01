@@ -20,6 +20,7 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         $this->publishes([ __DIR__.'/../config/cms.php' => config_path('cms.php')]);
         $this->loadViewsFrom(__DIR__.'/../views', 'cms');
+        $this->loadMigrationsFrom(__DIR__.'/../migrations');
 
         $this->registerServices();
     }
@@ -33,6 +34,7 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         $this->app->register(\Story\Core\CoreServiceProvider::class);
         $this->app->register(\Story\Theme\ThemeServiceProvider::class);
+        $this->app->register(\Dimsav\Translatable\TranslatableServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
 
