@@ -13,3 +13,12 @@ Route::group(['prefix' => 'cms/elements'], function() {
     Route::get('pages/add', 'PostController@create');
 });
 
+Route::group(['prefix' => 'user/groups'], function() {
+    Route::get('member', 'UserController@index');
+    Route::get('member/add', 'UserController@create');
+    Route::post('member', 'UserController@store');
+    Route::get('member/{id}', 'UserController@edit');
+    Route::post('member/{id}', 'UserController@update');
+    Route::delete('member/{id}', 'UserController@destroy');
+});
+
