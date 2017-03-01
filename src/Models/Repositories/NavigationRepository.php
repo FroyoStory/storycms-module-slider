@@ -12,11 +12,19 @@ class NavigationRepository
 
     }
 
+    public static function first($name)
+    {
+        return Navigation::withDepth()->where('code', $name)->first();
+    }
+
     public static function get($name)
     {
-        $nav = Navigation::where('code', $name)->first();
+        $nav = self::first($name);
 
         if ($nav) {
+            if ($nav->depth > 1) {
+                return Navigation::where('parent_id', $nav->parent_id)->get();
+            }
             return $nav->descendants()->get()->toTree();
         }
 
