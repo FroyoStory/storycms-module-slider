@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -26,4 +26,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Check if the current user has a roles
+     *
+     * @param  Array|array $roles
+     * @return boolean
+     */
+    public function hasRole(Array $roles = [])
+    {
+        return in_array($roles, $this->role);
+    }
 }

@@ -2,17 +2,37 @@
 
 namespace Story\Cms\Backend\Controllers\Auth;
 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Story\Cms\Backend\Controllers\Controller;
 
 class LoginController extends Controller
 {
-    public function index()
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/backend/';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        return $this->view('auth.login');
+        $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function store()
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
     {
-
+        return $this->view('auth.login');
     }
 }

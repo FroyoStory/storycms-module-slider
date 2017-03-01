@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Kalnoy\Nestedset\NestedSet;
+use Story\Cms\Models\Category;
 
 class CreateCategoryTable extends Migration
 {
@@ -32,6 +33,12 @@ class CreateCategoryTable extends Migration
             $table->unique(['category_id','locale', 'slug']);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
+
+        Category::create([
+            'parent_id' => 0,
+            'en' => ['name' => 'Uncategorized'],
+            'id' => ['name' => 'Tidak bekategori']
+        ]);
     }
 
     /**

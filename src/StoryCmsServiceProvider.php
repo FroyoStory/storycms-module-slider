@@ -50,6 +50,8 @@ class StoryCmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/cms.php', 'cms');
+
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__.'/../routes/web.php');
@@ -78,7 +80,8 @@ class StoryCmsServiceProvider extends ServiceProvider
                     'title' => 'Content',
                     'font'  => 'chrome_reader_mode',
                     'groups' => [
-                        'elements' => ['category','pages', 'posts']
+                        'elements' => ['category','pages', 'posts'],
+                        'navigations' => ['navigation']
                     ]
                 ],
                 'user' => [
