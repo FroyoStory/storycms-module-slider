@@ -38,8 +38,11 @@ class StoryCmsServiceProvider extends ServiceProvider
 
         $loader = AliasLoader::getInstance();
 
+        $loader->alias('Configuration', \Story\Cms\Models\Configuration::class);
+        $loader->alias('Menu', \Story\Cms\Models\Repositories\NavigationRepository::class);
+
         if (env('APP_ENV') !== 'production') {
-            $loader->alias('Configuration', \Story\Models\Configuration::class);
+
         }
     }
 
