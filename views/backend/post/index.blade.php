@@ -6,7 +6,7 @@
 <div class="page-header">
   <div class="page-header-content">
     <div class="page-title">
-      <h1>POST</h1>
+      <h1>Pages</h1>
     </div>
     <div class="heading-elements">
       <div class="heading-btn-group">
@@ -22,11 +22,28 @@
       <tr>
         <th>Title</th>
         <th>Author</th>
-        <th>Categories</th>
-        <th>Tags</th>
         <th>Date</th>
+        @foreach (config()->get('translatable.locales') as $locale)
+        <th>{{ $locale }}</th>
+        @endforeach
       </tr>
     </thead>
+    <tbody>
+      @foreach ($posts as $post)
+      <tr>
+        <td>{{ $post->title }}</td>
+        <td>{{ $post->user->name }}</td>
+        <td>{{ $post->created_at }}</td>
+        @foreach (config()->get('translatable.locales') as $locale)
+        <td>
+          <a href="/backend/cms/elements/post/{{ $post->id }}?locale={{ $locale }}">
+            <i class="material-icons font-size-14">create</i>
+          </a>
+        </td>
+        @endforeach
+      </tr>
+      @endforeach
+    </tbody>
   </table>
 </div>
 @stop

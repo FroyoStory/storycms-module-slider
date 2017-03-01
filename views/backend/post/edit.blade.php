@@ -29,13 +29,13 @@
             <div class="col-md-8">
               <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                 <label>Post Title *</label>
-                <input type="text" name="title" class="form-control">
+                <input type="text" name="title" class="form-control" value="{{ $post->title }}">
                 @if ($errors->has('title'))
                   <small class="help-block">{{ $errors->first('title') }}</small>
                 @endif
               </div>
               <div class="form-group">
-                <textarea class="editor" name="body"></textarea>
+                <textarea class="editor" name="body">{{ $post->body }}</textarea>
                 @if ($errors->has('body'))
                   <small class="help-block">{{ $errors->first('body') }}</small>
                 @endif
@@ -50,9 +50,9 @@
                     <label>Post Status</label>
                     <select id="post-slug" class="form-control" name="status">
                       <option value="">Select status</option>
-                      <option value="DRAFT">Draft</option>
-                      <option value="PUBLISHED">Published</option>
-                      <option value="PENDING">Pending</option>
+                      <option value="DRAFT" {{ $post->status == 'DRAFT' ? 'selected': '' }}>Draft</option>
+                      <option value="PUBLISHED" {{ $post->status == 'PUBLISHED' ? 'selected': '' }}>Published</option>
+                      <option value="PENDING" {{ $post->status == 'PENDING' ? 'selected': '' }}>Pending</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -60,7 +60,7 @@
                     <select id="post-slug" class="form-control" name="category_id">
                       <option value="">Select status</option>
                       @foreach ($categories as $category)
-                        <option value="{{ $category->id}}">{{ $category->name }}</option>
+                        <option value="{{ $category->id}}" {{ $post->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -72,15 +72,15 @@
                 <div class="panel-body">
                   <div class="form-group">
                     <label>Meta Title</label>
-                    <input type="text" class="form-control" name="meta_title">
+                    <input type="text" class="form-control" name="meta_title" value="{{ $trans->meta_title }}">
                   </div>
                   <div class="form-group">
                     <label>Meta Description</label>
-                    <textarea class="form-control" name="meta_description"></textarea>
+                    <textarea class="form-control" name="meta_description">{{ $trans->meta_description }}</textarea>
                   </div>
                   <div class="form-group">
                     <label>Meta Keyword</label>
-                    <textarea class="form-control" name="meta_keyword"></textarea>
+                    <textarea class="form-control" name="meta_keyword">{{ $trans->meta_keyword }}</textarea>
                   </div>
                 </div>
               </div>
