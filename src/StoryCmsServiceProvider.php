@@ -2,11 +2,13 @@
 
 namespace Story\Cms;
 
+use Story\Core\Plugins;
+use Story\Core\Contracts\PluginInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 
-class StoryCmsServiceProvider extends ServiceProvider
+class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
 {
 
     protected $namespace = 'Story\\Cms';
@@ -67,42 +69,12 @@ class StoryCmsServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get navigation config for cms
+     * Return the navigation menu
      *
-     * @return array
+     * @return Array
      */
     public static function navigation()
     {
-        return [
-            'backend' => [
-                'dashboard' => [
-                    'title' => 'Dashboard',
-                    'font' => 'dashboard'
-                ],
-                'cms' => [
-                    'title' => 'Content',
-                    'font'  => 'chrome_reader_mode',
-                    'groups' => [
-                        'elements' => ['category','pages', 'post'],
-                        // 'navigations' => ['navigation']
-                    ]
-                ],
-                'user' => [
-                    'title' => 'Member',
-                    'font'  => 'people',
-                    'groups' => [
-                        'groups' => ['member', 'roles']
-                    ]
-                ],
-                'system' => [
-                    'title' => 'System',
-                    'font'  => 'settings',
-                    'groups' => [
-                        'setting' => ['general']
-                    ]
-                ]
-            ]
-        ];
-
+        return require __DIR__ . '/../config/navigation.php';
     }
 }

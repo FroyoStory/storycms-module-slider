@@ -1,12 +1,12 @@
 @extends('story-theme::layouts.master')
 
-@section('title') Post Pages @stop
+@section('title') Member @stop
 
 @section('content')
 <div class="page-header">
   <div class="page-header-content">
     <div class="page-title">
-      <h1>Pages</h1>
+      <h1>Member</h1>
     </div>
     <div class="heading-elements">
       <div class="heading-btn-group">

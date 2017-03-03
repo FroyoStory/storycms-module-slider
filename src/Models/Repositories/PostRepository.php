@@ -39,7 +39,6 @@ class PostRepository
 
         if ($post) {
             event(new \Story\Cms\Events\PostCreated($post, $request));
-
             return $post;
         }
 
@@ -65,6 +64,11 @@ class PostRepository
         $post->translate($locale)->meta_description = $request->input('meta_description');
         $post->translate($locale)->meta_keyword = $request->input('meta_keyword');
 
-        return $post->save();
+        if ($post->save()) {
+            event(new \Story\Cms\Events\PostUpdated($post, $request));
+            return $post;
+        }
+
+        return false;
     }
 }

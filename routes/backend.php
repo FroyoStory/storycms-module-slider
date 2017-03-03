@@ -33,12 +33,19 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'user/groups'], function () {
-        Route::get('member', 'UserController@index');
-        Route::get('member/add', 'UserController@create');
-        Route::post('member', 'UserController@store');
-        Route::get('member/{id}', 'UserController@edit');
-        Route::put('member/{id}', 'UserController@update');
-        Route::delete('member/{id}', 'UserController@destroy');
+        Route::get('member', 'MemberController@index');
+        Route::get('member/add', 'MemberController@create');
+        Route::post('member', 'MemberController@store');
+        Route::get('member/{id}', 'MemberController@edit');
+        Route::put('member/{id}', 'MemberController@update');
+        Route::delete('member/{id}', 'MemberController@destroy');
+
+        Route::get('roles', 'RoleController@index');
+        Route::get('roles/add', 'RoleController@create');
+        Route::post('roles', 'RoleController@store');
+        Route::get('roles/{id}', 'RoleController@edit');
+        Route::put('roles/{id}', 'RoleController@update');
+        Route::delete('roles/{id}', 'RoleController@destroy');
     });
 
     Route::group(['prefix' => 'system/setting'], function () {
