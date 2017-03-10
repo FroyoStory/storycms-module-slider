@@ -15,6 +15,8 @@ class Post extends Model
     const DRAFT = 'DRAFT';
     const PUBLISHED = 'PUBLISHED';
     const PENDING = 'PENDING';
+    const PAGE = 'PAGE';
+    const POST = 'POST';
 
     public $translationModel = 'Story\Cms\Models\Translatable\PostTranslation';
     public $translatedAttributes = [
@@ -38,6 +40,11 @@ class Post extends Model
         static::observe(new PostObserver);
     }
 
+    /**
+     * Return the user relationship
+     *
+     * @return \Story\Cms\Models\User
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

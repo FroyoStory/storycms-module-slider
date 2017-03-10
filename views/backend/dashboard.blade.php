@@ -2,27 +2,33 @@
 
 @section('title') Dashboard @stop
 
-@section('content')
-<div class="page-header">
-  <div class="page-header-content">
-    <div class="page-title">
-      <h1>Dashboard</h1>
-    </div>
-    <div class="heading-elements">
-      <div class="heading-btn-group">
-        <a href="/backend/cms/elements/category" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>CATEGORY</span></a>
-        <a href="/backend/cms/elements/pages/add" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>POST</span></a>
-      </div>
-    </div>
+@section('heading-elements')
+<div class="heading-elements">
+  <div class="heading-btn-group">
+    <a href="/backend/cms/elements/category" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>CATEGORY</span></a>
+    <a href="/backend/cms/elements/pages/add" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>POST</span></a>
   </div>
 </div>
+@stop
+
+@section('content')
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">At a Glance</div>
         <div class="panel-body">
-          Story CMS 1.0.1 running
+          <ul class="dashboard-stats">
+            @foreach($stats as $stat)
+            <li class="post-count">
+              <a href="edit.php?post_type=post">
+                <i class="material-icons">{{ $stat->font}}</i>
+                {{ $stat->value }} {{ $stat->key }}
+              </a>
+            </li>
+            @endforeach
+          </ul>
+          <p>Story CMS 1.0.1 running</p>
         </div>
       </div>
     </div>

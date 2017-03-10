@@ -2,20 +2,15 @@
 
 @section('title') Member @stop
 
-@section('content')
-<div class="page-header">
-  <div class="page-header-content">
-    <div class="page-title">
-      <h1>Member</h1>
-    </div>
-    <div class="heading-elements">
-      <div class="heading-btn-group">
-        <a href="/backend/cms/elements/pages/add" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>ADD NEW</span></a>
-      </div>
-    </div>
+@section('heading-elements')
+<div class="heading-elements">
+  <div class="heading-btn-group">
+    <a href="/backend/cms/elements/pages/add" class="btn btn-link btn-float has-text"><i class="material-icons">add_box</i> <span>ADD NEW</span></a>
   </div>
 </div>
+@stop
 
+@section('content')
 <div class="container-fluid">
   <table class="table">
     <thead>
