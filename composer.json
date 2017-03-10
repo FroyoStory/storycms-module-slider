@@ -25,6 +25,7 @@
     "dimsav/laravel-translatable": "^6.0",
     "kalnoy/nestedset": "^4.2",
     "unisharp/laravel-filemanager": "^1.7.0",
+    "graham-campbell/markdown": "^7.1.0",
     "storycms/core": "dev-master",
     "storycms/theme": "dev-master"
   },

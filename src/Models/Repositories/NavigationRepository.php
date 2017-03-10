@@ -23,7 +23,7 @@ class NavigationRepository
 
         if ($nav) {
             if ($nav->depth > 1) {
-                return Navigation::where('parent_id', $nav->parent_id)->get();
+                return $nav->self();
             }
             return $nav->descendants()->get()->toTree();
         }

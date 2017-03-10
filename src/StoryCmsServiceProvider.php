@@ -35,6 +35,7 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
     protected function registerServices()
     {
         $this->app->register(\Dimsav\Translatable\TranslatableServiceProvider::class);
+        $this->app->register(\GrahamCampbell\Markdown\MarkdownServiceProvider::class);
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Story\Core\CoreServiceProvider::class);
         $this->app->register(\Story\Theme\ThemeServiceProvider::class);
@@ -43,11 +44,14 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
         $loader = AliasLoader::getInstance();
 
         $loader->alias('Configuration', \Story\Cms\Models\Configuration::class);
-        $loader->alias('Menu', \Story\Cms\Models\Repositories\NavigationRepository::class);
         $loader->alias('Image', \Intervention\Image\Facades\Image::class);
+        $loader->alias('Menu', \Story\Cms\Models\Repositories\NavigationRepository::class);
+        $loader->alias('Markdown', \GrahamCampbell\Markdown\Facades\Markdown::class);
 
         if (env('APP_ENV') !== 'production') {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
 
+            $loader->alias('Debugbar', \Barryvdh\Debugbar\Facade::class);
         }
     }
 

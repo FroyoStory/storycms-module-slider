@@ -12,9 +12,14 @@ class Navigation extends Model
     use Translatable;
 
     protected $table = 'navigations';
-
     protected $fillable = ['code'];
+    protected $with = ['translations'];
 
     public $translationModel = 'Story\Cms\Models\Translatable\NavigationTranslation';
     public $translatedAttributes = ['name', 'slug'];
+
+    public function self()
+    {
+        return $this->where('parent_id', $this->parent_id)->get();
+    }
 }
