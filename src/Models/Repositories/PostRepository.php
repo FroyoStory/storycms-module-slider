@@ -10,7 +10,7 @@ class PostRepository
 {
     public function all()
     {
-        return Post::paginate();
+        return Post::where('type', Post::POST)->paginate();
     }
 
     public function create(Request $request)

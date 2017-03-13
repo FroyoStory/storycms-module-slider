@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Models\Repositories;
 
+use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Story\Cms\Models\Post;
@@ -10,7 +11,7 @@ class PageRepository
 {
     public function all()
     {
-        return Post::where('type', 'PAGE')->get();
+        return Post::where('type', Post::PAGE)->get();
     }
 
     public function create(Request $request)
@@ -49,6 +50,16 @@ class PageRepository
     public function findById($id)
     {
         return Post::findOrFail($id);
+    }
+
+    public function findBySlug($slug)
+    {
+        return Post::where('type', 'PAGE')
+            ->where('status', 'PUBLISHED')
+            ->whereHas('translations', function($query) use ($slug) {
+                $query->where('locale', App::getLocale());
+                $query->where('slug', $slug);
+            })->firstOrFail();
     }
 
     public function update(Post $post, Request $request)

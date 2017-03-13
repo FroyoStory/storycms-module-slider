@@ -23,6 +23,7 @@
     "laravel/framework": "5.4.*",
     "barryvdh/laravel-debugbar": "^2.3",
     "dimsav/laravel-translatable": "^6.0",
+    "imangazaliev/didom": "^1.9.1",
     "kalnoy/nestedset": "^4.2",
     "unisharp/laravel-filemanager": "^1.7.0",
     "graham-campbell/markdown": "^7.1.0",

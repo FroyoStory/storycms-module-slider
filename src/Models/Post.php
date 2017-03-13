@@ -20,8 +20,7 @@ class Post extends Model
 
     public $translationModel = 'Story\Cms\Models\Translatable\PostTranslation';
     public $translatedAttributes = [
-        'slug', 'title', 'body', 'meta_title', 'meta_description', 'meta_keyword',
-        'image_thumbnail', 'summary', 'link',
+        'slug', 'title', 'body', 'meta_title', 'meta_description', 'meta_keyword'
     ];
 
     protected $dates    = ['published_at'];
