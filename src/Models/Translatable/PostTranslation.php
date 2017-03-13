@@ -7,6 +7,7 @@ use Story\Core\Model;
 use Story\Cms\Models\Post;
 use Story\Cms\Models\Observers\PostTranslationObserver;
 use Illuminate\Support\Str;
+use DiDom\Document;
 
 class PostTranslation extends Model
 {
@@ -42,6 +43,18 @@ class PostTranslation extends Model
         $body = Removal::html($this->body);
 
         return Str::limit($body, 200);
+    }
+
+    /**
+     * Get thumbnail data for article
+     *
+     * @return string
+     */
+    public function getImageThumbnailAttribute()
+    {
+        $document = new Document($this->attributes['body']);
+        $images   = $document->find('img');
+        return count($images) > 0 ? array_first($images)->getAttribute('src') : '';
     }
 
     /**

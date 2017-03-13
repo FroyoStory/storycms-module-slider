@@ -4,8 +4,9 @@
 
 @section('content')
 <div class="container-fluid">
-  <form action="/backend/cms/elements/post/" method="POST" accept-charset="UTF-8">
+  <form action="/backend/cms/elements/post/{{ $post->id }}" method="POST" accept-charset="UTF-8">
     {{ csrf_field() }}
+    <input type="hidden" name="_method" value="PUT">
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">

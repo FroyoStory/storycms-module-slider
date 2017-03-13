@@ -20,7 +20,8 @@ class Post extends Model
 
     public $translationModel = 'Story\Cms\Models\Translatable\PostTranslation';
     public $translatedAttributes = [
-        'slug', 'title', 'body', 'meta_title', 'meta_description', 'meta_keyword'
+        'slug', 'title', 'body', 'meta_title', 'meta_description', 'meta_keyword',
+        'image_thumbnail'
     ];
 
     protected $dates    = ['published_at'];
@@ -50,6 +51,16 @@ class Post extends Model
     }
 
     /**
+     * Return the user relationship
+     *
+     * @return \Story\Cms\Models\Category
+     */
+    public function category()
+    {
+        return $this->belongsTo(category::class);
+    }
+
+    /**
      * Get recommended article
      *
      * @return \Illuminate\Database\Eloquent\Collection
@@ -60,6 +71,22 @@ class Post extends Model
             ->where('status', 'PUBLISHED')
             ->where('id', '!=', $this->id)->limit(3)
             ->get();
+    }
+
+    public function getPrev()
+    {
+        return $this->where('type', $this->type)
+               ->where('status', self::PUBLISHED)
+               ->where('id', '<' , $this->id)
+               ->first();
+    }
+
+    public function getNext()
+    {
+        return $this->where('type', $this->type)
+               ->where('status', self::PUBLISHED)
+               ->where('id', '>' , $this->id)
+               ->first();
     }
 
 }
