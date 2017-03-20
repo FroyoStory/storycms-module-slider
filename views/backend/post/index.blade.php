@@ -16,6 +16,7 @@
     <thead>
       <tr>
         <th>Title</th>
+        <th>Category</th>
         <th>Author</th>
         <th>Date</th>
         @foreach (config()->get('translatable.locales') as $locale)
@@ -27,6 +28,7 @@
       @foreach ($posts as $post)
       <tr>
         <td>{{ $post->title }}</td>
+        <td>{{ $post->category->name }}</td>
         <td>{{ $post->user->name }}</td>
         <td>{{ $post->created_at }}</td>
         @foreach (config()->get('translatable.locales') as $locale)

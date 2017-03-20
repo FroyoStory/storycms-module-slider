@@ -14,7 +14,7 @@ class NavigationRepository
 
     public static function first($name)
     {
-        return Navigation::withDepth()->where('code', $name)->first();
+        return Navigation::where('code', $name)->firstOrFail();
     }
 
     public static function get($name)

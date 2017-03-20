@@ -22,4 +22,9 @@ class Navigation extends Model
     {
         return $this->where('parent_id', $this->parent_id)->get();
     }
+
+    public function child()
+    {
+        return $this->where('parent_id', $this->id)->get();
+    }
 }
