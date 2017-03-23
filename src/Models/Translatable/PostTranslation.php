@@ -40,9 +40,7 @@ class PostTranslation extends Model
      */
     public function getSummaryAttribute()
     {
-        $body = Removal::html($this->body);
-
-        return Str::limit($body, 200);
+        return Str::limit($this->body, 200);
     }
 
     /**
