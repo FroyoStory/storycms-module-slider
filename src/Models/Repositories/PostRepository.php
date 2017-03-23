@@ -71,4 +71,11 @@ class PostRepository
 
         return false;
     }
+
+    public function search(Request $request)
+    {
+        return Post::whereHas('translations', function($query) use ($request) {
+            $query->where('title', 'LIKE', '%'.$request->input('q').'%');
+        })->paginate();
+    }
 }
