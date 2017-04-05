@@ -4,7 +4,7 @@ namespace Story\Cms\Backend\Middleware;
 
 use App;
 use Closure;
-use use Jenssegers\Date\Date;
+use Jenssegers\Date\Date;
 
 class LocaleMiddleware
 {
