@@ -17,4 +17,9 @@ class Category extends Model
     protected $table = 'categories';
     protected $with = ['translations'];
     protected $fillable = ['parent_id'];
+
+    public function getChildAttribute()
+    {
+        return $this->where('parent_id', $this->id)->get();
+    }
 }
