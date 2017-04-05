@@ -4,7 +4,7 @@ namespace Story\Cms\Backend\Middleware;
 
 use App;
 use Closure;
-use Date;
+use Jenssegers\Date\Date;
 
 class LocaleMiddleware
 {
@@ -22,7 +22,7 @@ class LocaleMiddleware
 
         if ($locale && in_array($locale, $locales)) {
             App::setLocale($locale);
-            Jenssegers\Date\Date::setLocale($locale);
+            Date::setLocale($locale);
         }
 
         return $next($request);
