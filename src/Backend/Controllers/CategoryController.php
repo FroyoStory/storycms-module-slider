@@ -39,8 +39,7 @@ class CategoryController extends Controller
     {
         $category = $this->categories->findById($id);
 
-        $this->data['pk']         = $id;
-        $this->data['category']   = $category->translate($request->input('locale'));
+        $this->data['category']   = $category;
         $this->data['categories'] = $this->categories->all();
 
         return $this->view('category.edit');

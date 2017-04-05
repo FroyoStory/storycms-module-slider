@@ -1,4 +1,4 @@
-<form class="" action="/backend/cms/elements/category/{{ $pk }}" method="POST">
+<form class="" action="/backend/cms/elements/category/{{ $category->id }}" method="POST">
   {{ csrf_field() }}
   <input type="hidden" name="_method" value="PUT">
   <div class="panel panel-default">
@@ -19,7 +19,7 @@
         <select class="form-control" name="parent_id">
           <option value="0">None</option>
           @foreach ($categories as $cat)
-            <option value="{{ $cat->id }}" {{ $category->id == $cat->id ? 'selected': ''}}>{{ $cat->name }}</option>
+            <option value="{{ $cat->id }}" {{ $category->parent_id == $cat->id ? 'selected': ''}}>{{ $cat->name }}</option>
           @endforeach
         </select>
         <small class="help-block">Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.</small>
