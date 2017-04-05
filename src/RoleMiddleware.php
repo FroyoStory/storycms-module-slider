@@ -26,6 +26,5 @@ class RoleMiddleware
                 return abort(401);
             }
         }
-
     }
 }

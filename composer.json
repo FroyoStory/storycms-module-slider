@@ -1,14 +1,13 @@
 {
   "name": "storycms/cms",
-  "require": {
-    "php": ">=5.6.3",
-    "laravel/framework": "5.4.*",
-    "barryvdh/laravel-debugbar": "^2.3",
-    "dimsav/laravel-translatable": "^6.0",
-    "kalnoy/nestedset": "^4.2",
-    "storycms/theme": "dev-master"
-  },
+  "description": "Full-featured Laravel web shop package and e-commerce solution for high performance shops",
+  "homepage": "http://froyostory.co.id",
   "license": "MIT",
+  "keywords": ["laravel", "laravel-packages", "storycms", "cms"],
+  "support": {
+    "source": "https://github.com/froyostory/story-cms",
+    "issues": "https://github.com/froyostory/story-cms/issues"
+  },
   "authors": [
     {
       "name": "PT Froyo Kreatif Indonesia",
@@ -19,8 +18,23 @@
       "email": "purwandi@froyo.co.id"
     }
   ],
+  "require": {
+    "php": ">=5.6.3",
+    "laravel/framework": "5.4.*",
+    "barryvdh/laravel-debugbar": "^2.3",
+    "dimsav/laravel-translatable": "^6.0",
+    "imangazaliev/didom": "^1.9.1",
+    "kalnoy/nestedset": "^4.2",
+    "unisharp/laravel-filemanager": "^1.7.0",
+    "graham-campbell/markdown": "^7.1.0",
+    "storycms/core": "dev-master",
+    "storycms/theme": "dev-master"
+  },
   "require-dev": {
-
+    "mockery/mockery": "~0.9",
+    "orchestra/testbench": "~3.0",
+    "orchestra/testbench-browser-kit": "~3.1",
+    "satooshi/php-coveralls": "dev-master"
   },
   "autoload": {
     "psr-4": {
@@ -28,8 +42,8 @@
     }
   },
   "autoload-dev": {
-    "psr-4": {
-      "Story\\CmsTest\\": "test"
-    }
+    "classmap": [
+      "tests/TestCase.php"
+    ]
   }
 }

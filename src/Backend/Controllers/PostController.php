@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Backend\Controllers;
 
+use Hook;
 use Illuminate\Http\Request;
 use Story\Cms\Models\Repositories\PostRepository;
 use Story\Cms\Models\Repositories\CategoryRepository;
@@ -28,6 +29,7 @@ class PostController extends Controller
     public function create()
     {
         $this->data['categories'] = $this->category->all();
+        $this->data['tabs'] = Hook::get('backend', $this->data)['post-editor'];
 
         return $this->view('post.create');
     }
@@ -53,6 +55,8 @@ class PostController extends Controller
         $this->data['post']     = $post;
         $this->data['trans']    = $post->translate($request->input('locale'));
         $this->data['categories'] = $this->category->all();
+
+        $this->data['tabs'] = Hook::get('backend', $this->data)['post-editor'];
 
         return $this->view('post.edit');
     }

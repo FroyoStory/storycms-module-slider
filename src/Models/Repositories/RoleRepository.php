@@ -25,7 +25,7 @@ class RoleRepository
 
     public function findById($id)
     {
-        return Role::find($id);
+        return Role::findOrFail($id);
     }
 
     public function update(Role $role, $request)

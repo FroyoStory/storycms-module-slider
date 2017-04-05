@@ -15,11 +15,13 @@ class Post extends Model
     const DRAFT = 'DRAFT';
     const PUBLISHED = 'PUBLISHED';
     const PENDING = 'PENDING';
+    const PAGE = 'PAGE';
+    const POST = 'POST';
 
     public $translationModel = 'Story\Cms\Models\Translatable\PostTranslation';
     public $translatedAttributes = [
         'slug', 'title', 'body', 'meta_title', 'meta_description', 'meta_keyword',
-        'image_thumbnail', 'summary', 'link',
+        'image_thumbnail'
     ];
 
     protected $dates    = ['published_at'];
@@ -38,9 +40,24 @@ class Post extends Model
         static::observe(new PostObserver);
     }
 
+    /**
+     * Return the user relationship
+     *
+     * @return \Story\Cms\Models\User
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Return the user relationship
+     *
+     * @return \Story\Cms\Models\Category
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     /**
@@ -54,6 +71,22 @@ class Post extends Model
             ->where('status', 'PUBLISHED')
             ->where('id', '!=', $this->id)->limit(3)
             ->get();
+    }
+
+    public function getPrev()
+    {
+        return $this->where('type', $this->type)
+               ->where('status', self::PUBLISHED)
+               ->where('id', '<' , $this->id)
+               ->first();
+    }
+
+    public function getNext()
+    {
+        return $this->where('type', $this->type)
+               ->where('status', self::PUBLISHED)
+               ->where('id', '>' , $this->id)
+               ->first();
     }
 
 }

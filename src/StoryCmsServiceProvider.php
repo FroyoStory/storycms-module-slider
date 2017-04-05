@@ -34,17 +34,24 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
      */
     protected function registerServices()
     {
+        $this->app->register(\Dimsav\Translatable\TranslatableServiceProvider::class);
+        $this->app->register(\GrahamCampbell\Markdown\MarkdownServiceProvider::class);
+        $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Story\Core\CoreServiceProvider::class);
         $this->app->register(\Story\Theme\ThemeServiceProvider::class);
-        $this->app->register(\Dimsav\Translatable\TranslatableServiceProvider::class);
+        $this->app->register(\Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
 
         $loader->alias('Configuration', \Story\Cms\Models\Configuration::class);
+        $loader->alias('Image', \Intervention\Image\Facades\Image::class);
         $loader->alias('Menu', \Story\Cms\Models\Repositories\NavigationRepository::class);
+        $loader->alias('Markdown', \GrahamCampbell\Markdown\Facades\Markdown::class);
 
         if (env('APP_ENV') !== 'production') {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
 
+            $loader->alias('Debugbar', \Barryvdh\Debugbar\Facade::class);
         }
     }
 
@@ -63,7 +70,7 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
 
         Route::group(['prefix' => 'backend'], function() {
             Route::middleware('web')
-                ->namespace($this->namespace . '\\Backend\\Controllers')
+                ->namespace($this->namespace . '\\Backend\\Controllers\\')
                 ->group(__DIR__.'/../routes/backend.php');
         });
     }

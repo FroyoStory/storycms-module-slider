@@ -6,7 +6,6 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('auth/forgot', 'Auth\ForgotController@index');
 Route::post('auth/forgot', 'Auth\ForgotController@store');
 
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
 

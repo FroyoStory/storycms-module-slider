@@ -3,14 +3,6 @@
 @section('title') Media Settings @stop
 
 @section('content')
-<div class="page-header">
-  <div class="page-header-content">
-    <div class="page-title">
-      <h1>Media Settings</h1>
-    </div>
-  </div>
-</div>
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6">
