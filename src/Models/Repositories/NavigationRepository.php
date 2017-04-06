@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Models\Repositories;
 
+use App;
 use Illuminate\Http\Request;
 use Story\Cms\Models\Navigation;
 
@@ -12,9 +13,17 @@ class NavigationRepository
 
     }
 
+    public static function findByCode($code)
+    {
+        return Navigation::where('code', $code)->firstOrFail();
+    }
+
     public static function first($name)
     {
-        return Navigation::where('code', $name)->firstOrFail();
+        return Navigation::whereHas('translations', function($query) use ($name) {
+            $query->where('slug', $name);
+            $query->where('locale', App::getLocale());
+        })->firstOrFail();
     }
 
     public static function get($name)

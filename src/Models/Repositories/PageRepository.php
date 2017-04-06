@@ -19,14 +19,20 @@ class PageRepository
         $locales = config()->get('translatable.locales');
         $data = [];
 
-        foreach ($locales as $locale) {
-            $data[$locale] = [
-                'title' => $request->input('title'),
-                'body' => $request->input('body'),
-                'meta_title' => $request->input('meta_title'),
-                'meta_description' => $request->input('meta_description'),
-                'meta_keyword' => $request->input('meta_keyword'),
-            ];
+        if ($request->input('locales')) {
+            foreach ($request->input('locales') as $key => $locale) {
+                $data[$key] = $locale;
+            }
+        } else {
+            foreach ($locales as $locale) {
+                $data[$locale] = [
+                    'title' => $request->input('title'),
+                    'body' => $request->input('body'),
+                    'meta_title' => $request->input('meta_title'),
+                    'meta_description' => $request->input('meta_description'),
+                    'meta_keyword' => $request->input('meta_keyword'),
+                ];
+            }
         }
 
         $post = Post::create(
