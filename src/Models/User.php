@@ -37,4 +37,14 @@ class User extends Authenticatable
     {
         return in_array($roles, $this->role);
     }
+
+    /**
+     * The post relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Collections
+     */
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

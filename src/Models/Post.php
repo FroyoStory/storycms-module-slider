@@ -51,7 +51,7 @@ class Post extends Model
     }
 
     /**
-     * Return the user relationship
+     * Return the category relationship
      *
      * @return \Story\Cms\Models\Category
      */

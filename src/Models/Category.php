@@ -17,4 +17,14 @@ class Category extends Model
     protected $table = 'categories';
     protected $with = ['translations'];
     protected $fillable = ['parent_id'];
+
+    /**
+     * The post relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Collections
+     */
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
