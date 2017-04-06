@@ -18,8 +18,23 @@ class Category extends Model
     protected $with = ['translations'];
     protected $fillable = ['parent_id'];
 
+    /**
+     * Get child category based on id instance
+     *
+     * @return \Illuminate\Database\Eloquent\Collections
+     */
     public function getChildAttribute()
     {
         return $this->where('parent_id', $this->id)->get();
+    }
+
+    /**
+     * The post relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Collections
+     */
+    public function post()
+    {
+        return $this->hasMany(Post::class);
     }
 }
