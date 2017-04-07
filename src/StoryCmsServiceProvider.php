@@ -47,6 +47,7 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
         $loader->alias('Image', \Intervention\Image\Facades\Image::class);
         $loader->alias('Menu', \Story\Cms\Models\Repositories\NavigationRepository::class);
         $loader->alias('Markdown', \GrahamCampbell\Markdown\Facades\Markdown::class);
+        $loader->alias('Date', \Jenssegers\Date\Date::class);
 
         if (env('APP_ENV') !== 'production') {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
