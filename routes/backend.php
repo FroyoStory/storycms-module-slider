@@ -8,6 +8,7 @@ Route::post('auth/forgot', 'Auth\ForgotController@store');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
+    Route::post('upload', 'UploadController@upload');
 
     Route::group(['prefix' => 'cms/elements'], function () {
         Route::get('pages', 'PageController@index');

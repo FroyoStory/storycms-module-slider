@@ -10,6 +10,9 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#post-pages" aria-controls="post-pages" role="tab" data-toggle="tab">Post Content</a></li>
+      @foreach ($tabs as $tab)
+        <li role="presentation"><a href="#post-{{$tab->slug}}" aria-controls="#post-{{$tab->slug}}" role="tab" data-toggle="tab">{{ $tab->name }}</a></li>
+      @endforeach
     </ul>
 
     <!-- Tab panes -->
@@ -80,16 +83,21 @@
             </div>
           </div>
         </div>
-
-        <hr />
-
-        <div class="from-group">
-          <button class="btn btn-primary" type="submit">Save pages</button>
-          <a href="/backend/cms/elements/pages/" class="btn btn-link">Back to articles</a>
-        </div>
       </div>
+      @foreach ($tabs as $tab)
+        <div role="tabpanel" class="tab-pane" id="post-{{ $tab->slug }}" style="padding-top: 20px">
+          {!! $tab->content !!}
+        </div>
+      @endforeach
     </div>
     <!-- End panes -->
+
+    <hr />
+
+    <div class="from-group">
+      <button class="btn btn-primary" type="submit">Save pages</button>
+      <a href="/backend/cms/elements/pages/" class="btn btn-link">Back to articles</a>
+    </div>
   </form>
 </div>
 @stop

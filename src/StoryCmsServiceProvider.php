@@ -2,6 +2,7 @@
 
 namespace Story\Cms;
 
+use Story\Core\Tabs\Tab;
 use Story\Core\Plugins;
 use Story\Core\Contracts\PluginInterface;
 use Illuminate\Support\ServiceProvider;
@@ -84,5 +85,25 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
     public static function navigation()
     {
         return require __DIR__ . '/../config/navigation.php';
+    }
+
+    /**
+     * Hook the post editor
+     *
+     * @param  Array|array $data
+     * @return array
+     */
+    public static function hook(Array $data = [])
+    {
+        return [
+            'backend' => [
+                'page-editor' => [
+                    (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
+                ],
+                'post-editor' => [
+                    (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
+                ]
+            ]
+        ];
     }
 }

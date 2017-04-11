@@ -45,6 +45,7 @@ class PageRepository
         );
 
         if ($post) {
+            MediaRepository::store($post, $request);
             event(new \Story\Cms\Events\PostCreated($post, $request));
 
             return $post;

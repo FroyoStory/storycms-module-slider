@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Backend\Controllers;
 
+use Hook;
 use Illuminate\Http\Request;
 use Story\Cms\Models\Repositories\PageRepository;
 use Story\Cms\Backend\Requests\PageRequest;
@@ -24,6 +25,8 @@ class PageController extends Controller
 
     public function create()
     {
+        $this->data['tabs'] = Hook::get('backend')['page-editor'];
+
         return $this->view('page.create');
     }
 
@@ -47,6 +50,8 @@ class PageController extends Controller
         $this->data['pk']       = $id;
         $this->data['page']     = $page;
         $this->data['trans']    = $page->translate($request->input('locale'));
+
+        $this->data['tabs'] = Hook::get('backend', $this->data)['page-editor'];
 
         return $this->view('page.edit');
     }

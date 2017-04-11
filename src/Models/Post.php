@@ -61,6 +61,16 @@ class Post extends Model
     }
 
     /**
+     * Return the category relationship
+     *
+     * @return \Story\Cms\Models\Media
+     */
+    public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
+
+    /**
      * Get recommended article
      *
      * @return \Illuminate\Database\Eloquent\Collection
