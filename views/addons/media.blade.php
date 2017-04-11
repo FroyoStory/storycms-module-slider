@@ -15,13 +15,31 @@
     <table class="table fileuploaded">
       <thead>
         <tr>
-          <th>Image</th>
           <th>Name</th>
+          <th>Image</th>
           <th>File type</th>
         </tr>
       </thead>
       <tbody>
+        @if (isset($post))
+          @foreach($post->media as $media)
+            <tr>
+              <td>{{ $media->name }}</td>
+              <td>
+                @if ($media->type == 'mp4')
+                  <video controls preload="none" style="width: 100%">
+                    <source src="{{ $media->url }}" type="video/mp4">
+                  </video>
+                @else
+                  <img src="{{ $media->url }}" class="img-responsive" />
+                @endif
 
+              </td>
+              <td>{{ $media->type }}</td>
+            </tr>
+            <input type="hidden" name="media[]" value="{{ $media->name .'*'. $media->type}}">
+          @endforeach
+        @endif
       </tbody>
     </table>
   </div>

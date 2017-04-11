@@ -13,12 +13,16 @@ class MediaRepository
         if ($request->has('media')) {
             foreach ($request->input('media') as $media) {
                 @list($name, $mimes) = explode('*', $media);
-                Media::firstOrCreate([
-                    'post_id'   => $post->id,
-                    'name'      => $name,
-                    'type'      => $mimes,
-                    'url'       => $request->root().'/photos/1/'. $name
-                ]);
+                Media::firstOrCreate(
+                    [
+                        'type'      => $mimes,
+                        'url'       => $request->root().'/photos/1/'. $name
+                    ],
+                    [
+                        'post_id'   => $post->id,
+                        'name'      => $name
+                    ]
+                );
             }
         }
     }

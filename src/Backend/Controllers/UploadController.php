@@ -26,20 +26,20 @@ class UploadController extends BaseUploadController
             $validation_message = $this->uploadValidator($file);
             $new_filename = $this->proceedSingleUpload($file);
 
-            $names[] = [
-                'name' => $new_filename,
-                'size' => $file->getSize() / 1000,
-                'mimes' => $file->getMimeType(),
-                'url' => request()->root() .'/photos/1/'. $new_filename,
-                'thumbnailUrl' => request()->root() .'/photos/1/thumbs/'. $new_filename,
-                'deleteUrl' => '',
-                'deleteType' => ''
-            ];
-
             if ($validation_message !== 'pass') {
                 array_push($error_bag, $validation_message);
             } elseif ($new_filename == 'invalid') {
                 array_push($error_bag, $response);
+            } else {
+                array_push($names, [
+                    'name' => $new_filename,
+                    'size' => $file->getSize() / 1000,
+                    'mimes' => explode('.', $new_filename)[1],
+                    'url' => request()->root() .'/photos/1/'. $new_filename,
+                    'thumbnailUrl' => request()->root() .'/photos/1/thumbs/'. $new_filename,
+                    'deleteUrl' => '',
+                    'deleteType' => ''
+                ]);
             }
 
         }

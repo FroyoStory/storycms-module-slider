@@ -50,9 +50,13 @@ class PostTranslation extends Model
      */
     public function getImageThumbnailAttribute()
     {
-        $document = new Document($this->attributes['body']);
-        $images   = $document->find('img');
-        return count($images) > 0 ? array_first($images)->getAttribute('src') : '';
+        if ($this->post->media->count() > 0) {
+            return $this->post->media->first()->url;
+        } else {
+            $document = new Document($this->attributes['body']);
+            $images   = $document->find('img');
+            return count($images) > 0 ? array_first($images)->getAttribute('src') : '';
+        }
     }
 
     /**

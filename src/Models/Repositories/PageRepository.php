@@ -83,6 +83,7 @@ class PageRepository
         $post->translate($locale)->meta_keyword = $request->input('meta_keyword');
 
         if ($post->save()) {
+            MediaRepository::store($post, $request);
             event(new \Story\Cms\Events\PostUpdated($post, $request));
             return $post;
         }
