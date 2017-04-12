@@ -16,7 +16,7 @@ class MediaRepository
                 Media::firstOrCreate(
                     [
                         'type'      => $mimes,
-                        'url'       => $request->root().'/photos/1/'. $name
+                        'url'       => config()->get('app.url').'/photos/1/'. $name
                     ],
                     [
                         'post_id'   => $post->id,
