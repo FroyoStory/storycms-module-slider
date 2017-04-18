@@ -27,4 +27,13 @@ class Navigation extends Model
     {
         return $this->where('parent_id', $this->id)->get();
     }
+
+    public function parent()
+    {
+        if ($this->parent_id != 1) {
+            return $this->where('id', $this->parent_id)->first();
+        }
+
+        return false;
+    }
 }
