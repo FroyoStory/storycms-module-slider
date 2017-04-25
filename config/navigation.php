@@ -25,7 +25,8 @@ return [
             'title' => 'System',
             'font'  => 'settings',
             'groups' => [
-                'setting' => ['general']
+                'setting' => ['general'],
+                'appearance' => ['navigation'] // 'theme',
             ]
         ]
     ]

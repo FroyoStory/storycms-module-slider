@@ -15,14 +15,14 @@ class AddVisibilityAndImageNavigation extends Migration
     {
         Schema::table('navigations', function (Blueprint $table) {
             $table->boolean('visibility')->default(true);
-            $table->string('url')->nullable();
+            $table->string('image_url')->nullable();
         });
     }
 
     public function drop()
     {
         Schema::table('navigations', function (Blueprint $table) {
-            $table->dropColumn(['visibility', 'url']);
+            $table->dropColumn(['visibility', 'image_url']);
         });
     }
 }

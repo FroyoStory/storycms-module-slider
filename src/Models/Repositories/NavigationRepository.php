@@ -8,6 +8,12 @@ use Story\Cms\Models\Navigation;
 
 class NavigationRepository
 {
+
+    public function getNavigation($code)
+    {
+        return Navigation::where('code', $code)->get()->descendants();
+    }
+
     public static function set($name, $slug)
     {
 

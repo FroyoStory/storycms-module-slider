@@ -54,6 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('media', 'Settings\\MediaController@index');
         Route::post('media', 'Settings\\MediaController@store');
     });
+
+    Route::group(['prefix' => 'system/appearance'], function() {
+        Route::resource('navigation', 'Settings\NavigationController');
+    });
 });
 
 
