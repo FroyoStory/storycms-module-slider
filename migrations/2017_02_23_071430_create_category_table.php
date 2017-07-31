@@ -17,6 +17,7 @@ class CreateCategoryTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('slug')->unique();
             $table->timestamps();
 
             NestedSet::columns($table);
@@ -25,7 +26,6 @@ class CreateCategoryTable extends Migration
         Schema::create('trans_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id')->unsigned();
-            $table->string('slug');
             $table->string('name');
             $table->text('description')->nullable();
             $table->char('locale', 2)->index();

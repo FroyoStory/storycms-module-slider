@@ -12,7 +12,7 @@ class NavigationTranslation extends Model
     public $timestamps = false;
 
     protected $table    = 'trans_navigations';
-    protected $fillable = ['slug', 'name'];
+    protected $fillable = ['name'];
 
     public function navigation()
     {

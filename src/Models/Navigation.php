@@ -12,7 +12,7 @@ class Navigation extends Model
     use Translatable;
 
     protected $table = 'navigations';
-    protected $fillable = ['code', 'visibility', 'image_url'];
+    protected $fillable = ['code', 'slug', 'visibility', 'image_url'];
     protected $with = ['translations'];
 
     public $translationModel = 'Story\Cms\Models\Translatable\NavigationTranslation';

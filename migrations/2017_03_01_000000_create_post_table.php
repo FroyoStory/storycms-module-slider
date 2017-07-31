@@ -16,6 +16,7 @@ class CreatePostTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id')->nullable();
+            $table->string('slug')->unique();
             $table->enum('type', ['POST', 'PAGE'])->default('POST');
             $table->enum('status', ['DRAFT', 'PUBLISHED', 'PENDING'])->default('DRAFT');
             $table->integer('user_id')->unsigned();
@@ -29,7 +30,6 @@ class CreatePostTable extends Migration
         Schema::create('trans_posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('post_id')->unsigned();
-            $table->string('slug');
             $table->string('title');
             $table->longText('body')->nullable();
             $table->string('meta_title')->nullable();

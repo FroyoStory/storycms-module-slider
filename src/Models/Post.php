@@ -20,12 +20,12 @@ class Post extends Model
 
     public $translationModel = 'Story\Cms\Models\Translatable\PostTranslation';
     public $translatedAttributes = [
-        'slug', 'title', 'body', 'meta_title', 'meta_description', 'meta_keyword',
+        'title', 'body', 'meta_title', 'meta_description', 'meta_keyword',
         'image_thumbnail'
     ];
 
     protected $dates    = ['published_at'];
-    protected $fillable = ['category_id', 'user_id', 'status', 'type', 'published_at'];
+    protected $fillable = ['category_id', 'slug', 'user_id', 'status', 'type', 'published_at'];
     protected $table    = 'posts';
     protected $with     = ['translations'];
 

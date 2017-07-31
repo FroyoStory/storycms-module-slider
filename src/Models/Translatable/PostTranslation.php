@@ -14,7 +14,7 @@ class PostTranslation extends Model
     public $timestamps = false;
 
     protected $table    = 'trans_posts';
-    protected $fillable = ['slug', 'title', 'excerpt','body', 'meta_title', 'meta_description', 'meta_keyword'];
+    protected $fillable = ['title', 'excerpt','body', 'meta_title', 'meta_description', 'meta_keyword'];
     protected $appends = ['image_thumbnail', 'summary', 'link'];
 
     /**

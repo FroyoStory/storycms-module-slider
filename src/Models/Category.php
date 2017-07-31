@@ -12,11 +12,11 @@ class Category extends Model
     use Translatable;
 
     public $translationModel = 'Story\Cms\Models\Translatable\CategoryTranslation';
-    public $translatedAttributes = ['name', 'slug', 'description', 'link'];
+    public $translatedAttributes = ['name', 'description', 'link'];
 
     protected $table = 'categories';
     protected $with = ['translations'];
-    protected $fillable = ['parent_id'];
+    protected $fillable = ['parent_id', 'slug'];
 
     /**
      * Get child category based on id instance

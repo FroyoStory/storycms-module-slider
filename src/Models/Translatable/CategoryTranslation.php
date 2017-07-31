@@ -11,7 +11,7 @@ class CategoryTranslation extends Model
     public $timestamps = false;
 
     protected $table    = 'trans_categories';
-    protected $fillable = ['name', 'slug', 'description'];
+    protected $fillable = ['name', 'description'];
     protected $appends  = ['link'];
 
     /**
