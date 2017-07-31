@@ -16,7 +16,7 @@ class Navigation extends Model
     protected $with = ['translations'];
 
     public $translationModel = 'Story\Cms\Models\Translatable\NavigationTranslation';
-    public $translatedAttributes = ['name', 'slug'];
+    public $translatedAttributes = ['name'];
 
     /**
      * Get self siblings
