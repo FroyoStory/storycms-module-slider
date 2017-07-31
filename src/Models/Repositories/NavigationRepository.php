@@ -21,17 +21,16 @@ class NavigationRepository
 
     public static function findByCode($code)
     {
-        return Navigation::where('code', $code)->where('visibility', true)->firstOrFail();
+        return Navigation::where('code', $code)
+            ->where('visibility', true)
+            ->firstOrFail();
     }
 
     public static function first($name)
     {
-        return Navigation::whereHas('translations', function($query) use ($name) {
-            $query->where('slug', $name);
-            $query->where('locale', App::getLocale());
-        })
-        ->where('visibility', true)
-        ->firstOrFail();
+        return Navigation::where('slug', $name)
+            ->where('visibility', true)
+            ->firstOrFail();
     }
 
     public static function get($name)

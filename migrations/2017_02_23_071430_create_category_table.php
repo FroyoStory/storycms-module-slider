@@ -30,12 +30,13 @@ class CreateCategoryTable extends Migration
             $table->text('description')->nullable();
             $table->char('locale', 2)->index();
 
-            $table->unique(['category_id','locale', 'slug']);
+            $table->unique(['category_id','locale']);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
 
         Category::create([
             'parent_id' => 0,
+            'slug' => 'uncategorized',
             'en' => ['name' => 'Uncategorized'],
             'id' => ['name' => 'Tidak bekategori']
         ]);

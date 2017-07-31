@@ -37,7 +37,7 @@ class CreatePostTable extends Migration
             $table->string('meta_keyword')->nullable();
             $table->char('locale', 2)->default('en');
 
-            $table->unique(['post_id','locale', 'slug']);
+            $table->unique(['post_id','locale']);
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }

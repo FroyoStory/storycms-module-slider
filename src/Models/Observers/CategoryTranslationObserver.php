@@ -9,10 +9,6 @@ class CategoryTranslationObserver
 {
     public function saving(CategoryTranslation $category)
     {
-        if (!$category->slug) {
-            $category->slug = Str::slug($category->name);
-        } else {
-            $category->slug = Str::slug($category->slug);
-        }
+
     }
 }

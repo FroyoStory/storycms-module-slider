@@ -20,13 +20,15 @@ class CategoryRepository
         foreach ($locales as $locale) {
             $data[$locale] = [
                 'name' => $request->input('name'),
-                'slug' => $request->input('slug'),
                 'description' => $request->input('description')
             ];
         }
 
         return Category::create(
-            array_merge($data, ['parent_id' => $request->input('parent_id')])
+            array_merge($data, [
+                'parent_id' => $request->input('parent_id'),
+                'slug' => $request->input('slug'),
+            ])
         );
     }
 
@@ -40,9 +42,9 @@ class CategoryRepository
         $locale = $request->input('locale');
 
         $category->parent_id = $request->input('parent_id');
+        $category->slug = $request->input('slug');
 
         $category->translate($locale)->name = $request->input('name');
-        $category->translate($locale)->slug = $request->input('slug');
         $category->translate($locale)->description = $request->input('description');
 
         return $category->save();
