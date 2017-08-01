@@ -20,7 +20,7 @@ class Post extends Model
 
     public $translationModel = 'Story\Cms\Models\Translatable\PostTranslation';
     public $translatedAttributes = [
-        'title', 'body', 'meta_title', 'meta_description', 'meta_keyword',
+        'title', 'body', 'excerpt', 'meta_title', 'meta_description', 'meta_keyword',
         'image_thumbnail'
     ];
 

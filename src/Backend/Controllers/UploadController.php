@@ -47,7 +47,8 @@ class UploadController extends BaseUploadController
         if (is_array($files)) {
             $response = count($error_bag) > 0 ? $error_bag : response()->json(['files' => $names]);
         } else { // upload via ckeditor 'Upload' tab
-            $response = ''; $this->useFile($new_filename);
+            $response = '';
+            $this->useFile($new_filename);
         }
 
         return $response;

@@ -3,6 +3,7 @@
 namespace Story\Cms\Models\Observers;
 
 use Story\Cms\Models\Post;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class PostObserver

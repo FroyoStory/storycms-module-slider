@@ -33,6 +33,12 @@
                 <small class="help-block">{{ $errors->first('body') }}</small>
               @endif
             </div>
+            <div class="form-group">
+              <textarea class="form-control" rows="5" name="excerpt"></textarea>
+              @if ($errors->has('excerpt'))
+                <small class="help-block">{{ $errors->first('excerpt') }}</small>
+              @endif
+            </div>
           </div>
           <div class="col-md-4">
 

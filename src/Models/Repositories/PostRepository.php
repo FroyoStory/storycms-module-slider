@@ -5,6 +5,7 @@ namespace Story\Cms\Models\Repositories;
 use Story\Cms\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostRepository
 {
@@ -27,6 +28,7 @@ class PostRepository
                 $data[$locale] = [
                     'title' => $request->input('title'),
                     'body' => $request->input('body'),
+                    'excerpt' => $request->input('excerpt'),
                     'meta_title' => $request->input('meta_title'),
                     'meta_description' => $request->input('meta_description'),
                     'meta_keyword' => $request->input('meta_keyword'),
@@ -37,6 +39,7 @@ class PostRepository
         $post = Post::create(
             array_merge($data, [
                 'type' => 'POST',
+                'slug' => Str::slug($request->input('title')),
                 'status' => $request->input('status'),
                 'user_id' => Auth::user()->id,
                 'category_id' => $request->input('category_id')
@@ -62,11 +65,13 @@ class PostRepository
         $locale = $request->input('locale');
 
         $post->status = $request->input('status');
+        $post->slug = Str::slug($request->input('slug'));
         $post->category_id = $request->input('category_id');
         $post->user_id = Auth::user()->id;
 
         $post->translate($locale)->title = $request->input('title');
         $post->translate($locale)->body = $request->input('body');
+        $post->translate($locale)->excerpt = $request->input('excerpt');
         $post->translate($locale)->meta_title = $request->input('meta_title');
         $post->translate($locale)->meta_description = $request->input('meta_description');
         $post->translate($locale)->meta_keyword = $request->input('meta_keyword');

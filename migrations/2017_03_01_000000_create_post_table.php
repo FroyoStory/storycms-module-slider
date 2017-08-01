@@ -32,6 +32,7 @@ class CreatePostTable extends Migration
             $table->integer('post_id')->unsigned();
             $table->string('title');
             $table->longText('body')->nullable();
+            $table->text('excerpt')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
