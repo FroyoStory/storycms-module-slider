@@ -5,13 +5,14 @@ namespace Story\Cms\Models\Repositories;
 use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Story\Cms\Models\Post;
 
 class PageRepository
 {
     public function all()
     {
-        return Post::where('type', Post::PAGE)->get();
+        return Post::with('category', 'user')->where('type', Post::PAGE)->get();
     }
 
     public function create(Request $request)
@@ -38,6 +39,7 @@ class PageRepository
         $post = Post::create(
             array_merge($data, [
                 'type' => 'PAGE',
+                'slug' => Str::slug($request->input('title')),
                 'status' => $request->input('status'),
                 'user_id' => Auth::user()->id,
                 'category_id' => 1
@@ -74,6 +76,7 @@ class PageRepository
         $locale = $request->input('locale');
 
         $post->status = $request->input('status');
+        $post->slug = Str::slug($request->input('slug'));
         $post->user_id = Auth::user()->id;
 
         $post->translate($locale)->title = $request->input('title');

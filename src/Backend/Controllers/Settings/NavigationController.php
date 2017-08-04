@@ -35,4 +35,37 @@ class NavigationController extends Controller
 
         return $this->view('settings.navigation.index', compact('menus'));
     }
+
+    public function create()
+    {
+
+    }
+
+    public function store()
+    {
+
+    }
+
+    /**
+     * Show the form data to update the model
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $menu = $this->navigation->getById($id);
+
+        return $this->view('settings.navigation.edit', compact('menu'));
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function destroy()
+    {
+
+    }
 }

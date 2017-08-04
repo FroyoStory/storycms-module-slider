@@ -2,10 +2,6 @@
 
 return [
     'backend' => [
-        'dashboard' => [
-            'title' => 'Dashboard',
-            'font' => 'dashboard'
-        ],
         'cms' => [
             'title' => 'Content',
             'font'  => 'chrome_reader_mode',

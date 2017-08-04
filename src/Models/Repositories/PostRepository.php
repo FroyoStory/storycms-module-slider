@@ -11,7 +11,7 @@ class PostRepository
 {
     public function all()
     {
-        return Post::where('type', Post::POST)->paginate();
+        return Post::with('category', 'user')->where('type', Post::POST)->paginate();
     }
 
     public function create(Request $request)

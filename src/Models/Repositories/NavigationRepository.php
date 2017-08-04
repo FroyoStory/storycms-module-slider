@@ -8,6 +8,10 @@ use Story\Cms\Models\Navigation;
 
 class NavigationRepository
 {
+    public function getById($id)
+    {
+        return Navigation::find($id);
+    }
 
     public function getNavigation($code)
     {
