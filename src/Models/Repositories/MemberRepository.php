@@ -49,4 +49,11 @@ class MemberRepository
 
         return false;
     }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+
+        return $user->delete();
+    }
 }

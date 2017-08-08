@@ -71,10 +71,9 @@ class MemberController extends Controller
 
     public function destroy($id)
     {
-        $user = $this->user->findById($id);
-        $delete = $this->user->delete($user);
+        $user = $this->user->delete($id);
 
-        if(!$delete) {
+        if(!$user) {
             session()->flash('message', 'Unable to delete user');
         } else {
             session()->flash('info', 'User was deleted');
