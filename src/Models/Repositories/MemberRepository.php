@@ -15,18 +15,12 @@ class MemberRepository
 
     public function create(Request $request)
     {
-        $user = User::create([
+        return $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'role_id' => $request->input('role'),
         ]);
-
-        if($user) {
-            return $user;
-        }
-
-        return false;
     }
 
     public function findById($id)
@@ -38,21 +32,17 @@ class MemberRepository
     {
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        if($request->input('password') != '') {
+        if ($request->input('password') != '') {
             $user->password = Hash::make($request->input('password'));
         }
         $user->role_id = $request->input('role');
 
-        if ($user->save()) {
-            return $user;
-        }
-
-        return false;
+        return $user->save();
     }
 
     public function delete($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->findById($id);
 
         return $user->delete();
     }
