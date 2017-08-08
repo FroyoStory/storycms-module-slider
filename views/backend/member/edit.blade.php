@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <form action="member/{user->id}" method="POST" accept-charset="UTF-8">
+      <form action="user/groups/member/{user->id}" method="POST" accept-charset="UTF-8">
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="PUT">
         <div class="panel panel-default">

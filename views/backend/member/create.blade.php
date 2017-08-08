@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <form action="member/" method="POST" accept-charset="UTF-8">
+      <form action="user/groups/member/" method="POST" accept-charset="UTF-8">
         {{ csrf_field() }}
         <div class="panel panel-default">
           <div class="panel-heading">Add New</div>
