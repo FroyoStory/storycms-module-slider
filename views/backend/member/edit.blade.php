@@ -6,21 +6,22 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <form action="user/groups/member/" method="POST" accept-charset="UTF-8">
+      <form action="user/groups/member/{user->id}" method="POST" accept-charset="UTF-8">
         {{ csrf_field() }}
+        <input type="hidden" name="_method" value="PUT">
         <div class="panel panel-default">
-          <div class="panel-heading">Add New</div>
+          <div class="panel-heading">Edit</div>
           <div class="panel-body">
             <div class="form-group {{ $errors->has('name') ? 'has-error': '' }}">
               <label>Username</label>
-              <input type="text" class="form-control" name="name" value="">
+              <input type="text" class="form-control" name="name" value="{{ $user->name }}">
               @if ($errors->has('name'))
                 <small class="help-block">{{ $errors->first('name') }}</small>
               @endif
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error': '' }}">
               <label>Email</label>
-              <input type="text" class="form-control" name="email" value="">
+              <input type="text" class="form-control" name="email" value="{{ $user->email }}">
               @if ($errors->has('email'))
                 <small class="help-block">{{ $errors->first('email') }}</small>
               @endif
@@ -51,7 +52,7 @@
               @endif
             </div>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">Create</button>
+              <button class="btn btn-primary" type="submit">Save changes</button>
             </div>
           </div>
         </div>
