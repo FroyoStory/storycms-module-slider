@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Backend\Controllers\Settings;
 
+use Illuminate\Http\Request;
 use Story\Cms\Backend\Controllers\Controller;
 use Story\Cms\Models\Repositories\NavigationRepository;
 
@@ -61,7 +62,13 @@ class NavigationController extends Controller
 
     public function update(Request $request, $id)
     {
+        if ($this->navigation->update($request, $id)) {
+            session()->flash('info', 'Setting successfully saved.');
+        } else {
+            session()->flash('error', 'Unable to save settings');
+        }
 
+        return redirect()->back();
     }
 
     public function destroy()

@@ -50,4 +50,21 @@ class NavigationRepository
 
         return [];
     }
+
+    /**
+     * Update menu
+     *
+     * @param Request $request
+     * @param int $id
+     * @return void
+     */
+    public function update(Request $request, $id)
+    {
+        $menu = $this->getById($id);
+        $menu->name = $request->input('name');
+        $menu->slug = $request->input('slug');
+        $menu->visibility = $request->input('visibility') ? 1 : 0;
+
+        return $menu->save();
+    }
 }

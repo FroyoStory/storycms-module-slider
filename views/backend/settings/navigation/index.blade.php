@@ -5,9 +5,9 @@
 @section('heading-elements')
 <div class="heading-elements">
   <div class="heading-btn-group">
-    <a href="/backend/system/appearance/navigation/create" class="btn btn-link btn-float has-text">
+    {{--  <a href="/backend/system/appearance/navigation/create" class="btn btn-link btn-float has-text">
       <i class="material-icons">add_box</i> <span>ADD NEW</span>
-    </a>
+    </a>  --}}
   </div>
 </div>
 @stop
