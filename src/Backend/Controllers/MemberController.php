@@ -27,7 +27,6 @@ class MemberController extends Controller
     public function create()
     {
         $this->data['roles']      = $role;
-        $this->data['tabs']       = Hook::get('backend')['page-editor'];
 
         return $this->view('member.create');
     }
@@ -52,7 +51,6 @@ class MemberController extends Controller
 
         $this->data['user']       = $user;
         $this->data['roles']      = $role;
-        $this->data['tabs']       = Hook::get('backend', $this->data)['page-editor'];
 
          return $this->view('member.edit');
     }
