@@ -50,17 +50,18 @@ class PostTranslation extends Model
      */
     public function getImageThumbnailAttribute()
     {
-        if ($this->post->media->count() > 0) {
-            $images = $this->post->media->filter(function($item) {
-                return $item->type != 'mp4';
-            })->values();
+        // if ($this->post->media->count() > 0) {
+        //     $images = $this->post->media->filter(function($item) {
+        //         return $item->type != 'mp4';
+        //     })->values();
 
-            return $images->first()->url;
-        } else {
-            $document = new Document($this->attributes['body']);
-            $images   = $document->find('img');
-            return count($images) > 0 ? array_first($images)->getAttribute('src') : '';
-        }
+        //     return $images->first()->url;
+        // } else {
+        //     $document = new Document($this->attributes['body']);
+        //     $images   = $document->find('img');
+        //     return count($images) > 0 ? array_first($images)->getAttribute('src') : '';
+        // }
+        return true;
     }
 
     /**
