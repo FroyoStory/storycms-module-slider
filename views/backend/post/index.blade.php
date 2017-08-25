@@ -23,7 +23,7 @@
         @endforeach
         <th>Status</th>
         <th>Active</th>
-        <th>Action</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
