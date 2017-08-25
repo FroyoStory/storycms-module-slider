@@ -22,6 +22,7 @@
         @foreach (config()->get('translatable.locales') as $locale)
         <th>{{ $locale }}</th>
         @endforeach
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -38,6 +39,13 @@
           </a>
         </td>
         @endforeach
+        <td>
+          <form action="/backend/cms/elements/post/{{ $post->id }}" method="POST">
+            {{ csrf_field() }}
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit">X</button>
+          </form>
+        </td>
       </tr>
       @endforeach
     </tbody>

@@ -75,8 +75,18 @@ class PostController extends Controller
         return redirect()->back();
     }
 
-    public function destroy()
+    public function destroy($id)
     {
+        $post = $this->post->findById($id);
 
+        $post_delete = $this->post->delete($post);
+
+        if (!$post_delete) {
+            session()->flash('message', 'Unable to delete post');
+        } else {
+            session()->flash('info', 'Post was deleted');
+        }
+
+        return redirect()->back();
     }
 }
