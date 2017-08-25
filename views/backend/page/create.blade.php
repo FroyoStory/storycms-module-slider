@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-  <form action="/backend/cms/elements/pages/" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+  <form action="/backend/cms/elements/pages" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
     {{ csrf_field() }}
 
     <!-- Nav tabs -->

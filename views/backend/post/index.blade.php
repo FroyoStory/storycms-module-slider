@@ -17,11 +17,12 @@
       <tr>
         <th>Title</th>
         <th>Category</th>
-        <th>Author</th>
         <th>Date</th>
         @foreach (config()->get('translatable.locales') as $locale)
         <th>{{ $locale }}</th>
         @endforeach
+        <th>Status</th>
+        <th>Active</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -30,7 +31,6 @@
       <tr>
         <td>{{ $post->title }}</td>
         <td>{{ $post->category ? $post->category->name : '' }}</td>
-        <td>{{ $post->user->name }}</td>
         <td>{{ $post->created_at }}</td>
         @foreach (config()->get('translatable.locales') as $locale)
         <td>
@@ -39,6 +39,8 @@
           </a>
         </td>
         @endforeach
+        <td>{{ ucfirst(strtolower($post->status)) }}</td>
+        <td>{{ $post->active == 0 ? 'No' : 'Yes' }}</td>
         <td>
           <form action="/backend/cms/elements/post/{{ $post->id }}" method="POST">
             {{ csrf_field() }}
