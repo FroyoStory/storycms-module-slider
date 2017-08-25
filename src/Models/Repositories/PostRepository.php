@@ -91,4 +91,9 @@ class PostRepository
             $query->where('title', 'LIKE', '%'.$request->input('q').'%');
         })->paginate();
     }
+
+    public function delete(Post $post)
+    {
+        return $post->delete();
+    }
 }
