@@ -2,9 +2,9 @@
 
 namespace Story\Cms;
 
-use Story\Core\Tabs\Tab;
-use Story\Core\Plugins;
-use Story\Core\Contracts\PluginInterface;
+// use Story\Core\Tabs\Tab;
+// use Story\Core\Plugins;
+use Story\Cms\Contracts\PluginInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
@@ -21,40 +21,9 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
      */
     public function boot()
     {
-        $this->publishes([ __DIR__.'/../config/cms.php' => config_path('cms.php')]);
-        $this->loadViewsFrom(__DIR__.'/../views', 'cms');
-        $this->loadMigrationsFrom(__DIR__.'/../migrations');
-
-        $this->registerServices();
-    }
-
-    /**
-     * Register custom service provider
-     *
-     * @return void
-     */
-    protected function registerServices()
-    {
-        $this->app->register(\Dimsav\Translatable\TranslatableServiceProvider::class);
-        $this->app->register(\GrahamCampbell\Markdown\MarkdownServiceProvider::class);
-        $this->app->register(\Intervention\Image\ImageServiceProvider::class);
-        $this->app->register(\Story\Core\CoreServiceProvider::class);
-        $this->app->register(\Story\Theme\ThemeServiceProvider::class);
-        $this->app->register(\Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class);
-
-        $loader = AliasLoader::getInstance();
-
-        $loader->alias('Configuration', \Story\Cms\Models\Configuration::class);
-        $loader->alias('Image', \Intervention\Image\Facades\Image::class);
-        $loader->alias('Menu', \Story\Cms\Models\Repositories\NavigationRepository::class);
-        $loader->alias('Markdown', \GrahamCampbell\Markdown\Facades\Markdown::class);
-        $loader->alias('Date', \Jenssegers\Date\Date::class);
-
-        if (env('APP_ENV') !== 'production') {
-            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
-
-            $loader->alias('Debugbar', \Barryvdh\Debugbar\Facade::class);
-        }
+        $this->registerRoutes();
+        $this->registerResources();
+        $this->registerMigrations();
     }
 
     /**
@@ -64,17 +33,70 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/cms.php', 'cms');
+        $this->configure();
+        $this->registerServices();
+    }
 
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(__DIR__.'/../routes/web.php');
+    /**
+     * Register the CMS migrations
+     *
+     * @return void
+     */
+    public function registerMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
 
+    /**
+     * Register resources CMS
+     * @return void
+     */
+    protected function registerResources()
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'cms');
+    }
+
+    /**
+     * Register routes CMS
+     *
+     * @return void
+     */
+    protected function registerRoutes()
+    {
         Route::group(['prefix' => 'backend'], function() {
             Route::middleware('web')
                 ->namespace($this->namespace . '\\Backend\\Controllers\\')
                 ->group(__DIR__.'/../routes/backend.php');
         });
+    }
+
+    /**
+     * Configure CMS
+     *
+     * @return void
+     */
+    protected function configure()
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/cms.php', 'cms');
+        $this->mergeConfigFrom(__DIR__.'/../config/mapping.php', 'mapping');
+        $this->mergeConfigFrom(__DIR__.'/../config/navigation.php', 'navigation');
+        $this->mergeConfigFrom(__DIR__.'/../config/multilangual.php', 'multilangual');
+    }
+
+    /**
+     * Register custom service provider
+     *
+     * @return void
+     */
+    protected function registerServices()
+    {
+        $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
+
+        // Register core service bindings
+        foreach (config('mapping') as $key => $value) {
+            // is_numeric($key) ? $this->app->singleton($value) :
+            $this->app->singleton($key, $value);
+        }
     }
 
     /**
@@ -95,15 +117,15 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
      */
     public static function hook(Array $data = [])
     {
-        return [
-            'backend' => [
-                'page-editor' => [
-                    (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
-                ],
-                'post-editor' => [
-                    (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
-                ]
-            ]
-        ];
+        // return [
+        //     'backend' => [
+        //         'page-editor' => [
+        //             (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
+        //         ],
+        //         'post-editor' => [
+        //             (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
+        //         ]
+        //     ]
+        // ];
     }
 }

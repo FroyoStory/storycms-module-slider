@@ -5,11 +5,8 @@ namespace Story\Cms\Backend\Controllers;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
-use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
-use Unisharp\Laravelfilemanager\controllers\UploadController as BaseUploadController;
 
-class UploadController extends BaseUploadController
+class UploadController extends Controller
 {
     /**
      * Upload an image/file and (for images) create thumbnail

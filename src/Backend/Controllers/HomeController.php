@@ -2,7 +2,7 @@
 
 namespace Story\Cms\Backend\Controllers;
 
-use Story\Cms\Models\Repositories\StatsRepository;
+// use Story\Cms\Models\Repositories\StatsRepository;
 
 class HomeController extends Controller
 {
@@ -13,18 +13,18 @@ class HomeController extends Controller
      */
     protected $stats;
 
-    public function __construct(StatsRepository $stats)
-    {
-        $this->stats = $stats;
-    }
+    // public function __construct(StatsRepository $stats)
+    // {
+    //     $this->stats = $stats;
+    // }
 
     public function index()
     {
-        $this->data['stats'] = [
-            (object) ['key' => 'post', 'value' => $this->stats->get('post'), 'font' => 'book'],
-            (object) ['key' => 'page', 'value' => $this->stats->get('page'), 'font' => 'pages']
+        $stats = [
+            (object) ['key' => 'post', 'value' => 1, 'font' => 'book'],
+            (object) ['key' => 'page', 'value' => 1, 'font' => 'pages']
         ];
 
-        return $this->view('dashboard');
+        return view('cms::dashboard', compact('stats'));
     }
 }

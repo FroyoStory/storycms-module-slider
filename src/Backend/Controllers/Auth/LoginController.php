@@ -33,6 +33,6 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return $this->view('auth.login');
+        return view('cms::auth.login');
     }
 }

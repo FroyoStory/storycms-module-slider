@@ -1,0 +1,119 @@
+.page-header
+  margin: 0 0 20px 0
+  padding-bottom: 0
+  background-color: #fff
+  border-bottom: 1px solid #ddd
+
+  .page-header-content
+    position: relative
+    background-color: inherit
+    padding: 0 20px
+
+  .page-title
+    padding: 30px 36px 30px 0
+    display: block
+    position: relative
+
+    h1
+      padding: 0
+      margin: 0
+      text-transform: uppercase
+
+    @media (min-width: 769px)
+      padding-right: 0
+
+  .heading-elements
+    background-color: inherit
+    position: absolute
+    top: 50%
+    right: 20px
+    height: 36px
+    margin-top: -18px
+
+    .heading-btn-group
+      font-size: 0
+
+      .btn-float
+        color: #2196f3
+        text-decoration: none
+        padding: 6px 12px
+
+        span
+          font-size: 11px
+
+        i
+          display: block
+          margin: 0
+          top: 0
+
+        &.btn-link
+          padding-top: 0
+          padding-bottom: 0
+          @media (min-width: 769px)
+            margin-top: -3.5px
+
+  .breadcrumb-line
+    background-color: #fcfcfc
+    border-bottom: 1px solid #ddd
+    position: relative
+
+    &:after
+      content: ''
+      display: table
+      clear: both
+
+    .breadcrumb
+      margin-left: 20px
+      margin-right: 56px
+      border-radius: 0
+      margin-bottom: 0
+      padding: 8px 0
+      list-style: none
+      background-color: transparent
+      float: left
+
+      & > li
+        position: relative
+
+        a
+          color: #333
+          text-decoration: none
+
+      @media (min-width: 769px)
+        margin-right: 0
+
+    .breadcrumb-elements
+      float: right
+      margin: 0
+      padding: 0
+      list-style: none
+      border-top: 1px solid #ddd
+
+      & > li
+        float: left
+
+        & > a
+          display: block
+          padding: 8px 15px
+          color: #333
+          text-decoration: none
+
+        .dropdown-menu
+          border-radius: 0px
+
+          & > li
+            & > a
+              padding: 8px 20px
+
+              i
+                margin-right: 10px
+
+      @media (min-width: 769px)
+        float: right
+        margin-right: 20px
+        text-align: inherit
+        border-top: 0
+
+  .page-header-content+.breadcrumb-line
+    border-bottom-width: 0
+    border-top: 1px solid #ddd
