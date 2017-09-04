@@ -54,3 +54,37 @@
     </el-dialog>
   </div>
 </script>
+<script>
+  Vue.component('category-create', {
+    template: '#category-create',
+    data: function () {
+      return {
+        locale: 'en',
+        form: { name: {}, parent_id: null, description: {}, slug: ''},
+        errors: {},
+        modal: false,
+        loading: false
+      }
+    },
+    props: {
+      categories: { type: Array, required: true}
+    },
+    methods: {
+      create: function () {
+        var that = this
+        this.loading = true
+        this.$http.post('category', this.form)
+          .then(function(response) {
+            Bus.$emit('category-created', response.data.data)
+            that.loading = false
+            that.modal = false
+            that.form = { name: {}, parent_id: null, description: {}, slug: ''}
+          })
+          .catch(function(error) {
+            that.loading = false
+            that.errors = error.response.data
+          })
+      }
+    }
+  })
+</script>

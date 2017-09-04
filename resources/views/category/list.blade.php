@@ -22,5 +22,33 @@
     </table>
     <category-create :categories="categories" />
   </div>
-
+</script>
+<script>
+  Vue.component('category-index', {
+    template: '#category-index',
+    data: function () {
+      return {
+        categories: {!! $categories ? : '[]' !!},
+        modal: { create: false, update: false }
+      }
+    },
+    mounted: function () {
+      Bus.$on('category-created', this.categoryCreated)
+      Bus.$on('category-updated', this.categoryUpdated)
+      Bus.$on('category-destroyed', this.categoryDestroyed)
+    },
+    methods: {
+      categoryCreated: function (data) {
+        this.categories.push(data)
+      },
+      categoryUpdated: function (data) {
+        var index = this.categories.indexOf(data)
+        this.$set(this.categories, index, data)
+      },
+      categoryDestroyed: function (data) {
+        var index = this.categories.indexOf(data)
+        this.categories.splice(index, 1)
+      }
+    }
+  })
 </script>

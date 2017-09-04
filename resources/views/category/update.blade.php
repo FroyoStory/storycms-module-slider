@@ -1,6 +1,5 @@
 <script type="text/x-template" id="category-update">
   <div>
-
     <el-button type="primary" @click="modal = true">EDIT</el-button>
     <el-dialog title="Create category" :visible.sync="modal" v-loading.body="loading">
       <div class="form-group">
@@ -52,4 +51,53 @@
       </span>
     </el-dialog>
   </div>
+</script>
+<script>
+  Vue.component('category-update', {
+    template: '#category-update',
+    data: function () {
+      return {
+        locale: 'en',
+        modal: false,
+        loading: false,
+        errors: {}
+      }
+    },
+    props: {
+      categories: { type: Array, required: true },
+      form: { type: Object, required: true }
+    },
+    ready: function () {
+
+    },
+    methods: {
+      update () {
+        var that = this
+        this.loading = true
+        this.$http.put('category/' + this.form.id, this.form)
+          .then(function(response) {
+            Bus.$emit('category-updated', response.data.data)
+            that.loading = false
+            that.modal = false
+          })
+          .catch(function(error) {
+            that.errors = error.response.data
+            that.loading = false
+          })
+      },
+      destroy () {
+        var that = this
+        this.$http.delete('category/' + this.form.id)
+          .then(function(response) {
+            Bus.$emit('category-destroyed', that.form)
+            that.loading = false
+            that.modal = false
+          })
+          .catch(function(error) {
+            that.errors = error.response.data
+            that.loading = false
+          })
+      }
+    }
+  })
 </script>
