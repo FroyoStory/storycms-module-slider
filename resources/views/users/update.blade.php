@@ -1,6 +1,6 @@
-<script type="text/x-template" id="user-create">
+<script type="text/x-template" id="user-update">
   <div>
-    <el-button type="primary" @click="modal = true">ADD NEW</el-button>
+    <el-button type="primary" @click="modal = true">EDIT</el-button>
     <el-dialog title="Create user" :visible.sync="modal" v-loading="loading">
       <div class="form-group">
         <el-input type="text" v-model="form.name" placeholder="Please input user name"></el-input>
@@ -28,37 +28,50 @@
       </div>
 
       <span slot="footer" class="dialog-footer">
+        <el-button type="danger" @click="destroy">Destory</el-button>
+
         <el-button @click="modal = false">Cancel</el-button>
-        <el-button type="primary" @click="create">Confirm</el-button>
+        <el-button type="primary" @click="update">Confirm</el-button>
       </span>
     </el-dialog>
   </div>
 </script>
 
 <script>
-  Vue.component('user-create', {
-    template: '#user-create',
+  Vue.component('user-update', {
+    template: '#user-update',
     data: function () {
       return {
-        form: { username: '', email: '', password: '', confirm_password: '', role_id: '' },
-        errors: {},
         modal: false,
-        loading: false
+        loading: true,
+        errors: {}
       }
     },
+    props: {
+      form: { type: Object, required: true }
+    },
     methods: {
-      create: function () {
+      update: function () {
         var that = this
         that.loading = true
-
-        this.$http.post('user', this.form, function(response) {
-          Bus.$emit('user-created', response.data.data)
+        this.$http.put('user/' + this.form.id, this.form, function(response) {
+          Bus.$emit('user-updated', response.data.data)
           that.loading = false
           that.modal = false
-          that.form = { username: '', email: '', password: '', confirm_password: '', role_id: '' }
         }, function(error) {
-          that.loading = false
           that.errors = error.response.data
+          that.loading = false
+        })
+      },
+      destroy: function () {
+        var that = this
+        this.$http.delete('user/' + this.form.id, function(response) {
+          Bus.$emit('category-destroyed', that.form)
+          that.loading = false
+          that.modal = false
+        }, function(error) {
+          that.errors = error.response.data
+          that.loading = false
         })
       }
     }

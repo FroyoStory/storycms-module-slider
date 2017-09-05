@@ -49,15 +49,13 @@
         login: function () {
           var that = this
           this.loading = true
-          this.$http.post('auth', this.form)
-            .then(function(response) {
-              that.loading = false
-              window.location.reload()
-            })
-            .catch(function(error) {
-              that.loading = false
-              that.errors = error.response.data
-            })
+          this.$http.post('auth', this.form, function(response) {
+            that.loading = false
+            window.location.href = '/backend/'
+          }, function(error) {
+            that.loading = false
+            that.errors = error.response.data
+          })
         }
       }
     })

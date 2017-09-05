@@ -1,22 +1,11 @@
 // window._ = require('lodash');
 import Vue from 'vue'
-import Axios from 'axios'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-
-Axios.defaults.baseURL = '/backend/'
-Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-
-let token = document.head.querySelector('meta[name="csrf-token"]')
-
-if (token) {
-  Axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
+import Api from './api'
 
 Vue.use(ElementUi)
-Vue.prototype.$http = Axios.create()
+Vue.prototype.$http = Api
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

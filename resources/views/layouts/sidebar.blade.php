@@ -9,7 +9,7 @@
 
       @if (isset($navigation['groups']))
         <a href="#" class="main-menu">
-          <i class="material-icons">{{ $navigation['font'] }}</i>
+          <i class="material-icons font-size-18">{{ $navigation['font'] }}</i>
           <span>{{ $navigation['title'] }}</span>
         </a>
         <div class="popover" id="submenu-{{ $key }}">

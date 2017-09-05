@@ -74,29 +74,25 @@
       update () {
         var that = this
         this.loading = true
-        this.$http.put('category/' + this.form.id, this.form)
-          .then(function(response) {
-            Bus.$emit('category-updated', response.data.data)
-            that.loading = false
-            that.modal = false
-          })
-          .catch(function(error) {
-            that.errors = error.response.data
-            that.loading = false
-          })
+        this.$http.put('category/' + this.form.id, this.form, function(response) {
+          Bus.$emit('category-updated', response.data.data)
+          that.loading = false
+          that.modal = false
+        }, function(error) {
+          that.errors = error.response.data
+          that.loading = false
+        })
       },
       destroy () {
         var that = this
-        this.$http.delete('category/' + this.form.id)
-          .then(function(response) {
-            Bus.$emit('category-destroyed', that.form)
-            that.loading = false
-            that.modal = false
-          })
-          .catch(function(error) {
-            that.errors = error.response.data
-            that.loading = false
-          })
+        this.$http.delete('category/' + this.form.id, function(response) {
+          Bus.$emit('category-destroyed', that.form)
+          that.loading = false
+          that.modal = false
+        }, function(error) {
+          that.errors = error.response.data
+          that.loading = false
+        })
       }
     }
   })

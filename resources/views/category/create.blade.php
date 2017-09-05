@@ -73,17 +73,15 @@
       create: function () {
         var that = this
         this.loading = true
-        this.$http.post('category', this.form)
-          .then(function(response) {
-            Bus.$emit('category-created', response.data.data)
-            that.loading = false
-            that.modal = false
-            that.form = { name: {}, parent_id: null, description: {}, slug: ''}
-          })
-          .catch(function(error) {
-            that.loading = false
-            that.errors = error.response.data
-          })
+        this.$http.post('category', this.form, function(response) {
+          Bus.$emit('category-created', response.data.data)
+          that.loading = false
+          that.modal = false
+          that.form = { name: {}, parent_id: null, description: {}, slug: ''}
+        }, function(error) {
+          that.loading = false
+          that.errors = error.response.data
+        })
       }
     }
   })

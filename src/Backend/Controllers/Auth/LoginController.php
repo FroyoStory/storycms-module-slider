@@ -10,13 +10,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/backend/';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -34,5 +27,15 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('cms::auth.login');
+    }
+
+    /**
+     * Redirect after login successfull
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function redirectTo()
+    {
+        return redirect()->to('/backend/');
     }
 }

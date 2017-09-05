@@ -10,6 +10,7 @@ class CategoryController extends Controller
 {
     /**
      * The StoryCategoryRepository implementation.
+     *
      * @var Story\Cms\Contracts\StoryCategoryRepository
      */
     protected $categories;

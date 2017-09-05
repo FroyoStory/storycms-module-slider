@@ -5,7 +5,7 @@ namespace Story\Cms\Repositories;
 use Story\Cms\Contracts\StoryCategory;
 use Story\Cms\Contracts\StoryCategoryRepository;
 
-class CategoryRepository implements StoryCategoryRepository
+class CategoryRepository extends Repository implements StoryCategoryRepository
 {
     /**
      * The StoryCategory model implementation.
