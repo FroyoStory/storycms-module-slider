@@ -4,7 +4,7 @@ namespace Story\Cms\Backend\Controllers;
 
 use Illuminate\Http\Request;
 use Story\Cms\Repositories\UserRepository;
-use Story\Cms\Models\Repositories\RoleRepository;
+use Story\Cms\Repositories\RoleRepository;
 
 class UserController extends Controller
 {
@@ -16,13 +16,21 @@ class UserController extends Controller
     protected $user;
 
     /**
+     * The RoleRepository implementation.
+     *
+     * @var Story\Cms\Repositories\RoleRepository
+     */
+    protected $roles;
+
+    /**
      * Create a controller instance
      *
      * @param UserRepository $user
      */
-    public function __construct(UserRepository $user)
+    public function __construct(UserRepository $user, RoleRepository $roles)
     {
         $this->user = $user;
+        $this->roles = $roles;
     }
 
     /**
@@ -33,7 +41,9 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->user->paginate();
-        return $this->view('cms::users.index', compact('users'));
+        $roles = $this->roles->all();
+
+        return $this->view('cms::users.index', compact('users', 'roles'));
     }
 
     /**
@@ -49,7 +59,7 @@ class UserController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|alpha_num|min:5',
             'confirm_password' => 'same:password',
-            'role_id' => 'required'
+            'role_id' => 'required|exists:roles,id'
         ]);
 
         $user = $this->user->create($request->only('name', 'email', 'password', 'role_id'));
@@ -65,14 +75,21 @@ class UserController extends Controller
         ], 422);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update user data by user given id
+     *
+     * @param  Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $id)
     {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
             'password' => 'required|alpha_num|min:5',
             'confirm_password' => 'same:password',
-            'role_id' => 'required'
+            'role_id' => 'required|exists:roles,id'
         ]);
 
         $user = $this->user->findById($id);
@@ -90,12 +107,19 @@ class UserController extends Controller
         ], 422);
     }
 
-    public function destroy($id)
+    /**
+     * Destroy a user by given id
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $id)
     {
         $user = $this->user->findById($id);
 
         if ($this->user->destroy($user)) {
             return response()->json([
+                'data' => $user,
                 'meta' => ['message' => 'User was destroyed']
             ]);
         }

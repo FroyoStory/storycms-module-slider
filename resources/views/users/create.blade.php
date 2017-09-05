@@ -1,7 +1,7 @@
 <script type="text/x-template" id="user-create">
   <div>
     <el-button type="primary" @click="modal = true">ADD NEW</el-button>
-    <el-dialog title="Create user" :visible.sync="modal" v-loading="loading">
+    <el-dialog title="Create user" :visible.sync="modal" v-loading.body="loading">
       <div class="form-group">
         <el-input type="text" v-model="form.name" placeholder="Please input user name"></el-input>
         <span class="help-block text-danger" v-if="errors.name">@{{ errors.name.toString() }}</span>
@@ -20,9 +20,9 @@
       </div>
       <div class="form-group">
         <el-select v-model="form.role_id" slot="append" placeholder="User role">
-          <el-option label="Administrator" value="admin"></el-option>
-          <el-option label="Editor" value="editor"></el-option>
-          <el-option label="Author" value="author"></el-option>
+          @foreach ($roles as $role)
+            <el-option label="{{ $role->name }}" value="{{ $role->id }}"></el-option>
+          @endforeach
         </el-select>
         <span class="help-block text-danger" v-if="errors.role_id">@{{ errors.role_id.toString() }}</span>
       </div>

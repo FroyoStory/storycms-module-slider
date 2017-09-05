@@ -2,62 +2,112 @@
 
 namespace Story\Cms\Backend\Controllers;
 
-use Story\Cms\Backend\Requests\RoleRequest;
-use Story\Cms\Models\Repositories\RoleRepository;
 use Illuminate\Http\Request;
+use Story\Cms\Contracts\StoryRoleRepository;
 
 class RoleController extends Controller
 {
+    /**
+     * The StoryRoleRepository implementation.
+     *
+     * @var Story\Cms\Contracts\StoryRoleRepository
+     */
     protected $roles;
 
-    public function __construct(RoleRepository $roles)
+    /**
+     * Create a new role controller instance.
+     *
+     * @param StoryRoleRepository $roles
+     */
+    public function __construct(StoryRoleRepository $roles)
     {
         $this->roles = $roles;
     }
 
+    /**
+     * Display all available roles
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $this->data['roles'] = $this->roles->all();
+        $roles = $this->roles->paginate();
 
-        return $this->view('role.index');
+        return $this->view('cms::role.index', compact('roles'));
     }
 
-    public function store(RoleRequest $request)
+    /**
+     * Create a new role
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-        $roles = $this->roles->create($request);
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name'
+        ]);
 
-        if ($roles) {
-            session()->flash('info', 'Role is created');
-        } else {
-            session()->flash('message', 'Unable to create roles');
-        }
-
-        return redirect()->back();
-    }
-
-    public function edit($id)
-    {
-        $this->data['role'] = $this->roles->findById($id);
-
-        return $this->view('role.edit');
-    }
-
-    public function update(RoleRequest $request, $id)
-    {
-        $role = $this->roles->findById($id);
-        $role = $this->roles->update($role, $request);
+        $role = $this->roles->create($request->only('name', 'description'));
 
         if ($role) {
-            session()->flash('info', 'Role is updated');
-        } else {
-            session()->flash('message', 'Unable to updated roles');
+            return response()->json([
+                'data' => $role,
+                'meta' => ['message' => 'Role was created']
+            ]);
         }
-
-        return redirect()->back();
+        return response()->json([
+            'meta' => ['message' => 'Unable to create role']
+        ], 422);
     }
 
-    public function destroy($id)
+    /**
+     * Update a role by given id
+     *
+     * @param  Request $request
+     * @param  int     $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $id)
     {
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
 
+        $role = $this->roles->findById($id);
+        $role = $this->roles->update($role, $request->only('name', 'description'));
+
+        if ($role) {
+            return response()->json([
+                'data' => $role,
+                'meta' => ['message' => 'Role was updated']
+            ]);
+        }
+
+        return response()->json([
+            'meta' => ['message' => 'Unable to update role']
+        ], 422);
+    }
+
+    /**
+     * Destroy role
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $id)
+    {
+        $role = $this->roles->findById($id);
+
+        if ($this->roles->destroy($role)) {
+            return response()->json([
+                'data' => $role,
+                'meta' => ['message' => 'Role was destroyed']
+            ]);
+        }
+
+        return response()->json([
+            'meta' => ['message' => 'Unable to destroy role']
+        ], 422);
     }
 }

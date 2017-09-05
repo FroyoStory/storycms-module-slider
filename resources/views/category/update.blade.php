@@ -85,7 +85,7 @@
       },
       destroy () {
         var that = this
-        this.$http.delete('category/' + this.form.id, function(response) {
+        this.$http.delete('category/' + this.form.id, {}, function(response) {
           Bus.$emit('category-destroyed', that.form)
           that.loading = false
           that.modal = false

@@ -1,18 +1,18 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Cms\Backend\Middleware;
 
 use App;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RoleMiddleware
+class Role
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request [description]
-     * @param  \Closure $next    [description]
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next, $role)

@@ -1,6 +1,6 @@
 @extends('cms::layouts.app')
 
-@section('title') Members @stop
+@section('title') Users @stop
 
 @section('content')
 <div class="container-fluid">

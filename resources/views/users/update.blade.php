@@ -20,9 +20,9 @@
       </div>
       <div class="form-group">
         <el-select v-model="form.role_id" slot="append" placeholder="User role">
-          <el-option label="Administrator" value="admin"></el-option>
-          <el-option label="Editor" value="editor"></el-option>
-          <el-option label="Author" value="author"></el-option>
+          @foreach ($roles as $role)
+            <el-option label="{{ $role->name }}" :value="{{ $role->id }}"></el-option>
+          @endforeach
         </el-select>
         <span class="help-block text-danger" v-if="errors.role_id">@{{ errors.role_id.toString() }}</span>
       </div>
@@ -65,7 +65,7 @@
       },
       destroy: function () {
         var that = this
-        this.$http.delete('user/' + this.form.id, function(response) {
+        this.$http.delete('user/' + this.form.id, {}, function(response) {
           Bus.$emit('category-destroyed', that.form)
           that.loading = false
           that.modal = false

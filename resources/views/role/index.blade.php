@@ -1,9 +1,9 @@
-@extends('story-theme::layouts.master')
+@extends('cms::layouts.app')
 
-@section('title') Post Pages @stop
+@section('title') Role @stop
 
 @section('content')
-<div class="container-fluid">
+{{-- <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
       <form action="/backend/user/groups/roles" method="POST" accept-charset="UTF-8">
@@ -54,5 +54,15 @@
       </table>
     </div>
   </div>
-</div>
+</div> --}}
+  <div class="container-fluid">
+    <role-index />
+  </div>
+@stop
+
+@section('js')
+  @parent
+  @include('cms::role.list')
+  @include('cms::role.update')
+  @include('cms::role.create')
 @stop

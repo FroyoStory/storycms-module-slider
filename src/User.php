@@ -16,7 +16,7 @@ class User extends Authenticatable implements StoryUser
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id'
     ];
 
     /**
@@ -27,4 +27,14 @@ class User extends Authenticatable implements StoryUser
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get role relationship
+     *
+     * @return Story\Cms\Contracts\StoryRole
+     */
+    public function role()
+    {
+        return $this->belongsTo(resolve(Contracts\StoryRole::class));
+    }
 }
