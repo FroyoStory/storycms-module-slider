@@ -16,6 +16,6 @@ class Configuration extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Story\Cms\Config\ConfigManager';
+        return 'configuration';
     }
 }

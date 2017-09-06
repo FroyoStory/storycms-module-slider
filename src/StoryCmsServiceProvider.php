@@ -94,6 +94,7 @@ class StoryCmsServiceProvider extends ServiceProvider
      */
     protected function registerServices()
     {
+        $this->app->register(Config\ConfigServiceProvider::class);
         $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
 

@@ -53,7 +53,7 @@
       data: function () {
         return {
           form: {
-            site_permalink: '{!! Configuration::get('SITE_PERMALINK') !!}'
+            site_permalink: '{!! $config->SITE_PERMALINK !!}'
           }
         }
       },

@@ -2,29 +2,12 @@
 
 namespace Story\Cms\Backend\Controllers\Settings;
 
-use Story\Cms\Config\ConfigManager;
+use Configuration;
 use Story\Cms\Backend\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PermalinkController extends Controller
 {
-    /**
-     * The ConfigManager implementation.
-     *
-     * @var Story\Cms\Config\ConfigManager
-     */
-    protected $config;
-
-    /**
-     * Update general setting for site
-     *
-     * @param Configuration $config
-     */
-    public function __construct(ConfigManager $config)
-    {
-        $this->config = $config;
-    }
-
     /**
      * Display general form
      *
@@ -32,8 +15,9 @@ class PermalinkController extends Controller
      */
     public function index()
     {
+        $config = Configuration::instance();
 
-        return $this->view('cms::settings.permalink');
+        return $this->view('cms::settings.permalink', compact('config'));
     }
 
     /**
@@ -44,7 +28,7 @@ class PermalinkController extends Controller
      */
     public function store(Request $request)
     {
-        $this->config->set('SITE_PERMALINK', $request->input('site_permalink'));
+        Configuration::set('SITE_PERMALINK', $request->input('site_permalink'));
 
         return response()->json([
             'meta' => [

@@ -58,11 +58,11 @@
       data: function () {
         return {
           form: {
-            site_title: '{{ Configuration::get('SITE_TITLE') }}',
-            site_tagline: '{{ Configuration::get('SITE_TAGLINE') }}',
-            site_membership: {{ Configuration::get('SITE_MEMBERSHIP') ? 'true' : 'false' }},
-            date_format: '{{ Configuration::get('SITE_DATE_FORMAT') }}',
-            time_format: '{{ Configuration::get('SITE_TIME_FORMAT') }}'
+            site_title: '{{ $config->SITE_TITLE }}',
+            site_tagline: '{{ $config->SITE_TAGLINE }}',
+            site_membership: {{ $config->SITE_MEMBERSHIP ? 'true' : 'false' }},
+            date_format: '{{ $config->SITE_DATE_FORMAT }}',
+            time_format: '{{ $config->SITE_TIME_FORMAT }}'
           }
         }
       },
