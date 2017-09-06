@@ -15,6 +15,9 @@ export default {
       }
     })
     .then(success => {
+      Notification({
+        title: 'Success', type: 'success', message: success.data.meta.message
+      })
       if (succCb) succCb(success)
     })
     .catch(error => {

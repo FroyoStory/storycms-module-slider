@@ -1,47 +1,81 @@
-@extends('story-theme::layouts.master')
+@extends('cms::layouts.app')
 
 @section('title') General Settings @stop
 
 @section('content')
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <form class="" method="POST" accept-charset="UTF-8">
-        {{ csrf_field() }}
 
+<div class="container-fluid">
+  <setting-general></setting-general>
+</div>
+@stop
+
+@section('js')
+  @parent
+  <script type="text/x-template" id="setting-general">
+    <div class="row">
+      <div class="col-md-6">
         <div class="form-group">
           <label>Site Title</label>
-          <input type="text" name="site_title" placeholder="" class="form-control" value="{{ Configuration::get('site_title') }}">
+          <el-input type="text" v-model="form.site_title"></el-input>
           <small class="help-block">This website title</small>
         </div>
         <div class="form-group">
           <label>Site Tagline</label>
-          <input type="text" name="site_tagline" placeholder="" class="form-control" value="{{ Configuration::get('site_tagline') }}">
+          <el-input type="textarea" rows="3" v-model="form.site_tagline"></el-input>
           <small class="help-block">In a few words, explain what this site is about.</small>
         </div>
         <div class="form-group">
-          <label>Site Membership</label>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="site_membership" value="on" {{  Configuration::get('site_membership') == 'on' ?  'checked' : '' }}> Anyone can register
-            </label>
-          </div>
+          <label>Allow visitor to register?</label>
+          <el-switch v-model="form.site_membership" on-text="" off-text="" style="display: block"></el-switch>
         </div>
         <div class="form-group">
-          <label>New User Default Role</label> <br />
-          <select class="" name="site_default_role">
-            <option value="user" {{ Configuration::get('site_default_role') == 'user' ? 'selected' : '' }}>User</option>
-            <option value="author" {{ Configuration::get('site_default_role') == 'author' ? 'selected' : '' }}>Author</option>
-            <option value="editor" {{ Configuration::get('site_default_role') == 'editor' ? 'selected' : '' }}>Editor</option>
-            <option value="admin" {{ Configuration::get('site_default_role') == 'admin' ? 'selected' : '' }}>Administrator</option>
-          </select>
+          <label>Date format</label>
+          <el-radio-group v-model="form.date_format">
+            <el-radio label="F j, Y">September 5, 2017</el-radio>
+            <el-radio label="Y-m-d">2017-09-05</el-radio>
+            <el-radio label="m/d/Y">09/05/2017</el-radio>
+            <el-radio label="d/m/Y">05/09/2017</el-radio>
+          </el-radio-group>
+        </div>
+        <div class="form-group">
+          <label>Time format</label>
+          <el-radio-group v-model="form.time_format">
+            <el-radio label="g:i a">3:52 pm</el-radio>
+            <el-radio label="g:i A">3:52 PM</el-radio>
+            <el-radio label="H:i">15:53</el-radio>
+          </el-radio-group>
         </div>
         <hr />
         <div class="form-group">
-          <button class="btn btn-primary" type="submit">Save Changes</button>
+          <el-button type="primary" @click="save">Save setting</el-button>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
+  </script>
+  <script>
+    Vue.component('setting-general', {
+      template: '#setting-general',
+      data: function () {
+        return {
+          form: {
+            site_title: '{{ Configuration::get('SITE_TITLE') }}',
+            site_tagline: '{{ Configuration::get('SITE_TAGLINE') }}',
+            site_membership: {{ Configuration::get('SITE_MEMBERSHIP') ? 'true' : 'false' }},
+            date_format: '{{ Configuration::get('SITE_DATE_FORMAT') }}',
+            time_format: '{{ Configuration::get('SITE_TIME_FORMAT') }}'
+          }
+        }
+      },
+      methods: {
+        save: function () {
+          var that = this
+          this.$http.post('setting/general', this.form, function(response) {
+
+          }, function(error) {
+
+          })
+        }
+      }
+    })
+  </script>
 @stop

@@ -1,3 +1,8 @@
 <?php
 
-Route::get('search', '\\Story\\Cms\\Frontend\\Controllers\\FindController@index');
+Route::get('search', function() {});
+Route::get('category/{category}', function() {});
+// Route::get('/{page}', function() {});
+// Route::get('/{page}/{post}', function() {});
+// Route::get('/', function() {});
+// ==== POST ROUTING ====

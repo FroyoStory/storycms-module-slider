@@ -30,6 +30,10 @@ class CreateCategoryTable extends Migration
             'name' => [
                 'en' => 'Uncategorized',
                 'id' => 'Tidak bekategori'
+            ],
+            'description' => [
+                'en' => 'Uncategorized',
+                'id' => 'Tidak bekategori'
             ]
         ]);
     }

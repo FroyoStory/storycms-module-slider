@@ -3,7 +3,6 @@
 namespace Story\Cms;
 
 use Story\Cms\Contracts\StoryRole;
-use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model implements StoryRole
 {

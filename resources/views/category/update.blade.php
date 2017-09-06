@@ -7,6 +7,7 @@
           <div class="col-md-10">
             <el-input type="text" v-model="form.name.en" placeholder="Category name" v-show="locale=='en'"></el-input>
             <el-input type="text" v-model="form.name.id" placeholder="Category name" v-show="locale=='id'"></el-input>
+            <span class="help-block text-danger" v-if="errors.name">@{{ errors.name.toString() }}</span>
           </div>
           <div class="col-md-2">
             <el-select v-model="locale" slot="append" placeholder="Eng">
@@ -18,6 +19,7 @@
       </div>
       <div class="form-group">
         <el-input type="text" v-model="form.slug" placeholder="Slug"></el-input>
+        <span class="help-block text-danger" v-if="errors.slug">@{{ errors.slug.toString() }}</span>
       </div>
       <div class="form-group">
         <el-select v-model="form.parent_id" placeholder="Select">
@@ -28,12 +30,14 @@
             :value="item.id">
           </el-option>
         </el-select>
+        <span class="help-block text-danger" v-if="errors.name">@{{ errors.parent_id.toString() }}</span>
       </div>
       <div class="form-group">
         <div class="row">
           <div class="col-md-10">
-            <el-input type="textarea" v-model="form.description.en" placeholder="Category name" :rows="4" v-show="locale=='en'"></el-input>
-            <el-input type="textarea" v-model="form.description.id" placeholder="Category name" :rows="4" v-show="locale=='id'"></el-input>
+            <el-input type="textarea" v-model="form.description.en" placeholder="Description" :rows="4" v-show="locale=='en'"></el-input>
+            <el-input type="textarea" v-model="form.description.id" placeholder="Description" :rows="4" v-show="locale=='id'"></el-input>
+            <span class="help-block text-danger" v-if="errors.description">@{{ errors.description.toString() }}</span>
           </div>
           <div class="col-md-2">
             <el-select v-model="locale" slot="append" placeholder="Eng">
@@ -66,9 +70,6 @@
     props: {
       categories: { type: Array, required: true },
       form: { type: Object, required: true }
-    },
-    ready: function () {
-
     },
     methods: {
       update () {

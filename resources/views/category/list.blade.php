@@ -6,7 +6,7 @@
           <th>Name</th>
           <th>Description</th>
           <th>Slug</th>
-          <td>Action</td>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>

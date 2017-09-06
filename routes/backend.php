@@ -8,7 +8,12 @@ Route::post('auth/forgot', 'Auth\ForgotController@store');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
-    Route::resource('category', 'CategoryController');
-    Route::resource('user', 'UserController');
-    Route::resource('role', 'RoleController');
+    Route::resource('category', 'CategoryController', ['only' => ['index', 'store', 'update', 'destroy']]);
+    Route::resource('user', 'UserController', ['only' => ['index', 'store', 'update', 'destroy']]);
+    Route::resource('role', 'RoleController', ['only' => ['index', 'store', 'update', 'destroy']]);
+
+    // Settings
+    Route::group(['prefix' => 'setting'], function() {
+        Route::resource('general', 'Settings\\GeneralController', ['only' => ['index', 'store']]);
+    });
 });

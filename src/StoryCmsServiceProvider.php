@@ -2,16 +2,18 @@
 
 namespace Story\Cms;
 
-// use Story\Core\Tabs\Tab;
-// use Story\Core\Plugins;
-use Story\Cms\Contracts\PluginInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 
-class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
+class StoryCmsServiceProvider extends ServiceProvider
 {
 
+    /**
+     * The story cms class namespace
+     *
+     * @var string
+     */
     protected $namespace = 'Story\\Cms';
 
     /**
@@ -35,6 +37,7 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
     {
         $this->configure();
         $this->registerServices();
+        $this->registerAliases();
     }
 
     /**
@@ -49,6 +52,7 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
 
     /**
      * Register resources CMS
+     *
      * @return void
      */
     protected function registerResources()
@@ -91,12 +95,24 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
     protected function registerServices()
     {
         $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
+        $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
 
         // Register core service bindings
         foreach (config('mapping') as $key => $value) {
-            // is_numeric($key) ? $this->app->singleton($value) :
-            $this->app->singleton($key, $value);
+            is_numeric($key) ? $this->app->singleton($value) : $this->app->singleton($key, $value);
         }
+    }
+
+    /**
+     * Register custom alias
+     *
+     * @return void
+     */
+    protected function registerAliases()
+    {
+        $loader = AliasLoader::getInstance();
+
+        $loader->alias('Configuration', \Story\Cms\Support\Facades\Configuration::class);
     }
 
     /**
@@ -107,25 +123,5 @@ class StoryCmsServiceProvider extends ServiceProvider implements PluginInterface
     public static function navigation()
     {
         return require __DIR__ . '/../config/navigation.php';
-    }
-
-    /**
-     * Hook the post editor
-     *
-     * @param  Array|array $data
-     * @return array
-     */
-    public static function hook(Array $data = [])
-    {
-        // return [
-        //     'backend' => [
-        //         'page-editor' => [
-        //             (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
-        //         ],
-        //         'post-editor' => [
-        //             (new Tab('Media Assets', 'cms::addons.media', $data))->display(),
-        //         ]
-        //     ]
-        // ];
     }
 }

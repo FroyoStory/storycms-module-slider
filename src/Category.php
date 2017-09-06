@@ -3,7 +3,6 @@
 namespace Story\Cms;
 
 use Story\Cms\Contracts\StoryCategory;
-use Illuminate\Database\Eloquent\Model;
 use Themsaid\Multilingual\Translatable;
 
 class Category extends Model implements StoryCategory
