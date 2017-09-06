@@ -27,7 +27,14 @@ class ConfigManager
     {
         $config = Config::where('name', $name)->first();
 
-        return $config ? $config->value : null;
+        if ($config) {
+            $result = json_decode($config->value);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                return $result;
+            }
+            return $config->value;
+        }
+        return null;
     }
 
     /**

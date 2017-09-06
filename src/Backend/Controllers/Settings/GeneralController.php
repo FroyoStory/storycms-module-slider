@@ -32,9 +32,7 @@ class GeneralController extends Controller
      */
     public function index()
     {
-        $config = $this->config->all();
-
-        return $this->view('cms::settings.general', compact('config'));
+        return $this->view('cms::settings.general');
     }
 
     /**

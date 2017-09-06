@@ -68,12 +68,7 @@
       },
       methods: {
         save: function () {
-          var that = this
-          this.$http.post('setting/general', this.form, function(response) {
-
-          }, function(error) {
-
-          })
+          this.$http.post('setting/general', this.form)
         }
       }
     })
