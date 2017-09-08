@@ -4,7 +4,7 @@ namespace Story\Cms\Backend\Controllers;
 
 use Jenssegers\Date\Date;
 use Story\Cms\Contracts\StoryPost;
-use Story\Cms\Repositories\PostRepository;
+use Story\Cms\Contracts\StoryPostRepository;
 use Story\Cms\Support\Facades\Configuration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +15,7 @@ class MediaController extends Controller
     /**
      * The Media StoryPost implementation.
      *
-     * @var Story\Cms\Repositories\PostRepository
+     * @var Story\Cms\Contracts\StoryPostRepository
      */
     protected $post;
 
@@ -24,7 +24,7 @@ class MediaController extends Controller
      *
      * @param StoryPost $post
      */
-    public function __construct(PostRepository $post)
+    public function __construct(StoryPostRepository $post)
     {
         $this->post = $post;
     }
