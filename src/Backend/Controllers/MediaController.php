@@ -42,12 +42,72 @@ class MediaController extends Controller
     }
 
     /**
+     * Update media files
+     *
+     * @param  Request $request
+     * @param  int     $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $id)
+    {
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+
+        if ($post = $this->post->findById($id)) {
+            if ($post = $this->post->update($post, $request->only('title'))) {
+                return response()->json([
+                    'data' => $post,
+                    'meta' => [ 'message' => 'Attachment is updated.' ]
+                ]);
+            }
+        }
+
+        return response()->json([
+            'data' => $post,
+            'meta' => [ 'message' => 'Unable to update a File' ]
+        ]);
+    }
+
+    /**
+     * Destroy media files
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        if ($post = $this->post->findById($id)) {
+            // deleting attachment files
+            list($name, $extension) = explode('.', str_replace('/storage/', '/public/', $post->slug));
+            Storage::delete([
+                $name.'.'.$extension,
+                $name.'-thumbnail.'.$extension,
+                $name.'-medium.'.$extension,
+                $name.'-large.'.$extension,
+            ]);
+
+            if ($this->post->destroy($post)) {
+                return response()->json([
+                    'data' => $post,
+                    'meta' => [ 'message' => 'File is destroyed' ]
+                ]);
+            }
+        }
+
+        return response()->json([
+            'data' => $post,
+            'meta' => [ 'message' => 'Unable to destroy a File' ]
+        ], 422);
+    }
+
+    /**
      * Process uploading files
      *
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function upload(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'file' => 'required'
