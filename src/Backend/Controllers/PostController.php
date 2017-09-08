@@ -2,10 +2,9 @@
 
 namespace Story\Cms\Backend\Controllers;
 
-use Hook;
 use Illuminate\Http\Request;
-use Story\Cms\Models\Repositories\PostRepository;
-use Story\Cms\Models\Repositories\CategoryRepository;
+use Story\Cms\Contracts\StoryPostRepository;
+use Story\Cms\Contracts\StoryCategoryRepository;
 use Story\Cms\Backend\Requests\PostRequest;
 
 class PostController extends Controller
@@ -13,7 +12,7 @@ class PostController extends Controller
     protected $post;
     protected $category;
 
-    public function __construct(PostRepository $post, CategoryRepository $category)
+    public function __construct(StoryPostRepository $post, StoryCategoryRepository $category)
     {
         $this->post = $post;
         $this->category = $category;
@@ -21,17 +20,17 @@ class PostController extends Controller
 
     public function index()
     {
-        $this->data['posts'] = $this->post->all();
+        // $this->data['posts'] = $this->post->all();
 
-        return $this->view('post.index');
+        return $this->view('cms::post.index');
     }
 
     public function create()
     {
-        $this->data['categories'] = $this->category->all();
-        $this->data['tabs'] = Hook::get('backend', $this->data)['post-editor'];
+        // $this->data['categories'] = $this->category->all();
+        // $this->data['tabs'] = Hook::get('backend', $this->data)['post-editor'];
 
-        return $this->view('post.create');
+        return $this->view('cms::post.create');
     }
 
     public function store(PostRequest $request)

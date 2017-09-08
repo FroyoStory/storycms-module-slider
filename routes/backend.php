@@ -11,6 +11,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('category', 'CategoryController', ['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('user', 'UserController', ['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('role', 'RoleController', ['only' => ['index', 'store', 'update', 'destroy']]);
+    Route::resource('post', 'PostController');
+    Route::resource('media', 'MediaController');
+    Route::post('media-upload', 'MediaController@upload')->name('media.upload');
 
     // Settings
     Route::group(['prefix' => 'setting'], function() {
