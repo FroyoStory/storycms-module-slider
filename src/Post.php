@@ -38,4 +38,17 @@ class Post extends Model implements StoryPost
     {
         return $this->belongsTo(resolve(Contracts\StoryUser::class));
     }
+
+    /**
+     * Get all categories relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function category()
+    {
+        return $this->belongsToMany(
+            resolve(Contracts\StoryCategory::class),
+            'posts_categories', 'post_id', 'category_id'
+        );
+    }
 }
