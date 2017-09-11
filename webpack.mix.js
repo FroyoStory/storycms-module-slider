@@ -16,6 +16,7 @@ mix
     .setPublicPath('public')
     .js('resources/assets/js/backend.js', 'public/js')
     .sass('resources/assets/sass/backend.sass', 'public/css')
+    .styles(['resources/assets/css/dashicons.css', 'resources/assets/css/editor.css'], 'public/css/editor.css')
     .copy('resources/assets/images', 'public/images')
     .sourceMaps()
     .copy('public', '../../public/vendor/storycms')
