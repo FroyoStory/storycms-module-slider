@@ -54,12 +54,14 @@ class ProfileController extends Controller
         ]);
 
         if ($request->input('password') == '') {
-            $data = $request->only('name', 'email', 'id');
+            $data = $request->only('name', 'email');
         } else {
-            $data = $request->only('name', 'email', 'password', 'id');
+            $data = $request->only('name', 'email', 'password');
         }
 
-        if ($user = $this->user->findById($data['id'])) {
+        $current_user = $request->user();
+
+        if ($user = $this->user->findById( $current_user->id )) {
             $user = $this->user->update($user, $data);
             if (!$user) {
                 return response()->json([

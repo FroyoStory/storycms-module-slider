@@ -4,6 +4,7 @@ namespace Story\Cms\Repositories;
 
 use Story\Cms\Contracts\StoryUserRepository;
 use Story\Cms\Contracts\StoryUser;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends Repository implements StoryUserRepository
 {
@@ -83,8 +84,14 @@ class UserRepository extends Repository implements StoryUserRepository
      */
     public function update(StoryUser $user, array $data)
     {
+
         foreach ($data as $key => $value) {
-            $user->{$key} = $value;
+            if ($key == 'password') {
+                $user->{$key} = Hash::make($value);
+            } else {
+                $user->{$key} = $value;
+            }
+
         }
 
         if ($user->save()) {
