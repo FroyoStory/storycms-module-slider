@@ -52,7 +52,6 @@
           </div>
         </div>
       </div>
-        <el-input type="hidden" v-model="user.id" name="id"></el-input>
       <div>
         <button type="submit" class="btn btn-submit" v-on:click="update" name="button">Update Profile</button>
       </div>
@@ -71,7 +70,7 @@
         update: function() {
           var that = this
           this.$http.post('profile', this.user, function(response) {
-            that.user = {name: that.user.name, email: that.user.email, password: '', confirm_password: '', id: that.user.id}
+            that.user = {name: that.user.name, email: that.user.email, password: '', confirm_password: ''}
           }, function(error) {
             that.errors = error.response.data
         })
