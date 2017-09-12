@@ -1,10 +1,13 @@
 // window._ = require('lodash');
+import 'element-ui/lib/theme-default/index.css'
+
 import Vue from 'vue'
 import ElementUi from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import VueTinymce from 'vue-tinymce'
 import Api from './api'
 
 Vue.use(ElementUi)
+Vue.use(VueTinymce)
 Vue.prototype.$http = Api
 
 /**
