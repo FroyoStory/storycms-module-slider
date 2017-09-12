@@ -67,13 +67,6 @@
           errors: {}
         }
       },
-      // props: {
-      //   name: {
-      //     type: String,
-      //     required: true,
-      //     default: 'default'
-      //   }
-      // },
       methods: {
         update: function() {
           var that = this
