@@ -28,6 +28,9 @@ class Category extends Model implements StoryCategory
      */
     public function post()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(
+            resolve(Contracts\StoryPost::class),
+            'posts_categories', 'category_id', 'post_id'
+        );
     }
 }
