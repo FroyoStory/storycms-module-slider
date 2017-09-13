@@ -69,6 +69,6 @@ class Post extends Model implements StoryPost
      */
     public function getMetaAttribute()
     {
-        return new PostAttribute($this);
+        return resolve(PostAttribute::class)->fill($this);
     }
 }

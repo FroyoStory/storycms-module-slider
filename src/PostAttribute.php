@@ -3,8 +3,11 @@
 namespace Story\Cms;
 
 use Story\Cms\Contracts\StoryPost;
+use JsonSerializable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 
-class PostAttribute
+class PostAttribute implements JsonSerializable, Jsonable, Arrayable
 {
     /**
      * The StoryPost implementation.
@@ -14,13 +17,41 @@ class PostAttribute
     protected $post;
 
     /**
-     * Create new meta attribute for given post
+     * The model's attributes.
      *
-     * @param StoryPost $post
+     * @var array
      */
-    public function __construct(StoryPost $post)
+    protected $attributes = [];
+
+    /**
+     * Fill the attributes
+     *
+     * @param  StoryPost $post
+     * @return void
+     */
+    public function fill(StoryPost $post)
     {
         $this->post = $post;
+
+        foreach ($post->metas as $attribute) {
+            $this->setAttribute($attribute->name, $attribute->value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Save the attributes value
+     *
+     * @return $this
+     */
+    public function save()
+    {
+        foreach ($this->attributes as $name => $value) {
+            $this->post->metas()->updateOrCreate(compact('name'), compact('value'));
+        }
+
+        return $this;
     }
 
     /**
@@ -29,9 +60,11 @@ class PostAttribute
      * @param string $name
      * @param mix $value
      */
-    public function setAttribute(string $name, $value)
+    public function setAttribute($name, $value)
     {
-        $this->post->metas()->updateOrCreate(compact('name'), compact('value'));
+        $this->attributes[$name] = $value;
+
+        return $this;
     }
 
     /**
@@ -40,13 +73,9 @@ class PostAttribute
      * @param  string $name
      * @return mixed
      */
-    public function getAttribute(string $name)
+    public function getAttribute($name)
     {
-        $attribute = $this->post->metas->filter(function($item) use($name) {
-            return $item->name == $name;
-        })->first();
-
-        return $attribute  ? $attribute->value : null;
+        return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : null;
     }
 
     /**
@@ -57,6 +86,63 @@ class PostAttribute
     public function all()
     {
         return $this->post->metas;
+    }
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->attributes;
+    }
+
+     /**
+     * Convert the object to its JSON representation.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        $json = json_encode($this->jsonSerialize(), $options);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            throw new \Exception("Unable to confert to json", 1);
+        }
+
+        return $json;
+    }
+
+    /**
+     * Check if is an json
+     *
+     * @return boolean
+     */
+    public function isJson($string)
+    {
+       return is_string($string) && is_array(json_decode($string, true)) ? true : false;
+    }
+
+     /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
+     * Convert the model to its string representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
     }
 
     /**

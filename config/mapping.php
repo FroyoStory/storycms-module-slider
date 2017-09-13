@@ -9,5 +9,6 @@ return [
     \Story\Cms\Contracts\StoryRoleRepository::class => \Story\Cms\Repositories\RoleRepository::class,
     \Story\Cms\Contracts\StoryPost::class => \Story\Cms\Post::class,
     \Story\Cms\Contracts\StoryPostMeta::class => \Story\Cms\PostMeta::class,
+    \Story\Cms\PostAttribute::class,
     \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class
 ];
