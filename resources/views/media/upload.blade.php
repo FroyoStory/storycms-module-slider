@@ -1,5 +1,5 @@
 <script type="text/x-template" id="media-upload">
-  <el-upload class="upload-demo" drag action="/backend/media" :data="form" :on-preview="handlePreview" :on-remove="handleRemove">
+  <el-upload class="upload-demo" drag action="/backend/media" :data="form" :on-success="handle">
     <i class="el-icon-upload"></i>
     <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
     <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
@@ -16,11 +16,8 @@
       }
     },
     methods: {
-      handlePreview: function () {
-
-      },
-      handleRemove: function () {
-
+      handle: function (response, file) {
+        this.$emit('upload-success', response)
       }
     }
   })
