@@ -7,7 +7,7 @@ return [
     \Story\Cms\Contracts\StoryUserRepository::class => \Story\Cms\Repositories\UserRepository::class,
     \Story\Cms\Contracts\StoryRole::class => \Story\Cms\Role::class,
     \Story\Cms\Contracts\StoryRoleRepository::class => \Story\Cms\Repositories\RoleRepository::class,
-    // \Story\Cms\Config\ConfigManager::class,
     \Story\Cms\Contracts\StoryPost::class => \Story\Cms\Post::class,
+    \Story\Cms\Contracts\StoryPostMeta::class => \Story\Cms\PostMeta::class,
     \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class
 ];
