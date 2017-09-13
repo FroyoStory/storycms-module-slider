@@ -1,9 +1,11 @@
+@include('cms::media.browser')
 <script type="text/x-template" id="editor">
   <div id="wp-content-wrap" class="wp-core-ui wp-editor-wrap has-dfw" :class="html_editor == true ? 'tmce-active': 'html-active'">
+    <media-browser v-on:image-selected="handleImageSelected"></media-browser>
     <div id="wp-content-editor-tools" class="wp-editor-tools hide-if-no-js">
-        <div id="wp-content-media-buttons" class="wp-media-buttons">
+        {{-- <div id="wp-content-media-buttons" class="wp-media-buttons">
           <button type="button" id="insert-media-button" class="button insert-media add_media" data-editor="content"><span class="wp-media-buttons-icon"></span> Add Media</button>
-        </div>
+        </div> --}}
         <div class="wp-editor-tabs">
           <button type="button" id="content-tmce" class="wp-switch-editor switch-tmce" @click="swap">Visual</button>
           <button type="button" id="content-html" class="wp-switch-editor switch-html" @click="swap">Text</button>
@@ -106,11 +108,17 @@
         this.ace.renderer.updateFull()
 
         return this.html_editor = !this.html_editor
+      },
+      handleImageSelected: function (image) {
+        var temp = '<figure class="image"><img src="'+image.slug+'" alt="'+image.title.{{ App::getLocale()}}+'" /><figcaption>'+image.title.{{ App::getLocale()}}+'</figcaption></figure>'
+        this.tinymce.activeEditor.execCommand('mceInsertContent', false, temp)
+        // this.tinymce.
       }
     },
-    beforeDestroy: function(){
+    beforeDestroy: function (){
       this.tinymce.instance.remove()
       this.ace.destroy()
-    }
+    },
+
   })
 </script>

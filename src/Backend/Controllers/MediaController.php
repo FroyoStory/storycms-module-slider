@@ -32,11 +32,21 @@ class MediaController extends Controller
     /**
      * Display
      *
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $medias = $this->post->media()->paginate();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'data' => $medias->items,
+                'meta' => [
+                    'pagination' => $medias->pagination
+                ]
+            ]);
+        }
 
         return $this->view('cms::media.index', compact('medias'));
     }
