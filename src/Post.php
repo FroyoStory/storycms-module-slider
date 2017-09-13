@@ -51,4 +51,24 @@ class Post extends Model implements StoryPost
             'posts_categories', 'post_id', 'category_id'
         );
     }
+
+    /**
+     * Get meta attribute for given post
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function metas()
+    {
+        return $this->hasMany(resolve(Contracts\StoryPostMeta::class));
+    }
+
+    /**
+     * Get post meta attribute instance.
+     *
+     * @return \Story\Cms\PostAttribute
+     */
+    public function getMetaAttribute()
+    {
+        return resolve(PostAttribute::class)->fill($this);
+    }
 }
