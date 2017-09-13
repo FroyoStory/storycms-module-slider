@@ -1,4 +1,4 @@
-<script type="text/x-template" id="user-index">
+<script type="text/x-template" id="user-list">
   <div>
     <table class="table">
       <thead>
@@ -26,8 +26,8 @@
   </div>
 </script>
 <script>
-  Vue.component('user-index', {
-    template: '#user-index',
+  Vue.component('user-list', {
+    template: '#user-list',
     data: function () {
       return {
         users: {!! $users ? json_encode($users->items) : '[]' !!},
