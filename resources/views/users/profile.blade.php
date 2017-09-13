@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="container-fluid">
-    <profile-updated :user="user"/>
+    <profile-updated />
   </div>
 @stop
 
