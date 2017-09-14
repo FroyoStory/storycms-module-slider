@@ -45,7 +45,7 @@ class PostController extends Controller
         $post = $this->post->create($request);
 
         if ($request->has('categories') && array_filter($request->input('categories'))) {
-            $sync = $this->post->synch($request->input('categories'));
+            $sync = $this->post->sync($request->input('categories'));
         }
 
         if (!$post) {

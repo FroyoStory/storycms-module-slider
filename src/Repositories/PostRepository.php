@@ -119,9 +119,9 @@ class PostRepository extends Repository implements StoryPostRepository
      * @param  string $type
      * @return \Story\Cms\Contracts\StoryPost
      */
-    public function synch(array $categories)
+    public function sync(array $categories)
     {
-        $post = resolve(\Story\Cms\Contracts\StoryPost)::create($data);
+        $post = resolve(\Story\Cms\Contracts\StoryPost::class)->create($data);
         return $post->category()->sync($categories);
     }
 }
