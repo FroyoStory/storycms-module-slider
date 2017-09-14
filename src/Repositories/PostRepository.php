@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Repositories;
 
+use Story\Cms\Contracts\StoryCategory;
 use Story\Cms\Contracts\StoryPost;
 use Story\Cms\Contracts\StoryPostRepository;
 
@@ -100,5 +101,17 @@ class PostRepository extends Repository implements StoryPostRepository
     public function findBySlug(string $slug)
     {
         return $this->posts->where('slug', $slug)->first();
+    }
+
+    /**
+     * Find all post from given category
+     *
+     * @param  StoryCategory $category
+     * @param  string $type
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findAllPostFromCategory(StoryCategory $category, $type = 'post')
+    {
+        return $category->post()->where('type', $type)->paginate();
     }
 }

@@ -58,6 +58,7 @@ class StoryCmsServiceProvider extends ServiceProvider
     protected function registerResources()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'cms');
+        $this->loadViewsFrom(public_path().'/themes', 'theme');
     }
 
     /**
@@ -69,9 +70,16 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         Route::group(['prefix' => 'backend'], function() {
             Route::middleware('web')
-                ->namespace($this->namespace . '\\Backend\\Controllers\\')
+                ->namespace($this->namespace . '\\Backend\\Controllers')
                 ->group(__DIR__.'/../routes/backend.php');
         });
+
+        if (config()->get('cms.route') === true) {
+            Route::middleware('web')
+                ->namespace($this->namespace . '\\Frontend\\Controllers')
+                ->group(__DIR__.'/../routes/web.php');
+        }
+
     }
 
     /**
@@ -95,9 +103,9 @@ class StoryCmsServiceProvider extends ServiceProvider
     protected function registerServices()
     {
         $this->app->register(Config\ConfigServiceProvider::class);
-        $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
+        $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
 
         // Register core service bindings
         foreach (config('mapping') as $key => $value) {
@@ -115,6 +123,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
 
         $loader->alias('Configuration', \Story\Cms\Support\Facades\Configuration::class);
+        $loader->alias('Theme', \Story\Cms\Support\Facades\Theme::class);
     }
 
     /**

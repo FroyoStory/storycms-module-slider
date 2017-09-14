@@ -2,6 +2,7 @@
 
 namespace Story\Cms;
 
+use Configuration;
 use Story\Cms\Contracts\StoryPost;
 use Themsaid\Multilingual\Translatable;
 
@@ -70,5 +71,24 @@ class Post extends Model implements StoryPost
     public function getMetaAttribute()
     {
         return resolve(PostAttribute::class)->fill($this);
+    }
+
+    /**
+     * Get url attribute value
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        $url = Configuration::instance()->SITE_PERMALINK;
+
+        $formatter = [
+            '{postname}' => $this->slug,
+            '{day}' => $this->created_at->format('d'),
+            '{month}' => $this->created_at->format('m'),
+            '{year}' => $this->created_at->format('Y')
+        ];
+
+        return str_replace(array_keys($formatter), array_values($formatter), $url);
     }
 }

@@ -34,7 +34,7 @@
         <div class="form-group">
           <div class="row">
             <div class="col-md-3">
-              <el-radio class="radio" v-model="form.site_permalink" label="/{postname}/">Post name</el-radio>
+              <el-radio class="radio" v-model="form.site_permalink" label="{postname}/">Post name</el-radio>
             </div>
             <div class="col-md-9"><p style="margin: 10px 0">https://domain.id/sample-post/</p></div>
           </div>
