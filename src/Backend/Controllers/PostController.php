@@ -18,11 +18,18 @@ class PostController extends Controller
         $this->category = $category;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('type')) {
+            $posts = $this->post->findByType($request->input('type'));
+        } else {
+            $posts = $this->post->findByType('post');
+        }
+
+
         // $this->data['posts'] = $this->post->all();
 
-        return $this->view('cms::post.index');
+        return $this->view('cms::post.index', compact('posts'));
     }
 
     public function create()
@@ -36,6 +43,10 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $post = $this->post->create($request);
+
+        if ($request->has('categories') && array_filter($request->input('categories'))) {
+            $sync = $this->post->synch($request->input('categories'));
+        }
 
         if (!$post) {
             session()->flash('message', 'Unable to create post');
