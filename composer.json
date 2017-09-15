@@ -40,7 +40,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Story\\Cms\\StoryCmsServiceProvider",
+        "Story\\Cms\\StoryCmsServiceProvider"
       ]
     }
   },
