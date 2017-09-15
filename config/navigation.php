@@ -1,41 +1,46 @@
 <?php
 
 return [
-    'cms' => [
+    [
+        'key' => 'content',
         'title' => 'Content',
         'font'  => 'chrome_reader_mode',
-        'groups' => [
-            'elements' => [
-                'category',
-                'pages',
-                'post'
-            ],
+        'link' => false,
+        'items' => [
+            [ 'name' => 'Category', 'link' => '/backend/category' ],
+            [ 'name' => 'Pages', 'link' => '/backend/post?type=page' ],
+            [ 'name' => 'Post', 'link' => '/backend/post'],
         ]
     ],
-    'user' => [
+    [
+        'key' => 'user',
         'title' => 'Member',
         'font'  => 'people',
-        'groups' => [
-            'groups' => [
-                'member',
-                'roles'
-            ]
+        'link' => false,
+        'items' => [
+            [ 'name' => 'User', 'link' => '/backend/user' ],
+            [ 'name' => 'Roles', 'link' => '/backend/role' ],
+            [ 'name' => 'post', 'link' => '/backend/post'],
         ]
     ],
-    'addons' => [
-        'title' => 'Addons',
-        'font' => 'widgets'
+    [
+        'key' => 'plugins',
+        'title' => 'Plugins',
+        'font' => 'widgets',
+        'link' => '/backend/plugins',
+        'items' => []
     ],
-    'settings' => [
+    [
+        'key' => 'settings',
         'title' => 'Settings',
         'font'  => 'settings',
-        'groups' => [
-            'setting' => [
-                'general'
-            ],
-            'appearance' => [
-                'navigation'
-            ]
+        'link' => false,
+        'items' => [
+            [ 'name' => 'General', 'link' => '/backend/setting/general' ],
+            [ 'name' => 'Media', 'link' => '/backend/setting/media' ],
+            [ 'name' => 'Navigation', 'link' => '/backend/setting/navigation' ],
+            [ 'name' => 'Permalink', 'link' => '/backend/setting/permalink' ],
+            [ 'name' => 'Theme', 'link' => '/backend/setting/theme' ]
         ]
     ]
 ];

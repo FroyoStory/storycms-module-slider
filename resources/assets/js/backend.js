@@ -17,11 +17,4 @@ Vue.prototype.$http = Api
  */
 
 window.Vue = Vue
-window.$ = window.jQuery = require('jquery')
 window.Bus = new Vue({name: 'Bus'})
-
-require('bootstrap-sass')
-
-// require vendor plugins
-require('./vendors/aim.js')
-require('./components/backend-sidebar')
