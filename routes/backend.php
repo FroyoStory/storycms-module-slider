@@ -14,7 +14,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('profile', 'ProfileController', ['only' => ['index', 'store']]);
     Route::resource('post', 'PostController');
     Route::resource('media', 'MediaController');
-    Route::resource('plugins', 'PluginController', ['only' => ['index', 'store', 'destroy']]);
+
+    Route::get('plugins', 'PluginController@index')->name('plugin.index');
+    Route::post('plugins', 'PluginController@store')->name('plugin.store');
+    Route::delete('plugins', 'PluginController@destroy')->name('plugin.destroy');
 
     // Settings
     Route::group(['prefix' => 'setting'], function() {

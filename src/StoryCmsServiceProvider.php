@@ -3,6 +3,7 @@
 namespace Story\Cms;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 
@@ -26,6 +27,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerResources();
         $this->registerMigrations();
+        $this->defineAssetPublishing();
     }
 
     /**
@@ -38,6 +40,23 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->configure();
         $this->registerServices();
         $this->registerAliases();
+        $this->registerPlugins();
+    }
+
+    /**
+     * Define the asset publishing configuration.
+     *
+     * @return void
+     */
+    public function defineAssetPublishing()
+    {
+        $this->publishes([
+            __DIR__.'/../public/css' => public_path('vendor/storycms/css'),
+            __DIR__.'/../public/js' => public_path('vendor/storycms/js'),
+            __DIR__.'/../public/images' => public_path('vendor/storycms/images'),
+            __DIR__.'/../public/mix-manifest.json' => public_path('vendor/storycms/mix-manifest.json'),
+            __DIR__.'/../public/fonts' => base_path('public/fonts'),
+        ], 'storycms');
     }
 
     /**
@@ -79,7 +98,6 @@ class StoryCmsServiceProvider extends ServiceProvider
                 ->namespace($this->namespace . '\\Frontend\\Controllers')
                 ->group(__DIR__.'/../routes/web.php');
         }
-
     }
 
     /**
@@ -110,6 +128,23 @@ class StoryCmsServiceProvider extends ServiceProvider
         // Register core service bindings
         foreach (config('mapping') as $key => $value) {
             is_numeric($key) ? $this->app->singleton($value) : $this->app->singleton($key, $value);
+        }
+    }
+
+    /**
+     * Register installed plugins
+     *
+     * @return void
+     */
+    protected function registerPlugins()
+    {
+        if (file_exists(config()->get('cms.plugin_path'))) {
+            $files = File::getRequire(config()->get('cms.plugin_path'));
+            foreach ($files as $key => $class) {
+                if (class_exists($class)) {
+                    $this->app->register($class);
+                }
+            }
         }
     }
 

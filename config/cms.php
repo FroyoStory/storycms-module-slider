@@ -7,5 +7,7 @@ return [
         'large' => [ 'height' => 1024, 'width' => 1024 ],
     ],
 
-    'route' => true
+    'route' => true,
+
+    'plugin_path' => base_path('bootstrap/cache/plugins.php')
 ];
