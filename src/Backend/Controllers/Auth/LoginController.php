@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Backend\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Story\Cms\Backend\Controllers\Controller;
 

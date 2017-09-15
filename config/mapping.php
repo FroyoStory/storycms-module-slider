@@ -15,5 +15,5 @@ return [
 
     // Support
     'theme' => \Story\Cms\Support\Theme::class,
-    'plugin' => \Story\Cms\Support\Plugin::class,
+    'plugin' => \Story\Cms\Support\Plugins\PluginManager::class,
 ];
