@@ -40,7 +40,10 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($request->ajax()) {
-
+            return response()->json([
+                'data' => [],
+                'meta' => ['message' => 'Successfull authenticated.']
+            ]);
         }
 
         return redirect()->intended($this->redirectPath());
