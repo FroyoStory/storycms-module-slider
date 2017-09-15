@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('profile', 'ProfileController', ['only' => ['index', 'store']]);
     Route::resource('post', 'PostController');
     Route::resource('media', 'MediaController');
+    Route::resource('plugins', 'PluginController', ['only' => ['index', 'store', 'destroy']]);
 
     // Settings
     Route::group(['prefix' => 'setting'], function() {

@@ -5,9 +5,9 @@ namespace Story\Cms\Support\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Story\Cms\Support\Theme
+ * @see \Story\Cms\Support\Plugin
  */
-class Theme extends Facade
+class Plugin extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class Theme extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'theme';
+        return 'plugin';
     }
 }

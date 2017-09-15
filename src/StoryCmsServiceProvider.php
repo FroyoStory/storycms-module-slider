@@ -123,6 +123,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
 
         $loader->alias('Configuration', \Story\Cms\Support\Facades\Configuration::class);
+        $loader->alias('Plugin', \Story\Cms\Support\Facades\Plugin::class);
         $loader->alias('Theme', \Story\Cms\Support\Facades\Theme::class);
     }
 

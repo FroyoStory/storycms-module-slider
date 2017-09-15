@@ -37,6 +37,13 @@
         "Story\\Cms\\": "src"
     }
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Story\\Cms\\StoryCmsServiceProvider",
+      ]
+    }
+  },
   "autoload-dev": {
     "classmap": [
       "tests/TestCase.php"

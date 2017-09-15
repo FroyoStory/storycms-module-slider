@@ -12,5 +12,8 @@ return [
     \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class,
 
     \Story\Cms\PostAttribute::class,
-    'theme' => \Story\Cms\Support\Theme::class
+
+    // Support
+    'theme' => \Story\Cms\Support\Theme::class,
+    'plugin' => \Story\Cms\Support\Plugin::class,
 ];

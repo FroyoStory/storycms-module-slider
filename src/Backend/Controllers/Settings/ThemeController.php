@@ -4,6 +4,7 @@ namespace Story\Cms\Backend\Controllers\Settings;
 
 use Configuration;
 use Story\Cms\Support\Theme;
+use Story\Cms\Backend\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ThemeController extends Controller
