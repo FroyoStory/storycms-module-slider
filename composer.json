@@ -1,52 +1,55 @@
 {
-  "name": "storycms/cms",
-  "description": "Full-featured Laravel web shop package and e-commerce solution for high performance shops",
-  "homepage": "http://froyostory.co.id",
-  "license": "MIT",
-  "keywords": ["laravel", "laravel-packages", "storycms", "cms"],
-  "support": {
-    "source": "https://github.com/froyostory/story-cms",
-    "issues": "https://github.com/froyostory/story-cms/issues"
-  },
-  "authors": [
-    {
-      "name": "PT Froyo Kreatif Indonesia",
-      "email": "hello@froyo.co.id"
+    "name": "storycms/cms",
+    "description": "Full-featured Laravel web shop package and e-commerce solution for high performance shops",
+    "homepage": "http://froyostory.co.id",
+    "license": "MIT",
+    "keywords": ["laravel", "laravel-packages", "storycms", "cms"],
+    "support": {
+        "source": "https://github.com/froyostory/story-cms",
+        "issues": "https://github.com/froyostory/story-cms/issues"
     },
-    {
-      "name": "Purwandi",
-      "email": "purwandi@froyo.co.id"
+    "authors": [
+        {
+            "name": "PT Froyo Kreatif Indonesia",
+            "email": "hello@froyo.co.id"
+        },
+        {
+            "name": "Purwandi",
+            "email": "purwandi@froyo.co.id"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.3",
+        "intervention/image": "^2.4",
+        "laravel/framework": "5.4.*|5.5.*",
+        "jenssegers/date": "3.2.*",
+        "themsaid/laravel-multilingual": "1.0.*"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^2.3",
+        "mockery/mockery": "~0.9",
+        "orchestra/testbench": "~3.0",
+        "orchestra/testbench-browser-kit": "~3.1",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Story\\Cms\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Story\\Cms\\StoryCmsServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "dev-next": "1.0-dev"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     }
-  ],
-  "require": {
-    "php": ">=5.6.3",
-    "intervention/image": "^2.4",
-    "laravel/framework": "5.4.*|5.5.*",
-    "jenssegers/date": "3.2.*",
-    "themsaid/laravel-multilingual": "1.0.*"
-  },
-  "require-dev": {
-    "barryvdh/laravel-debugbar": "^2.3",
-    "mockery/mockery": "~0.9",
-    "orchestra/testbench": "~3.0",
-    "orchestra/testbench-browser-kit": "~3.1",
-    "satooshi/php-coveralls": "dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-        "Story\\Cms\\": "src"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Story\\Cms\\StoryCmsServiceProvider"
-      ]
-    }
-  },
-  "autoload-dev": {
-    "classmap": [
-      "tests/TestCase.php"
-    ]
-  }
 }
