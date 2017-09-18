@@ -57,7 +57,7 @@
           form: {
             title: {},
             content: {
-              en: 'Content', id: 'Kontent'
+              en: 'Content', id: 'Konten'
             },
           },
           errors: {},
