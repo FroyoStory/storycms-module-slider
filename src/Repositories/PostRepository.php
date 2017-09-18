@@ -114,4 +114,27 @@ class PostRepository extends Repository implements StoryPostRepository
     {
         return $category->post()->where('type', $type)->paginate();
     }
+
+    /**
+     * Find post by given type
+     *
+     * @param  string $type
+     * @return \Story\Cms\Contracts\StoryPost
+     */
+    public function findByType(string $type)
+    {
+        return $this->posts->where('type', $type)->paginate();
+    }
+
+    /**
+     * Synchronize hasMany Relation
+     *
+     * @param  string $type
+     * @return \Story\Cms\Contracts\StoryPost
+     */
+    public function sync(array $categories)
+    {
+        $post = resolve(\Story\Cms\Contracts\StoryPost::class)->create($data);
+        return $post->category()->sync($categories);
+    }
 }
