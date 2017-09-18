@@ -50,9 +50,7 @@
           on-color="#13ce66"
           off-color="#ff4949"
           on-value="1"
-          off-value="0"
-          on-text="Active"
-          off-text="Inactive">
+          off-value="0">
         </el-switch>
       </div>
       <span slot="footer" class="dialog-footer">
