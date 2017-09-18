@@ -10,13 +10,13 @@ return [
     \Story\Cms\Contracts\StoryPost::class => \Story\Cms\Post::class,
     \Story\Cms\Contracts\StoryPostMeta::class => \Story\Cms\PostMeta::class,
     \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class,
-
+    \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class,
+    \Story\Cms\Contracts\StoryMenu::class => \Story\Cms\Menu::class,
+    \Story\Cms\Contracts\StoryMenuRepository::class => \Story\Cms\Repositories\MenuRepository::class,
     \Story\Cms\PostAttribute::class,
 
     // Support
     'theme' => \Story\Cms\Support\Theme::class,
     'plugin' => \Story\Cms\Support\Plugins\PluginManager::class,
-    \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class,
-    \Story\Cms\Contracts\StoryMenu::class => \Story\Cms\Menu::class,
-    \Story\Cms\Contracts\StoryMenuRepository::class => \Story\Cms\Repositories\MenuRepository::class
+
 ];

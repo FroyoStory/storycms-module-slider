@@ -27,6 +27,7 @@
         <label>Parent Menu</label>
         <div>
           <el-select v-model="form.parent_id" placeholder="Select Parent">
+            <el-option value="" label="Select parent menu"></el-option>
             <el-option
               v-for="item in menus"
               :key="item.id"
@@ -44,10 +45,15 @@
       </div>
       <div class="form-group">
         <label>Active</label>
-        <el-radio-group v-model="form.active">
-          <el-radio-button label="1">Active</el-radio-button>
-          <el-radio-button label="0">Not Active</el-radio-button>
-        </el-radio-group>
+        <el-switch
+          v-model="form.active"
+          on-color="#13ce66"
+          off-color="#ff4949"
+          on-value="1"
+          off-value="0"
+          on-text="Active"
+          off-text="Inactive">
+        </el-switch>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="danger" @click="destroy">Destory</el-button>
@@ -74,7 +80,7 @@
       form: { type: Object, required: true }
     },
     methods: {
-      update () {
+      update: function() {
         var that = this
         this.loading = true
         this.$http.put('menu/' + this.form.id, this.form, function(response) {
@@ -86,7 +92,7 @@
           that.loading = false
         })
       },
-      destroy () {
+      destroy: function() {
         var that = this
         this.$http.delete('menu/' + this.form.id, {}, function(response) {
           Bus.$emit('menu-destroyed', that.form)
@@ -99,7 +105,7 @@
       }
     },
     computed: {
-      isDisabled () {
+      isDisabled: function() {
         if (this.form.id != 1) {
           return false;
         } else {

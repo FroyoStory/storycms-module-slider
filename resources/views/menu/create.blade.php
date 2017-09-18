@@ -27,6 +27,7 @@
         <label>Parent Menu</label>
         <div>
           <el-select v-model="form.parent_id" placeholder="Select Parent">
+            <el-option value="" label="Select parent menu"></el-option>
             <el-option
               v-for="item in menus"
               :key="item.id"
@@ -43,11 +44,16 @@
         <span class="help-block text-danger" v-if="errors.post_id">@{{ errors.post_id.toString() }}</span>
       </div>
       <div class="form-group">
-        <label>Active</label>
-        <el-radio-group v-model="form.active">
-          <el-radio-button label="1">Active</el-radio-button>
-          <el-radio-button lavel="0">Not Active</el-radio-button>
-        </el-radio-group>
+        <label>Active?</label>
+        <el-switch
+          v-model="form.active"
+          on-color="#13ce66"
+          off-color="#ff4949"
+          on-value="1"
+          off-value="0"
+          on-text="Active"
+          off-text="Inactive">
+        </el-switch>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="modal = false">Cancel</el-button>
@@ -62,7 +68,7 @@
     data: function () {
       return {
         locale: 'en',
-        form: { name: {}, parent_id: 1, url: '', post_id: '', active: 1},
+        form: { name: {}, parent_id: null, url: '', post_id: '', active: 1},
         errors: {},
         modal: false,
         loading: false

@@ -48,22 +48,10 @@ class MenuController extends Controller
             'url'  => 'required'
         ]);
 
-        if ($request->has(['parent_id', 'post_id'])) {
-            $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
-        } elseif ($request->has('parent_id')) {
-            $data = $request->only('name', 'url', 'parent_id', 'active');
-        } elseif ($request->has('post_id')) {
-            $data = $request->only('name', 'url', 'post_id', 'active');
-        } else {
-            $data = $request->only('name', 'url', 'active');
-        }
+        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
+        $data = array_merge($data, [ 'user_id' => $request->user()->id ]);
 
-        $current_user = $request->user();
-        $datas = array_merge($data, [
-            'user_id' => $current_user->id
-        ]);
-
-        $menu = $this->menu->create($datas);
+        $menu = $this->menu->create($data);
 
         if (!$menu) {
             return response()->json([
@@ -91,23 +79,11 @@ class MenuController extends Controller
             'url'  => 'required'
         ]);
 
-        if ($request->has(['parent_id', 'post_id'])) {
-            $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
-        } elseif ($request->has('parent_id')) {
-            $data = $request->only('name', 'url', 'parent_id', 'active');
-        } elseif ($request->has('post_id')) {
-            $data = $request->only('name', 'url', 'post_id', 'active');
-        } else {
-            $data = $request->only('name', 'url', 'active');
-        }
-
-        $current_user = $request->user();
-        $datas = array_merge($data, [
-            'user_id' => $current_user->id
-        ]);
+        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
+        $data = array_merge($data, [ 'user_id' => $request->user()->id ]);
 
         if ($menu = $this->menu->findById($id)) {
-            $menu = $this->menu->update($menu, $datas);
+            $menu = $this->menu->update($menu, $data);
             if (!$menu) {
                 return response()->json([
                     'meta' => ['message' => 'Unable to update menu']
