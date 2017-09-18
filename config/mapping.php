@@ -9,5 +9,7 @@ return [
     \Story\Cms\Contracts\StoryRoleRepository::class => \Story\Cms\Repositories\RoleRepository::class,
     // \Story\Cms\Config\ConfigManager::class,
     \Story\Cms\Contracts\StoryPost::class => \Story\Cms\Post::class,
-    \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class
+    \Story\Cms\Contracts\StoryPostRepository::class => \Story\Cms\Repositories\PostRepository::class,
+    \Story\Cms\Contracts\StoryMenu::class => \Story\Cms\Menu::class,
+    \Story\Cms\Contracts\StoryMenuRepository::class => \Story\Cms\Repositories\MenuRepository::class
 ];

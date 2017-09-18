@@ -48,17 +48,6 @@ class CreateMenuTable extends Migration
             'parent_id' => 1,
             'active' => 1
         ]);
-
-        resolve(StoryMenu::class)::create([
-            'name' => [
-                'en' => 'Menu',
-                'id' => 'Menu'
-            ],
-            'url' => '/menu',
-            'user_id' => 1,
-            'parent_id' => 1,
-            'active' => 1
-        ]);
     }
 
     /**
