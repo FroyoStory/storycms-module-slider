@@ -3,12 +3,13 @@ import 'element-ui/lib/theme-default/index.css'
 
 import Vue from 'vue'
 import ElementUi from 'element-ui'
-import VueTinymce from 'vue-tinymce'
 import Api from './api'
+import VueI18n from 'vue-i18n'
 
 Vue.use(ElementUi)
-Vue.use(VueTinymce)
+Vue.use(VueI18n)
 Vue.prototype.$http = Api
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
