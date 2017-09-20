@@ -136,12 +136,16 @@ class PluginManager
 
         $plugins = Plugin::where('status', Plugin::INSTALLED)->get();
 
-        $assets = [];
+        $assets = $providers = [];
         foreach ($plugins as $plugin) {
-            $assets = array_merge($assets, $plugin->providers);
+            $assets[] = $plugin->name;
+            $providers = array_merge($providers, $plugin->providers);
         }
 
-        $assets = array_unique($assets);
+        $assets = [
+            'name' => $assets,
+            'providers' => array_unique($providers)
+        ];
 
         if ($this->manifestPath) {
             $this->write($assets);

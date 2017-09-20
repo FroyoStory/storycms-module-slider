@@ -77,6 +77,18 @@ class StoryCmsServiceProvider extends ServiceProvider
     protected function registerResources()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'cms');
+
+        // Register plugins views
+        if (file_exists(config()->get('cms.plugin_path'))) {
+            $files = File::getRequire(config()->get('cms.plugin_path'));
+            foreach ($files['name'] as $name) {
+                if (is_dir(base_path('plugins').'/'. $name.'/resources/views')) {
+                    $this->loadViewsFrom(base_path('plugins').'/'. $name.'/resources/views', $name);
+                }
+            }
+        }
+
+        // Register theme views
         $this->loadViewsFrom(public_path().'/themes', 'theme');
     }
 
@@ -140,7 +152,7 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         if (file_exists(config()->get('cms.plugin_path'))) {
             $files = File::getRequire(config()->get('cms.plugin_path'));
-            foreach ($files as $key => $class) {
+            foreach ($files['providers'] as $key => $class) {
                 if (class_exists($class)) {
                     $this->app->register($class);
                 }
@@ -159,6 +171,7 @@ class StoryCmsServiceProvider extends ServiceProvider
 
         $loader->alias('Configuration', \Story\Cms\Support\Facades\Configuration::class);
         $loader->alias('Plugin', \Story\Cms\Support\Facades\Plugin::class);
+        $loader->alias('SEO', \Story\Cms\Support\Facades\SEO::class);
         $loader->alias('Theme', \Story\Cms\Support\Facades\Theme::class);
     }
 

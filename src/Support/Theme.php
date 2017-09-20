@@ -3,6 +3,7 @@
 namespace Story\Cms\Support;
 
 use Configuration;
+use Illuminate\Support\Facades\Blade;
 
 class Theme
 {
@@ -35,7 +36,7 @@ class Theme
      */
     public function url($file)
     {
-        return '/themes/'. $this->current() . $file;
+        return url('/') .'/themes/'. $this->current() . $file;
     }
 
     /**

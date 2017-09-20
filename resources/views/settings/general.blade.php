@@ -21,7 +21,7 @@
         </div>
         <div class="form-group">
           <label>Site Tagline</label>
-          <el-input type="textarea" rows="3" v-model="form.site_tagline"></el-input>
+          <el-input type="textarea" :rows="3" v-model="form.site_tagline"></el-input>
           <small class="help-block">In a few words, explain what this site is about.</small>
         </div>
         <div class="form-group">
