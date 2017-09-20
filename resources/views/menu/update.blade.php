@@ -74,8 +74,16 @@
       }
     },
     props: {
-      menu: { type: Array, required: true },
+      menus: { type: Array, required: true },
       form: { type: Object, required: true }
+    },
+    methods: {
+      destroy: function() {
+
+      },
+      update: function() {
+
+      }
     }
   })
 </script>

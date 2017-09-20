@@ -38,9 +38,7 @@ class MenuRepository extends Repository implements StoryMenuRepository
 
     public function allExceptRoot()
     {
-        $menus = $this->menu->where('id', '!=', 1)->paginate();
-
-        return $this->paginator($menus);
+        return $this->menu->whereNotNull('parent_id')->get()->toTree();
     }
 
     /**
