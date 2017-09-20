@@ -1,30 +1,28 @@
 <script type="text/x-template" id="menu-index">
-  <div>
-    <table class="table table-stripped">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Url</th>
-          <th>Parent ID</th>
-          <th>Active</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="menu in menus">
-          <th>@{{ menu.id }}</th>
-          <td>@{{ menu.name.en }}</td>
-          <td>@{{ menu.url }}</td>
-          <td>@{{ menu.parent_id }}</td>
-          <td>@{{ menu.active == 1 ? 'Active' : 'Not Active'}}</td>
-          <td>
-            <menu-update :form="menu" :menus="menus" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <menu-create :menus="menus" />
+  <div class="container">
+    <div class="row" style="border-bottom: 1px solid #ddd; margin-bottom: 11px; line-height: 41px">
+      <div class="col-md-2">Name</div>
+      <div class="col-md-2">Url</div>
+      <div class="col-md-2">Parent ID</div>
+      <div class="col-md-2">Active</div>
+      <div class="col-md-2">Action</div>
+    </div>
+      <div class="media-list" v-for="menu in menus" style="margin-bottom: 15px">
+        <div class="media">
+          <div class="media-left"></div>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-md-2">@{{ menu.name.en }}</div>
+              <div class="col-md-2">@{{ menu.url }}</div>
+              <div class="col-md-2">@{{ menu.parent_id }}</div>
+              <div class="col-md-2">@{{ menu.active == 1 ? 'Active' : 'Not Active'}}</div>
+              <div class="col-md-2"><menu-update :form="menu" :menus="lists" /></div>
+              <list-item :menu="menu" :menus="lists" />
+            </div>
+          </div>
+        </div>
+      </div>
+    <menu-create :menus="lists" />
   </div>
 </script>
 <script>
@@ -33,6 +31,7 @@
     data: function () {
       return {
         menus: {!! $menus ? json_encode($menus->items) : '{}' !!},
+        lists: {!! $lists ? json_encode($lists->items) : '{}' !!},
         modal: { create: false, update: false }
       }
     },

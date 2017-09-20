@@ -3,10 +3,12 @@ import 'element-ui/lib/theme-default/index.css'
 
 import Vue from 'vue'
 import ElementUi from 'element-ui'
+import Sortable from 'vue-sortable'
 import VueTinymce from 'vue-tinymce'
 import Api from './api'
 
 Vue.use(ElementUi)
+Vue.use(Sortable)
 Vue.use(VueTinymce)
 Vue.prototype.$http = Api
 

@@ -17,4 +17,9 @@ class Menu extends Model implements StoryMenu
 
     public $translatable = ['name'];
     public $casts = ['name' => 'array'];
+
+    public function parent()
+    {
+        return $this->belongsTo(resolve(Contracts\StoryMenu::class), 'parent_id');
+    }
 }

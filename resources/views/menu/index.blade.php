@@ -13,4 +13,5 @@
   @include('cms::menu.create')
   @include('cms::menu.update')
   @include('cms::menu.list')
+  @include('cms::menu.list-item')
 @stop

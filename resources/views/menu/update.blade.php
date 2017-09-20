@@ -1,6 +1,6 @@
 <script type="text/x-template" id="menu-update">
   <div>
-    <el-button type="primary" :disabled="isDisabled" @click="modal = true">EDIT</el-button>
+    <el-button type="primary" @click="modal = true">EDIT</el-button>
     <el-dialog title="Update menu" :visible.sync="modal" v-loading.body="loading">
       <div class="form-group">
         <label>Menu Name</label>
@@ -74,42 +74,8 @@
       }
     },
     props: {
-      menus: { type: Array, required: true },
+      menu: { type: Array, required: true },
       form: { type: Object, required: true }
-    },
-    methods: {
-      update: function() {
-        var that = this
-        this.loading = true
-        this.$http.put('menu/' + this.form.id, this.form, function(response) {
-          Bus.$emit('menu-updated', response.data.data)
-          that.loading = false
-          that.modal = false
-        }, function(error) {
-          that.errors = error.response.data
-          that.loading = false
-        })
-      },
-      destroy: function() {
-        var that = this
-        this.$http.delete('menu/' + this.form.id, {}, function(response) {
-          Bus.$emit('menu-destroyed', that.form)
-          that.loading = false
-          that.modal = false
-        }, function(error) {
-          that.errors = error.response.data
-          that.loading = false
-        })
-      }
-    },
-    computed: {
-      isDisabled: function() {
-        if (this.form.id != 1) {
-          return false;
-        } else {
-          return true;
-        }
-      }
     }
   })
 </script>

@@ -31,8 +31,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = $this->menu->all();
-        return $this->view('cms::menu.index', compact('menus'));
+        $menus = $this->menu->allExceptRoot();
+        $lists = $this->menu->all();
+        return $this->view('cms::menu.index', compact('menus', 'lists'));
     }
 
     /**
