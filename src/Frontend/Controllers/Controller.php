@@ -17,7 +17,7 @@ class Controller extends BaseController
      * @param  array  $data
      * @return \Illuminate\Http\Reponse
      */
-    public function view($name, array $data = [])
+    protected function view($name, array $data = [])
     {
         $theme = Configuration::instance()->THEME;
 

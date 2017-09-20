@@ -19,8 +19,7 @@ return [
         'link' => false,
         'items' => [
             [ 'name' => 'User', 'link' => '/backend/user' ],
-            [ 'name' => 'Roles', 'link' => '/backend/role' ],
-            [ 'name' => 'post', 'link' => '/backend/post'],
+            [ 'name' => 'Roles', 'link' => '/backend/role' ]
         ]
     ],
     [
