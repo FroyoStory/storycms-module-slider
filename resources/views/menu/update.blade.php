@@ -78,11 +78,28 @@
       form: { type: Object, required: true }
     },
     methods: {
-      destroy: function() {
-
-      },
       update: function() {
-
+        var that = this
+        this.loading = true
+        this.$http.put('menu/' + this.form.id, this.form, function(response) {
+          Bus.$emit('menu-updated', response.data.data)
+          that.loading = false
+          that.modal = false
+        }, function(error) {
+          that.errors = error.response.data
+          that.loading = false
+        })
+      },
+      destroy: function() {
+        var that = this
+        this.$http.delete('menu/' + this.form.id, {}, function(response) {
+          Bus.$emit('menu-destroyed', that.form)
+          that.loading = false
+          that.modal = false
+        }, function(error) {
+          that.errors = error.response.data
+          that.loading = false
+        })
       }
     }
   })
