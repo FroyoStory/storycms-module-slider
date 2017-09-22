@@ -3,7 +3,7 @@
 
 <script type="text/x-template" id="media-browser">
   <div>
-    <span slot="button" @click="modal=true">
+    <span slot="button" @click="browse">
       <el-button type="primary" icon="picture">File browser</el-button>
     </span>
     <el-dialog title="File browser" :visible.sync="modal" v-loading.body="loading" size="large">
@@ -57,17 +57,16 @@
         image: null
       }
     },
-    mounted: function () {
-      this.init()
-    },
     methods: {
       init: function () {
         var self = this
         self.$http.get('media', {}, function(response) {
           self.medias = response.data.data
-        }, function(error) {
-
         })
+      },
+      browse: function () {
+        this.init()
+        this.modal = !this.modal
       },
       pick: function (media) {
         if (media != this.image) {
