@@ -4,10 +4,9 @@ import 'element-ui/lib/theme-default/index.css'
 import Vue from 'vue'
 import ElementUi from 'element-ui'
 import Api from './api'
-import VueI18n from 'vue-i18n'
+import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(ElementUi)
-Vue.use(VueI18n)
 Vue.prototype.$http = Api
 
 
