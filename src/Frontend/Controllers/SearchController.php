@@ -32,7 +32,7 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = $this->post->search($request);
+        $posts = $this->post->search($request->input('q'));
 
         return $this->view('search', compact('posts'));
     }

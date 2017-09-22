@@ -137,4 +137,15 @@ class PostRepository extends Repository implements StoryPostRepository
         $post = resolve(\Story\Cms\Contracts\StoryPost::class)->create($data);
         return $post->category()->sync($categories);
     }
+
+    /**
+     * Search post data
+     *
+     * @param  string $text
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function search(string $text)
+    {
+        return $this->posts->search($text)->get();
+    }
 }
