@@ -8,15 +8,38 @@ use Story\Cms\Contracts\StoryCategoryRepository;
 
 class PostController extends Controller
 {
+    /**
+     * The StoryPostRepository implementation.
+     *
+     * @var Story\Cms\Contracts\StoryPostRepository
+     */
     protected $post;
+
+    /**
+     * The StoryCategoryRepository implementation.
+     *
+     * @var Story\Cms\Contracts\StoryCategoryRepository
+     */
     protected $category;
 
+    /**
+     * Create new post controller instance.
+     *
+     * @param StoryPostRepository     $post
+     * @param StoryCategoryRepository $category
+     */
     public function __construct(StoryPostRepository $post, StoryCategoryRepository $category)
     {
         $this->post = $post;
         $this->category = $category;
     }
 
+    /**
+     * Display all post resources.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         if ($request->has('type')) {
@@ -25,20 +48,27 @@ class PostController extends Controller
             $posts = $this->post->findByType('post');
         }
 
-
-        // $this->data['posts'] = $this->post->all();
-
         return $this->view('cms::post.index', compact('posts'));
     }
 
+    /**
+     * Display create post form
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        // $this->data['categories'] = $this->category->all();
-        // $this->data['tabs'] = Hook::get('backend', $this->data)['post-editor'];
+        $categories = $this->category->all();
 
-        return $this->view('cms::post.create');
+        return $this->view('cms::post.create', compact('categories'));
     }
 
+    /**
+     * Handle to store post data
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -47,40 +77,52 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
+        $request->merge([
+            'user_id' => $request->user()->id
+        ]);
+
         $data = $request->only(
             'title', 'slug', 'content', 'post_status',
-            'comment_status', 'type', 'categories'
+            'comment_status', 'type', 'categories', 'user_id'
         );
 
-        $data = array_merge($data, [
-            'user_id' => $request->user('id')
-        ]);
         $post = $this->post->create($data);
 
-        if (!$post) {
-            session()->flash('message', 'Unable to create post');
-        } else {
-            session()->flash('info', 'Post was created');
+        if ($post) {
+            return response()->json([
+                'data' => $post,
+                'meta' => ['message' => 'Post is ctreated.']
+            ]);
         }
 
-        return redirect()->back();
+        return response()->json([
+            'meta' => ['message' => 'Unable to create post.']
+        ], 422);
     }
 
-    public function edit(Request $request, $id)
+    /**
+     * Display edit form
+     *
+     * @param  Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, int $id)
     {
         $post = $this->post->findById($id);
+        $categories = $this->category->all();
 
-        $this->data['pk']       = $id;
-        $this->data['post']     = $post;
-        $this->data['trans']    = $post->translate($request->input('locale'));
-        $this->data['categories'] = $this->category->all();
-
-        $this->data['tabs'] = Hook::get('backend', $this->data)['post-editor'];
-
-        return $this->view('post.edit');
+        return $this->view('post.edit', compact('categories', 'post'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update post resources
+     *
+     * @param  Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $id)
     {
         $this->validate($request, [
             'title' => 'required',
@@ -100,7 +142,13 @@ class PostController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id)
+    /**
+     * Destroy post id
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $id)
     {
         $post = $this->post->findById($id);
 
