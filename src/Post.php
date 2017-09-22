@@ -3,12 +3,13 @@
 namespace Story\Cms;
 
 use Configuration;
+use Laravel\Scout\Searchable;
 use Story\Cms\Contracts\StoryPost;
 use Themsaid\Multilingual\Translatable;
 
 class Post extends Model implements StoryPost
 {
-    use Translatable;
+    use Translatable, Searchable;
 
     const POST_PUBLISHED = 'publish';
     const POST_DRAFT = 'draft';
@@ -29,6 +30,7 @@ class Post extends Model implements StoryPost
         'title' => 'array',
         'content' => 'array'
     ];
+    public $asYouType = true;
 
     /**
      * Get user relationship
@@ -96,5 +98,18 @@ class Post extends Model implements StoryPost
             return url('/').'/'. $this->type. '/'. $this->slug;
         }
 
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        if (!in_array($this->type, ['attachment'])) {
+            return $this->toArray();
+        }
+        return [];
     }
 }

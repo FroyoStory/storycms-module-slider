@@ -123,6 +123,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/mapping.php', 'mapping');
         $this->mergeConfigFrom(__DIR__.'/../config/navigation.php', 'navigation');
         $this->mergeConfigFrom(__DIR__.'/../config/multilangual.php', 'multilangual');
+        $this->mergeConfigFrom(__DIR__.'/../config/scout.php', 'scout');
     }
 
     /**
@@ -135,6 +136,8 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->app->register(Config\ConfigServiceProvider::class);
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
+        $this->app->register(\Laravel\Scout\ScoutServiceProvider::class);
+        $this->app->register(\TeamTNT\Scout\TNTSearchScoutServiceProvider::class);
         $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
 
         // Register core service bindings
@@ -173,15 +176,5 @@ class StoryCmsServiceProvider extends ServiceProvider
         $loader->alias('Plugin', \Story\Cms\Support\Facades\Plugin::class);
         $loader->alias('SEO', \Story\Cms\Support\Facades\SEO::class);
         $loader->alias('Theme', \Story\Cms\Support\Facades\Theme::class);
-    }
-
-    /**
-     * Return the navigation menu
-     *
-     * @return Array
-     */
-    public static function navigation()
-    {
-        return require __DIR__ . '/../config/navigation.php';
     }
 }

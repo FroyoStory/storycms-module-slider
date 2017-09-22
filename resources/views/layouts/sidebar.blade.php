@@ -1,9 +1,21 @@
+@php
+  $navigations = config()->get('navigation');
+  if (file_exists(config()->get('cms.plugin_path'))) {
+    $files = File::getRequire(config()->get('cms.plugin_path'));
+    foreach ($files['name'] as $name) {
+        if (file_exists(base_path('plugins').'/'. $name.'/config/navigation.php')) {
+          $navigations = array_merge_recursive($navigations, File::getRequire(base_path('plugins').'/'. $name.'/config/navigation.php'));
+        }
+    }
+  }
+@endphp
+
 <nav class="">
   <ul>
     <li><a href="/backend" class="main-menu"><i class="material-icons">album</i> <span>STORY</span></a></li>
   </ul>
   <ul id="nav" role="menubar" class="sidebar-menu">
-    @foreach (config('navigation') as $navigation)
+    @foreach ($navigations as $navigation)
     <li data-submenu-id="submenu-{{ $navigation['key'] }}">
       @if ($navigation['link'] == false)
         <el-popover class="popover" ref="{{ $navigation['key'] }}" placement="right" width="200" trigger="click" >
