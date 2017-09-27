@@ -23,7 +23,7 @@
               <p class="help-block"><?php echo url('/').'/{{ slug }}' ;?></p>
             </div>
           </div>
-        </div> <!-- End title -->
+        </div>
 
         <div class="form-group">
           <div class="postbox">
@@ -41,7 +41,6 @@
             v-show="locale=='en'">
           </el-input>
         </div>
-
       </div>
 
       <div class="postbox-container">
@@ -53,7 +52,32 @@
 
         <div class="form-group">
           <label>Post Tags</label>
-          <el-input placeholder="Input Tags" v-model="form.tags"></el-input>
+            <li style="list-style: none">
+              <el-tag style="background-color:#ffbd28; margin: 0 5px 5px 0; "
+                :key="tag"
+                v-for="tag in form.dynamicTags"
+                :closable="true"
+                :close-transition="false"
+                @close="handleClose(tag)">
+                @{{tag}}
+              </el-tag>
+            </li>
+
+            <li style="list-style: none">
+              <el-input
+                class="input-new-tag"
+                v-if="form.inputVisible"
+                v-model="form.tags"
+                ref="saveTagInput"
+                size="small"
+                @keyup.enter.native="handleInputConfirm"
+                @blur="handleInputConfirm">
+              </el-input>
+              <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+            </li>
+
+
+
         </div>
 
         <div class="form-group">
@@ -94,7 +118,7 @@
         <div class="form-group">
           <label>Post Date</label>
           <el-date-picker
-            v-model="form.date"
+            v-model="form.publish_date"
             type="datetime"
             placeholder="Select date and time" style="width:100%">
           </el-date-picker>
@@ -103,10 +127,15 @@
           <div class="form-group">
             <label>Categories</label>
             <ul style="overflow-Y:scroll; height:200px; list-style: none; border: 1px solid #bfcbd9; padding: 11px;">
-              <li v-for="item in categories">
-                <el-checkbox v-model="form.categories_id" :value="item.value" :label="item.label"></el-checkbox>
+              @foreach ($categories as $category)
+              <li>
+                <el-checkbox
+                  v-model="form.categories_id"
+                  value="{{ $category->id}}"
+                  label="{{ $category->name }}">
+                </el-checkbox>
               </li>
-              <li>@{{ form.categories_id }}</li>
+              @endforeach
             </ul>
           </div>
 
@@ -128,36 +157,27 @@
             content: { en: '', id: ''},
             excerpt: { en: '', id: ''},
             url:'',
-            tags:'',
             meta_title:'',
             meta_desc:'',
             authors_id:'',
             status:'',
-            date:'',
+            publish_date:'',
             categories_id: [],
+            tags:'',
+            dynamicTags: [],
+            inputVisible: false,
           },
-            authors: [
-              { value: 'Froyoadm' },
-              { value: 'Prasaja' },
-              { value: 'Aldiawan' }
-            ],
-            status: [
-              { value: 'Draft' },
-              { value: 'Pending Review' },
-            ],
+          authors: [
+            { value: 'Froyoadm' },
+            { value: 'Prasaja' },
+            { value: 'Aldiawan' }
+          ],
+          status: [
+            { value: 'Draft' },
+            { value: 'Pending Review' },
+          ],
           errors: {},
           locale: '{{ App::getLocale() }}',
-          categories: [
-            {value: 1, label: 'Business'},
-            {value: 2, label: 'Campaign'},
-            {value: 3, label: 'Creative'},
-            {value: 4, label: 'Entertainment'},
-            {value: 5, label: 'Opinion'},
-            {value: 6, label: 'Story'},
-            {value: 7, label: 'Technology'},
-            {value: 8, label: 'Trend'},
-            {value: 9, label: 'Uncategorized'},
-          ],
         }
       },
       computed: {
@@ -179,27 +199,48 @@
             that.errors = error.response.data
           })
         },
-          sanitizeTitle: function(title) {
-            var slug = "";
-            // Change to lower case
-            var titleLower = title.toLowerCase();
-            // Letter "e"
-            slug = titleLower.replace(/e|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ễ|ể|ệ/gi, 'e');
-            // Letter "a"
-            slug = slug.replace(/a|á|à|ã|ả|ạ|ă|ắ|ằ|ẵ|ẳ|ặ|â|ấ|ầ|ẫ|ẩ|ậ/gi, 'a');
-            // Letter "o"
-            slug = slug.replace(/o|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ờ|ỡ|ở|ợ/gi, 'o');
-            // Letter "u"
-            slug = slug.replace(/u|ú|ù|ũ|ủ|ụ|ư|ứ|ừ|ữ|ử|ự/gi, 'u');
-            // Letter "d"
-            slug = slug.replace(/đ/gi, 'd');
-            // Trim the last whitespace
-            slug = slug.replace(/\s*$/g, '');
-            // Change whitespace to "-"
-            slug = slug.replace(/\s+/g, '-');
 
-            return slug;
-          },
+        sanitizeTitle: function(title) {
+          var slug = "";
+          // Change to lower case
+          var titleLower = title.toLowerCase();
+          // Letter "e"
+          slug = titleLower.replace(/e|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ễ|ể|ệ/gi, 'e');
+          // Letter "a"
+          slug = slug.replace(/a|á|à|ã|ả|ạ|ă|ắ|ằ|ẵ|ẳ|ặ|â|ấ|ầ|ẫ|ẩ|ậ/gi, 'a');
+          // Letter "o"
+          slug = slug.replace(/o|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ờ|ỡ|ở|ợ/gi, 'o');
+          // Letter "u"
+          slug = slug.replace(/u|ú|ù|ũ|ủ|ụ|ư|ứ|ừ|ữ|ử|ự/gi, 'u');
+          // Letter "d"
+          slug = slug.replace(/đ/gi, 'd');
+          // Trim the last whitespace
+          slug = slug.replace(/\s*$/g, '');
+          // Change whitespace to "-"
+          slug = slug.replace(/\s+/g, '-');
+
+          return slug;
+        },
+
+        handleClose(tag) {
+          this.form.dynamicTags.splice(this.form.dynamicTags.indexOf(tag), 1);
+        },
+
+        showInput() {
+          this.form.inputVisible = true;
+          this.$nextTick(_ => {
+            this.$refs.saveTagInput.$refs.input.focus();
+          });
+        },
+
+        handleInputConfirm() {
+          let tags = this.form.tags;
+          if (tags) {
+            this.form.dynamicTags.push(tags);
+          }
+          this.form.inputVisible = false;
+          this.form.tags = '';
+        },
       }
     })
   </script>
