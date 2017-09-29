@@ -1,25 +1,10 @@
 <script type="text/x-template" id="category-index">
   <div>
-    <table class="table table-stripped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Slug</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="category in categories">
-          <td>@{{ category.name.en }}</td>
-          <td>@{{ category.description }}</td>
-          <td>@{{ category.slug }}</td>
-          <td>
-            <category-update :form="category" :categories="categories" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <vddl-list :list="categories" effect-allowed="move" :external-source="true" style="padding: 10px; border: 1px solid #DEDEDE">
+      <category-item v-for="(category, index) in categories" :key="category.id" :categories="categories" :category="category" :index="index"></category-item>
+    </vddl-list>
+    <br />
+
     <category-create :categories="categories" />
   </div>
 </script>
@@ -36,6 +21,7 @@
       Bus.$on('category-created', this.categoryCreated)
       Bus.$on('category-updated', this.categoryUpdated)
       Bus.$on('category-destroyed', this.categoryDestroyed)
+      Bus.$on('category-item-moved', this.categoryTreeMoved)
     },
     methods: {
       categoryCreated: function (data) {
@@ -48,6 +34,14 @@
       categoryDestroyed: function (data) {
         var index = this.categories.indexOf(data)
         this.categories.splice(index, 1)
+      },
+      categoryTreeMoved: function () {
+        var self = this
+        self.$http.post('category/rebuild', { categories: this.categories }, function(response) {
+
+        }, function(error) {
+
+        })
       }
     }
   })

@@ -4,10 +4,11 @@ namespace Story\Cms;
 
 use Story\Cms\Contracts\StoryCategory;
 use Themsaid\Multilingual\Translatable;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Category extends Model implements StoryCategory
 {
-    use Translatable;
+    use NodeTrait, Translatable;
 
     protected $table = 'categories';
     protected $fillable = ['name', 'slug', 'parent_id', 'description'];
