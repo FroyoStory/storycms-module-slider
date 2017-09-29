@@ -3,11 +3,12 @@ import 'element-ui/lib/theme-default/index.css'
 
 import Vue from 'vue'
 import ElementUi from 'element-ui'
-import VueTinymce from 'vue-tinymce'
+import Vddl from 'vddl';
+import Draggable from 'vuedraggable'
 import Api from './api'
 
 Vue.use(ElementUi)
-Vue.use(VueTinymce)
+Vue.use(Vddl)
 Vue.prototype.$http = Api
 
 /**

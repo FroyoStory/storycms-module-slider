@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Story\Cms\Contracts\StoryCategory;
+use Kalnoy\Nestedset\NestedSet;
+
 
 class CreateCategoryTable extends Migration
 {
@@ -16,16 +18,29 @@ class CreateCategoryTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id')->default('0');
             $table->string('slug')->unique();
             $table->json('name');
             $table->json('description')->nullable();
             $table->timestamps();
+
+            NestedSet::columns($table);
         });
 
         // Resolve service container
         resolve(StoryCategory::class)::create([
-            'parent_id' => 0,
+            'slug' => 'root',
+            'name' => [
+                'en' => 'Root',
+                'id' => 'Root'
+            ],
+            'description' => [
+                'en' => '',
+                'id' => ''
+            ]
+        ]);
+
+        // Resolve service container
+        resolve(StoryCategory::class)::create([
             'slug' => 'uncategorized',
             'name' => [
                 'en' => 'Uncategorized',
@@ -34,7 +49,8 @@ class CreateCategoryTable extends Migration
             'description' => [
                 'en' => 'Uncategorized',
                 'id' => 'Tidak bekategori'
-            ]
+            ],
+            'parent_id' => 1
         ]);
     }
 

@@ -22,17 +22,6 @@
         <span class="help-block text-danger" v-if="errors.slug">@{{ errors.slug.toString() }}</span>
       </div>
       <div class="form-group">
-        <el-select v-model="form.parent_id" placeholder="Select">
-          <el-option
-            v-for="item in categories"
-            :key="item.id"
-            :label="item.name[locale]"
-            :value="item.id">
-          </el-option>
-        </el-select>
-        <span class="help-block text-danger" v-if="errors.parent_id">@{{ errors.parent_id.toString() }}</span>
-      </div>
-      <div class="form-group">
         <div class="row">
           <div class="col-md-10">
             <el-input type="textarea" v-model="form.description.en" placeholder="Category name" :rows="4" v-show="locale=='en'"></el-input>
@@ -60,14 +49,11 @@
     data: function () {
       return {
         locale: 'en',
-        form: { name: {}, parent_id: null, description: {}, slug: ''},
+        form: { name: {en: '', id: ''}, description: {en: '', id: ''}, slug: ''},
         errors: {},
         modal: false,
         loading: false
       }
-    },
-    props: {
-      categories: { type: Array, required: true}
     },
     methods: {
       create: function () {
@@ -77,7 +63,7 @@
           Bus.$emit('category-created', response.data.data)
           that.loading = false
           that.modal = false
-          that.form = { name: {}, parent_id: null, description: {}, slug: ''}
+          that.form = { name: {}, description: {}, slug: ''}
         }, function(error) {
           that.loading = false
           that.errors = error.response.data

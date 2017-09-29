@@ -9,6 +9,7 @@ Route::post('auth/forgot', 'Auth\ForgotController@store');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
     Route::resource('category', 'CategoryController', ['only' => ['index', 'store', 'update', 'destroy']]);
+    Route::post('category/rebuild', 'CategoryController@rebuild')->name('category.rebuild');
     Route::resource('user', 'UserController', ['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('role', 'RoleController', ['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('menu', 'MenuController', ['only' => ['index', 'store', 'update', 'destroy']]);
