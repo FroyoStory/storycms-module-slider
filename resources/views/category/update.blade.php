@@ -1,6 +1,6 @@
 <script type="text/x-template" id="category-update">
   <div>
-    <el-button type="primary" @click="modal = true">EDIT</el-button>
+    <a @click="modal = true">EDIT</a>
     <el-dialog title="Create category" :visible.sync="modal" v-loading.body="loading">
       <div class="form-group">
         <div class="row">
@@ -20,17 +20,6 @@
       <div class="form-group">
         <el-input type="text" v-model="form.slug" placeholder="Slug"></el-input>
         <span class="help-block text-danger" v-if="errors.slug">@{{ errors.slug.toString() }}</span>
-      </div>
-      <div class="form-group">
-        <el-select v-model="form.parent_id" placeholder="Select">
-          <el-option
-            v-for="item in categories"
-            :key="item.id"
-            :label="item.name[locale]"
-            :value="item.id">
-          </el-option>
-        </el-select>
-        <span class="help-block text-danger" v-if="errors.name">@{{ errors.parent_id.toString() }}</span>
       </div>
       <div class="form-group">
         <div class="row">
@@ -68,7 +57,6 @@
       }
     },
     props: {
-      categories: { type: Array, required: true },
       form: { type: Object, required: true }
     },
     methods: {

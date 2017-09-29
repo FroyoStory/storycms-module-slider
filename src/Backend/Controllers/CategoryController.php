@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->categories->all();
+        $categories = $this->categories->toTree();
         return $this->view('cms::category.index', compact('categories'));
     }
 
@@ -46,11 +46,14 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'translatable_required',
-            'slug' => 'required',
-            'parent_id' => 'exists:categories,id'
+            'slug' => 'required'
         ]);
 
-        $data = $request->only('name', 'slug', 'parent_id', 'description');
+        $request->merge([
+            'parent_id' => 1
+        ]);
+
+        $data = $request->only('name', 'slug', 'description', 'parent_id');
         $category = $this->categories->create($data);
 
         if (!$category) {
@@ -76,11 +79,10 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'translatable_required',
-            'slug' => 'required',
-            'parent_id' => 'exists:categories,id'
+            'slug' => 'required'
         ]);
 
-        $data = $request->only('name', 'slug', 'parent_id', 'description');
+        $data = $request->only('name', 'slug','description');
 
         if ($category = $this->categories->findById($id)) {
             $category = $this->categories->update($category, $data);
@@ -97,6 +99,28 @@ class CategoryController extends Controller
         return response()->json([
             'data' => [],
             'meta' => ['message' => 'Unable to found category']
+        ], 422);
+    }
+
+    /**
+     * Rebuild the tree
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function rebuild(Request $request)
+    {
+        $this->validate($request, ['categories' => 'required']);
+
+        if ($this->categories->rebuildTree($request->only('categories'))) {
+            return response()->json([
+                'data' => [],
+                'meta' => ['message' => 'Categories was updated']
+            ]);
+        }
+        return response()->json([
+            'data' => [],
+            'meta' => ['message' => 'Unable to update categories']
         ], 422);
     }
 
