@@ -1,5 +1,10 @@
 {
+<<<<<<< HEAD
     "/js/backend.js": "/js/backend.js?id=476c17f0f1ba0a6cc35c",
     "/css/backend.css": "/css/backend.css?id=8f290d05cada75eec6d5",
+=======
+    "/js/backend.js": "/js/backend.js?id=a7a68e17fd3325ad2561",
+    "/css/backend.css": "/css/backend.css?id=6be07d85078c42bafb97",
+>>>>>>> ef09811598bffde5e4365e4f931479a40f67ca1b
     "/css/editor.css": "/css/editor.css?id=3747711a412e51268441"
 }
