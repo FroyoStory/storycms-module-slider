@@ -13,6 +13,7 @@
   @include('cms::post.editor')
   <script type="text/x-template" id="post-create">
     <div class="clearfix">
+
       <div class="postbox-container-editor">
         <div class="form-group">
           <div class="row">
@@ -50,6 +51,22 @@
           </el-input>
         </div>
 
+
+        <div class="form-group">
+          <label>Post Meta Title</label>
+          <el-input placeholder="Input Meta title" v-model="form.meta_title"></el-input>
+        </div>
+
+        <div class="form-group">
+          <label>Post Meta Description</label>
+          <el-input
+            type="textarea"
+            :rows="3"
+            placeholder="Input Meta Description"
+            v-model="form.meta_desc">
+          </el-input>
+        </div>
+
         <div class="form-group">
           <label>Post Tags</label>
             <li style="list-style: none">
@@ -75,34 +92,6 @@
               </el-input>
               <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
             </li>
-
-
-
-        </div>
-
-        <div class="form-group">
-          <label>Post Meta Title</label>
-          <el-input placeholder="Input Meta title" v-model="form.meta_title"></el-input>
-        </div>
-
-        <div class="form-group">
-          <label>Post Meta Description</label>
-          <el-input
-            type="textarea"
-            :rows="3"
-            placeholder="Input Meta Description"
-            v-model="form.meta_desc">
-          </el-input>
-        </div>
-
-        <div class="form-group">
-          <label>Authors</label>
-          <el-select v-model="form.authors_id" style="width:100%">
-            <el-option label="Select Authors" value=""></el-option>
-            <el-option
-              v-for="item in authors" v-bind:value="item.value" :key="item.value">
-            </el-option>
-          </el-select>
         </div>
 
         <div class="form-group">
@@ -124,20 +113,20 @@
           </el-date-picker>
         </div>
 
-          <div class="form-group">
-            <label>Categories</label>
-            <ul style="overflow-Y:scroll; height:200px; list-style: none; border: 1px solid #bfcbd9; padding: 11px;">
-              @foreach ($categories as $category)
-              <li>
-                <el-checkbox
-                  v-model="form.categories_id"
-                  value="{{ $category->id}}"
-                  label="{{ $category->name }}">
-                </el-checkbox>
-              </li>
-              @endforeach
-            </ul>
-          </div>
+        <div class="form-group">
+          <label>Categories</label>
+          <ul style="overflow-Y:scroll; height:200px; list-style: none; border: 1px solid #bfcbd9; padding: 11px;">
+            @foreach ($categories as $category)
+            <li>
+              <el-checkbox
+                v-model="form.categories_id"
+                value="{{ $category->id}}"
+                label="{{ $category->name }}">
+              </el-checkbox>
+            </li>
+            @endforeach
+          </ul>
+        </div>
 
         <div class="form-group">
           <el-button type="primary" @click="create">Publish</el-button>
@@ -159,7 +148,6 @@
             url:'',
             meta_title:'',
             meta_desc:'',
-            authors_id:'',
             status:'',
             publish_date:'',
             categories_id: [],
@@ -167,11 +155,6 @@
             dynamicTags: [],
             inputVisible: false,
           },
-          authors: [
-            { value: 'Froyoadm' },
-            { value: 'Prasaja' },
-            { value: 'Aldiawan' }
-          ],
           status: [
             { value: 'Draft' },
             { value: 'Pending Review' },
