@@ -7,11 +7,7 @@ import Api from './api'
 import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(ElementUi)
-import VueI18n from 'vue-i18n'
-
-Vue.use(ElementUi)
 Vue.prototype.$http = Api
-
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
