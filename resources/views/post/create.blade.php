@@ -165,7 +165,7 @@
       },
       computed: {
         slug: function() {
-          return slug = this.sanitizeTitle(this.form.title.en);
+          return this.sanitizeTitle(this.form.title.en);
         }
       },
       methods: {
@@ -184,6 +184,7 @@
           })
         },
 
+        /*taken from: https://codepen.io/tatthien/pen/xVBxZQ*/
         sanitizeTitle: function(title) {
           var slug = "";
           // Change to lower case
@@ -204,7 +205,6 @@
           slug = slug.replace(/\s+/g, '-');
 
           return slug;
-          /*taken from: https://codepen.io/tatthien/pen/xVBxZQ*/
         },
 
         handleClose: function (tag) {
