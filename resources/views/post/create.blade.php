@@ -177,7 +177,8 @@
             that.loading = false
             that.modal = false
             that.form= { content: {en: 'Content', id: 'Kontent'}, url:'', tags:'', excerpt:'', select: '' }
-          }, function(error) {
+          },
+          function(error) {
             that.loading = false
             that.errors = error.response.data
           })
@@ -203,21 +204,22 @@
           slug = slug.replace(/\s+/g, '-');
 
           return slug;
+          /*taken from: https://codepen.io/tatthien/pen/xVBxZQ*/
         },
 
-        handleClose(tag) {
+        handleClose: function (tag) {
           this.form.dynamicTags.splice(this.form.dynamicTags.indexOf(tag), 1);
         },
 
-        showInput() {
+        showInput: function () {
           this.form.inputVisible = true;
-          this.$nextTick(_ => {
+          this.$nextTick(function () {
             this.$refs.saveTagInput.$refs.input.focus();
           });
         },
 
-        handleInputConfirm() {
-          let tags = this.form.tags;
+        handleInputConfirm: function () {
+          var tags = this.form.tags;
           if (tags) {
             this.form.dynamicTags.push(tags);
           }
