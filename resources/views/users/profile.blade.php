@@ -13,7 +13,6 @@
   @include('cms::media.browser')
   <script type="text/x-template" id="profile-update">
     <div>
-      <media-browser />
       <div class="form-group">
         <div class="row">
           <div class="col-md-2">

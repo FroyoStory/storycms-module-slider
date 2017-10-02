@@ -10,6 +10,7 @@
 
 @section('js')
   @parent
+  @include('cms::category.item')
   @include('cms::category.create')
   @include('cms::category.update')
   @include('cms::category.list')

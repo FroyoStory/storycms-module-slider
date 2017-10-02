@@ -17,6 +17,7 @@ return [
 
     // Support
     'theme' => \Story\Cms\Support\Theme::class,
+    'seo' => \Story\Cms\Support\SEO::class,
     'plugin' => \Story\Cms\Support\Plugins\PluginManager::class,
 
 ];

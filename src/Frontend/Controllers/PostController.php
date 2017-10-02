@@ -2,6 +2,7 @@
 
 namespace Story\Cms\Frontend\Controllers;
 
+use SEO;
 use Story\Cms\Contracts\StoryPostRepository;
 
 class PostController extends Controller
@@ -39,15 +40,40 @@ class PostController extends Controller
             default: $slug = ''; break;
         }
 
-        // if num_args == 2
-        // /{custom_post_type}/{post}
-        if ($num_args == 2) {
-            $page = $this->posts->findBySlug(func_get_arg(0));
+        // /{page}
+        if ($num_args == 1) {
+            $post = $this->posts->findBySlug(func_get_arg(0));
+
+            if ($post && $post->type == 'page') {
+                SEO::instance([
+                    'title' => $post->title,
+                    'description' => $post->content
+                ]);
+                return $this->view('page', compact('post'));
+            }
+        // /{cpt}/{post}
+        } elseif ($num_args == 2) {
             $post = $this->posts->findBySlug(func_get_arg(1));
+            if ($post) {
+                SEO::instance([
+                    'title' => $post->title,
+                    'description' => $post->content
+                ]);
+                return $this->view('single', compact('post'));
+            }
+        // /{Y}/{m}/{d}/{post}
+        // /{Y}/{m}/{post}
         } else  {
             $post = $this->posts->findBySlug($slug);
+            if ($post && $post->type == 'post') {
+                SEO::instance([
+                    'title' => $post->title,
+                    'description' => $post->content
+                ]);
+                return $this->view('single', compact('post'));
+            }
         }
 
-        return $post;
+        return $this->view('404');
     }
 }

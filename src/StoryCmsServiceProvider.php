@@ -77,6 +77,18 @@ class StoryCmsServiceProvider extends ServiceProvider
     protected function registerResources()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'cms');
+
+        // Register plugins views
+        if (file_exists(config()->get('cms.plugin_path'))) {
+            $files = File::getRequire(config()->get('cms.plugin_path'));
+            foreach ($files['name'] as $name) {
+                if (is_dir(base_path('plugins').'/'. $name.'/resources/views')) {
+                    $this->loadViewsFrom(base_path('plugins').'/'. $name.'/resources/views', $name);
+                }
+            }
+        }
+
+        // Register theme views
         $this->loadViewsFrom(public_path().'/themes', 'theme');
     }
 
@@ -111,6 +123,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/mapping.php', 'mapping');
         $this->mergeConfigFrom(__DIR__.'/../config/navigation.php', 'navigation');
         $this->mergeConfigFrom(__DIR__.'/../config/multilangual.php', 'multilangual');
+        $this->mergeConfigFrom(__DIR__.'/../config/scout.php', 'scout');
     }
 
     /**
@@ -123,6 +136,8 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->app->register(Config\ConfigServiceProvider::class);
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
+        $this->app->register(\Laravel\Scout\ScoutServiceProvider::class);
+        $this->app->register(\TeamTNT\Scout\TNTSearchScoutServiceProvider::class);
         $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
 
         // Register core service bindings
@@ -140,7 +155,7 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         if (file_exists(config()->get('cms.plugin_path'))) {
             $files = File::getRequire(config()->get('cms.plugin_path'));
-            foreach ($files as $key => $class) {
+            foreach ($files['providers'] as $key => $class) {
                 if (class_exists($class)) {
                     $this->app->register($class);
                 }
@@ -159,16 +174,7 @@ class StoryCmsServiceProvider extends ServiceProvider
 
         $loader->alias('Configuration', \Story\Cms\Support\Facades\Configuration::class);
         $loader->alias('Plugin', \Story\Cms\Support\Facades\Plugin::class);
+        $loader->alias('SEO', \Story\Cms\Support\Facades\SEO::class);
         $loader->alias('Theme', \Story\Cms\Support\Facades\Theme::class);
-    }
-
-    /**
-     * Return the navigation menu
-     *
-     * @return Array
-     */
-    public static function navigation()
-    {
-        return require __DIR__ . '/../config/navigation.php';
     }
 }

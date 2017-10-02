@@ -5,7 +5,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="">Profile</a></li>
+        <li><a href="/backend/profile">Profile</a></li>
       </ul>
     </div>
   </div>

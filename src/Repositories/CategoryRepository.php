@@ -35,6 +35,28 @@ class CategoryRepository extends Repository implements StoryCategoryRepository
     }
 
     /**
+     * Build tree from categories data
+     *
+     * @return \Kalnoy\Nestedset\Collection
+     */
+    public function toTree()
+    {
+        return array_first($this->category->defaultOrder()->get()->toTree())->children;
+    }
+
+    /**
+     * Rebuild tree data by given categories collection
+     *
+     * @param  array  $data
+     * @return \Kalnoy\Nestedset\Collection
+     */
+    public function rebuildTree(array $data)
+    {
+        $root = $this->findById(1);
+        return $this->category->rebuildSubtree($root, $data['categories']);
+    }
+
+    /**
      * Save a category base on data
      *
      * @param  array $data
