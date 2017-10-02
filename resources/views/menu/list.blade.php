@@ -1,6 +1,10 @@
 <script type="text/x-template" id="menu-index">
   <div>
-    <list-item v-for="(menu, menuIndex) in menus" :key="menuIndex" :menu="menu" :menus="lists" />
+    <draggable :list="menus">
+      <transition-group>
+        <list-item v-for="(menu, menuIndex) in menus" :key="menuIndex" :menu="menu" :menus="lists" />
+      </transition-group>
+    </draggable>
     <menu-create :menus="lists" />
   </div>
 </script>
