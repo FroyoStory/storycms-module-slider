@@ -5,14 +5,16 @@
       <div class="form-group">
         <div class="row">
           <div class="col-md-10">
-            <el-input type="text" v-model="form.name.en" placeholder="Category name" v-show="locale=='en'"></el-input>
-            <el-input type="text" v-model="form.name.id" placeholder="Category name" v-show="locale=='id'"></el-input>
+            @foreach (config()->get('multilangual.locales') as $locale)
+            <el-input type="text" v-model="form.name.{{ $locale }}" placeholder="Category name" v-show="locale=='{{ $locale }}'"></el-input>
+            @endforeach
             <span class="help-block text-danger" v-if="errors.name">@{{ errors.name.toString() }}</span>
           </div>
           <div class="col-md-2">
             <el-select v-model="locale" slot="append" placeholder="Eng">
-              <el-option label="en" value="en"></el-option>
-              <el-option label="id" value="id"></el-option>
+              @foreach (config()->get('multilangual.locales') as $locale)
+              <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+              @endforeach
             </el-select>
           </div>
         </div>
@@ -24,14 +26,16 @@
       <div class="form-group">
         <div class="row">
           <div class="col-md-10">
-            <el-input type="textarea" v-model="form.description.en" placeholder="Category name" :rows="4" v-show="locale=='en'"></el-input>
-            <el-input type="textarea" v-model="form.description.id" placeholder="Category name" :rows="4" v-show="locale=='id'"></el-input>
+            @foreach (config()->get('multilangual.locales') as $locale)
+            <el-input type="textarea" v-model="form.description.{{ $locale }}" placeholder="Description" :rows="4" v-show="locale=='{{ $locale }}'"></el-input>
+            @endforeach
             <span class="help-block text-danger" v-if="errors.description">@{{ errors.description.toString() }}</span>
           </div>
           <div class="col-md-2">
             <el-select v-model="locale" slot="append" placeholder="Eng">
-              <el-option label="en" value="en"></el-option>
-              <el-option label="id" value="id"></el-option>
+              @foreach (config()->get('multilangual.locales') as $locale)
+              <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+              @endforeach
             </el-select>
           </div>
         </div>

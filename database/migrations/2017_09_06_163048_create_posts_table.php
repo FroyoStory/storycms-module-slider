@@ -18,12 +18,14 @@ class CreatePostsTable extends Migration
             $table->integer('user_id');
             $table->integer('parent_id')->nullable();
             $table->string('slug')->unique();
-            $table->string('title')->nullable();
-            $table->string('content')->nullable();
+            $table->text('title')->nullable();
+            $table->longText('content')->nullable();
+            $table->longText('excerpt')->nullable();
             $table->string('post_status')->default('draft');
             $table->string('comment_status')->default('closed');
             $table->string('type')->default('post');
             $table->string('mime_type')->nullable();
+            $table->timestamp('publish_date')->nullable();
             $table->timestamps();
         });
     }

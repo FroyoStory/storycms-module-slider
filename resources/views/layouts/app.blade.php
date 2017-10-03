@@ -31,7 +31,13 @@
     </div>
     @yield('template')
   @section('js')
-    <script type="text/javascript" src="{{ mix('js/backend.js', 'vendor/storycms') }}"></script>
+    <script>
+      var STORY = {
+        locale: '<?php echo App::getLocale() ;?>',
+        locales: { <?php echo implode(': "", ', config()->get('multilangual.locales'));?>: "" }
+      }
+    </script>
+    <script src="{{ mix('js/backend.js', 'vendor/storycms') }}"></script>
   @show
 
   <script type="text/javascript">

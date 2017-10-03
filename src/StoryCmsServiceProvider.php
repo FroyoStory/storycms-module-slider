@@ -136,6 +136,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->app->register(Config\ConfigServiceProvider::class);
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
+        $this->app->register(\Cartalyst\Tags\TagsServiceProvider::class);
         $this->app->register(\Laravel\Scout\ScoutServiceProvider::class);
         $this->app->register(\TeamTNT\Scout\TNTSearchScoutServiceProvider::class);
         $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);

@@ -41,9 +41,9 @@ class MediaController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
-                'data' => $medias->items,
+                'data' => $medias ? $medias->items : [],
                 'meta' => [
-                    'pagination' => $medias->pagination
+                    'pagination' => $medias ? $medias->pagination : '{}'
                 ]
             ]);
         }

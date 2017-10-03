@@ -2,9 +2,9 @@
 @include('cms::media.update')
 
 <script type="text/x-template" id="media-browser">
-  <div>
+  <span>
     <span slot="button" @click="browse">
-      <el-button type="primary" icon="picture">File browser</el-button>
+      <el-button type="primary" icon="picture" size="small">File browser</el-button>
     </span>
     <el-dialog title="File browser" :visible.sync="modal" v-loading.body="loading" size="large">
       <div class="row">
@@ -43,7 +43,7 @@
         </div>
       </div>
     </el-dialog>
-  </div>
+  </span>
 </script>
 <script>
   Vue.component('media-browser', {

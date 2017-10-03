@@ -1,106 +1,256 @@
-@extends('story-theme::layouts.master')
+@extends('cms::layouts.app')
 
-@section('title') Post Pages @stop
+@section('title') Post Update @stop
 
 @section('content')
 <div class="container-fluid">
-  <form action="/backend/cms/elements/post/{{ $post->id }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-    {{ csrf_field() }}
-    <input type="hidden" name="_method" value="PUT">
+  <post-edit></post-edit>
+</div>
+@stop
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#post-pages" aria-controls="post-pages" role="tab" data-toggle="tab">Post Content</a></li>
-      @foreach ($tabs as $tab)
-        <li role="presentation"><a href="#post-{{$tab->slug}}" aria-controls="#post-{{$tab->slug}}" role="tab" data-toggle="tab">{{ $tab->name }}</a></li>
-      @endforeach
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="post-pages" style="padding-top: 20px">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-              <label>Post Title *</label>
-              <input type="text" name="title" class="form-control" value="{{ $post->title }}">
-              @if ($errors->has('title'))
-                <small class="help-block">{{ $errors->first('title') }}</small>
-              @endif
+@section('js')
+  @parent
+  @include('cms::post.editor')
+  <script type="text/x-template" id="post-edit">
+    <div class="clearfix" v-loading.body="loading">
+      <div class="postbox-container-editor">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-11">
+              @foreach (config()->get('multilangual.locales') as $locale)
+              <el-input type="text" size="large" v-model="form.title.{{ $locale }}" placeholder="Enter title name" v-show="locale=='{{ $locale }}'"></el-input>
+              @endforeach
+              <span class="help-block text-danger" v-if="errors.name">@{{ errors.name.toString() }}</span>
             </div>
-            <div class="form-group">
-              <textarea class="editor" name="body">{{ $post->body }}</textarea>
-              @if ($errors->has('body'))
-                <small class="help-block">{{ $errors->first('body') }}</small>
-              @endif
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" rows="5" name="excerpt">{{ $post->excerpt }}</textarea>
-              @if ($errors->has('excerpt'))
-                <small class="help-block">{{ $errors->first('excerpt') }}</small>
-              @endif
+            <div class="col-md-1">
+              <el-select v-model="locale" slot="append" placeholder="Eng">
+                @foreach (config()->get('multilangual.locales') as $locale)
+                <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+                @endforeach
+              </el-select>
             </div>
           </div>
-          <div class="col-md-4">
 
-            <div class="panel panel-default">
-              <div class="panel-heading">Page Detail</div>
-              <div class="panel-body">
-                <div class="form-group">
-                  <label>Post Status</label>
-                  <select id="post-slug" class="form-control" name="status">
-                    <option value="">Select status</option>
-                    <option value="DRAFT" {{ $post->status == 'DRAFT' ? 'selected': '' }}>Draft</option>
-                    <option value="PUBLISHED" {{ $post->status == 'PUBLISHED' ? 'selected': '' }}>Published</option>
-                    <option value="PENDING" {{ $post->status == 'PENDING' ? 'selected': '' }}>Pending</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Post Category</label>
-                  <select id="post-slug" class="form-control" name="category_id">
-                    <option value="">Select status</option>
-                    @foreach ($categories as $category)
-                      <option value="{{ $category->id}}" {{ $post->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                    @endforeach
-                  </select>
-                </div>
+          <p class="help-block">
+            <strong>Permalink:</strong>
+            <span v-show="permalink == false">
+              <?php echo str_replace($post->slug, '{{ form.slug }}', $post->url) ;?> <el-button size="mini" @click="permalink = true">Edit</el-button>
+            </span>
+            <span v-show="permalink == true">
+              {!! str_replace($post->slug, ' <div class="el-input el-input--mini" style="min-width: 300px; width: auto"><input v-model="form.slug" autocomplete="off" size="mini" type="text" rows="2" validateevent="true" class="el-input__inner"></div> ', $post->url) !!} <el-button size="mini" @click="permalink = false">OK</el-button>
+            </span>
+          </p>
+
+        </div>
+
+        <div class="form-group">
+          <div class="postbox">
+            <div class="row">
+              <div class="col-md-11">
+                @foreach (config()->get('multilangual.locales') as $locale)
+                <editor id="editor-{{ $locale }}-content" v-model="form.content.{{ $locale }}" v-show="locale=='{{ $locale }}'"></editor>
+                @endforeach
+              </div>
+              <div class="col-md-1">
+                <el-select v-model="locale" slot="append" placeholder="Eng">
+                  @foreach (config()->get('multilangual.locales') as $locale)
+                  <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+                  @endforeach
+                </el-select>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="panel panel-default">
-              <div class="panel-heading">Post Meta Information</div>
-              <div class="panel-body">
-                <div class="form-group">
-                  <label>Meta Title</label>
-                  <input type="text" class="form-control" name="meta_title" value="{{ $trans->meta_title }}">
-                </div>
-                <div class="form-group">
-                  <label>Meta Description</label>
-                  <textarea class="form-control" name="meta_description">{{ $trans->meta_description }}</textarea>
-                </div>
-                <div class="form-group">
-                  <label>Meta Keyword</label>
-                  <textarea class="form-control" name="meta_keyword">{{ $trans->meta_keyword }}</textarea>
-                </div>
-              </div>
+        <div class="form-group">
+          <label>Excerpt</label>
+          <div class="row">
+            <div class="col-md-11">
+              @foreach (config()->get('multilangual.locales') as $locale)
+              <el-input type="textarea" :rows="3" placeholder="Please input your excerpt"  v-model="form.excerpt.{{ $locale }}" v-show="locale=='{{ $locale }}'"></el-input>
+              @endforeach
+            </div>
+            <div class="col-md-1">
+              <el-select v-model="locale" slot="append" placeholder="Eng">
+                @foreach (config()->get('multilangual.locales') as $locale)
+                <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+                @endforeach
+              </el-select>
             </div>
           </div>
         </div>
       </div>
-      @foreach ($tabs as $tab)
-        <div role="tabpanel" class="tab-pane" id="post-{{ $tab->slug }}" style="padding-top: 20px;">
-          {!! $tab->content !!}
+
+      <div class="postbox-container">
+        <div class="form-group">
+          <el-select v-model="form.post_status" style="width:100%">
+            <el-option label="Select Status" value=""></el-option>
+            <el-option v-for="item in status" v-bind:value="item.value" :key="item.value"></el-option>
+          </el-select>
         </div>
-      @endforeach
-    </div>
-    <!-- End panes -->
 
-    <hr />
+        <div class="form-group">
+          <label>Post Date</label>
+          <el-date-picker v-model="form.publish_date" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" style="width:100%"></el-date-picker>
+        </div>
 
-    <div class="from-group">
-      <button class="btn btn-primary" type="submit">Save pages</button>
-      <a href="/backend/cms/elements/pages/" class="btn btn-link">Back to articles</a>
+        @if (request()->input('type') != 'page')
+        <div class="form-group">
+          <label>Categories</label>
+          @include('cms::post._category')
+        </div>
+        @endif
+
+        @if (request()->input('type') == 'page')
+        <div class="form-group">
+          <label>Template</label>
+          <el-select v-model="form.meta.template" style="display: block">
+            @foreach($templates as $template)
+            <el-option label="{{ $template }}" value="{{ $template }}"></el-option>
+            @endforeach
+          </el-select>
+        </div>
+        @endif
+
+        <div class="form-group">
+          <el-button type="primary" @click="update">Save post</el-button>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+          <label>Post Meta Title</label>
+          <el-input placeholder="Input Meta title" v-model="form.meta.title"></el-input>
+        </div>
+
+        <div class="form-group">
+          <label>Post Meta Description</label>
+          <el-input type="textarea" :rows="3" placeholder="Input Meta Description" v-model="form.meta.description"> </el-input>
+        </div>
+
+        <div class="form-group">
+          <label style="display: block;">Post Tags</label>
+          <el-tag style="background-color:#ffbd28; margin: 0 5px 5px 0; "
+            :key="tag"
+            v-for="tag in form.tags"
+            :closable="true"
+            :close-transition="false"
+            @close="handleClose(tag)">
+            @{{tag}}
+          </el-tag>
+
+            <li style="list-style: none">
+              <el-input
+                class="input-new-tag"
+                v-if="tag.visible"
+                v-model="tag.input"
+                ref="saveTagInput"
+                size="small"
+                @keyup.enter.native="handleInputConfirm"
+                @blur="handleInputConfirm">
+              </el-input>
+              <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+            </li>
+        </div>
+
+      </div>
     </div>
-  </form>
-</div>
+  </script>
+
+  <script>
+    Vue.component('post-edit', {
+      template: '#post-edit',
+      data: function () {
+        return {
+          form: {
+            id: {{ $post->id }},
+            slug: '{{ $post->slug }}',
+            title: {!! json_encode($post->getAttributeValue('title'), JSON_FORCE_OBJECT) !!},
+            content: {!! json_encode($post->getAttributeValue('content'), JSON_FORCE_OBJECT) !!},
+            excerpt: {!! json_encode($post->getAttributeValue('excerpt'), JSON_FORCE_OBJECT) !!},
+            meta: {!! $post->meta !!},
+            post_status: '{{ $post->post_status }}',
+            publish_date: '{{ $post->publish_date->format('Y-m-d H:i:s') }}',
+            categories: {!! $post->category->pluck('id') !!},
+            tags: {!! $post->tags->pluck('name') !!},
+            type: '{{ $post->type }}'
+          },
+          tag: {
+            input: '',
+            visible: false
+          },
+          status: [
+            { label: 'Draft', value: 'draft' },
+            { label: 'Pending Review', value: 'pending' },
+            { label: 'Publish', value: 'publish' }
+          ],
+          permalink: false,
+          loading: false,
+          errors: {},
+          locale: '{{ App::getLocale() }}',
+        }
+      },
+      computed: {
+        slug: function() {
+          return this.sanitizeTitle(this.form.title.en);
+        }
+      },
+      methods: {
+        update: function () {
+          var that = this
+          that.loading = true
+          this.$http.put('post/' + this.form.id, this.form, function(response) {
+            Bus.$emit('post-created', response.data.data)
+            that.loading = false
+          },
+          function(error) {
+            that.loading = false
+            that.errors = error.response.data
+          })
+        },
+
+        /*taken from: https://codepen.io/tatthien/pen/xVBxZQ*/
+        sanitizeTitle: function(title) {
+          var slug = "";
+          // Change to lower case
+          var titleLower = title.toLowerCase();
+          // Letter "e"
+          slug = titleLower.replace(/e|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ễ|ể|ệ/gi, 'e');
+          // Letter "a"
+          slug = slug.replace(/a|á|à|ã|ả|ạ|ă|ắ|ằ|ẵ|ẳ|ặ|â|ấ|ầ|ẫ|ẩ|ậ/gi, 'a');
+          // Letter "o"
+          slug = slug.replace(/o|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ờ|ỡ|ở|ợ/gi, 'o');
+          // Letter "u"
+          slug = slug.replace(/u|ú|ù|ũ|ủ|ụ|ư|ứ|ừ|ữ|ử|ự/gi, 'u');
+          // Letter "d"
+          slug = slug.replace(/đ/gi, 'd');
+          // Trim the last whitespace
+          slug = slug.replace(/\s*$/g, '');
+          // Change whitespace to "-"
+          slug = slug.replace(/\s+/g, '-');
+
+          return slug;
+        },
+
+        handleClose: function (tag) {
+          this.form.tags.splice(this.form.tags.indexOf(tag), 1);
+        },
+
+        showInput: function () {
+          this.tag.visible = true;
+          this.$nextTick(function () {
+            this.$refs.saveTagInput.$refs.input.focus();
+          });
+        },
+
+        handleInputConfirm: function () {
+          if (this.tag.input) {
+            this.form.tags.push(this.tag.input);
+          }
+          this.tag.visible = false;
+          this.tag.input = '';
+        },
+      }
+    })
+  </script>
 @stop

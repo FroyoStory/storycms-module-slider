@@ -1,6 +1,6 @@
 @extends('cms::layouts.app')
 
-@section('title') Post Pages @stop
+@section('title') Post Create @stop
 
 @section('content')
 <div class="container-fluid">
@@ -12,79 +12,127 @@
   @parent
   @include('cms::post.editor')
   <script type="text/x-template" id="post-create">
-    <div class="clearfix">
-
+    <div class="clearfix" v-loading="false">
       <div class="postbox-container-editor">
         <div class="form-group">
           <div class="row">
-            <div class="col-md-12">
-              <el-input type="text" v-model="form.title.en" placeholder="Enter title name" v-show="locale=='en'"></el-input>
-              <el-input type="text" v-model="form.title.id" placeholder="Enter title name" v-show="locale=='id'"></el-input>
+            <div class="col-md-11">
+              @foreach (config()->get('multilangual.locales') as $locale)
+              <el-input type="text" size="large" v-model="form.title.{{ $locale }}" placeholder="Enter title name" v-show="locale=='{{ $locale }}'"></el-input>
+              @endforeach
               <span class="help-block text-danger" v-if="errors.name">@{{ errors.name.toString() }}</span>
-              <p class="help-block"><?php echo url('/').'/{{ slug }}' ;?></p>
+            </div>
+            <div class="col-md-1">
+              <el-select v-model="locale" slot="append" placeholder="Eng">
+                @foreach (config()->get('multilangual.locales') as $locale)
+                <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+                @endforeach
+              </el-select>
             </div>
           </div>
         </div>
 
         <div class="form-group">
           <div class="postbox">
-            <editor id="editor-en-content" v-model="form.content.en" v-show="locale=='en'"></editor>
+            <div class="row">
+              <div class="col-md-11">
+                @foreach (config()->get('multilangual.locales') as $locale)
+                <editor id="editor-{{ $locale }}-content" v-model="form.content.{{ $locale }}" v-show="locale=='{{ $locale }}'"></editor>
+                @endforeach
+              </div>
+              <div class="col-md-1">
+                <el-select v-model="locale" slot="append" placeholder="Eng">
+                  @foreach (config()->get('multilangual.locales') as $locale)
+                  <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+                  @endforeach
+                </el-select>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="form-group">
           <label>Excerpt</label>
-          <el-input
-            type="textarea"
-            :rows="3"
-            placeholder="Please input your excerpt"
-            v-model="form.content.en"
-            v-show="locale=='en'">
-          </el-input>
+          <div class="row">
+            <div class="col-md-11">
+              @foreach (config()->get('multilangual.locales') as $locale)
+              <el-input type="textarea" :rows="3" placeholder="Please input your excerpt"  v-model="form.excerpt.{{ $locale }}" v-show="locale=='{{ $locale }}'"></el-input>
+              @endforeach
+            </div>
+            <div class="col-md-1">
+              <el-select v-model="locale" slot="append" placeholder="Eng">
+                @foreach (config()->get('multilangual.locales') as $locale)
+                <el-option label="{{ $locale }}" value="{{ $locale }}"></el-option>
+                @endforeach
+              </el-select>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="postbox-container">
         <div class="form-group">
-          <label>Post URL</label>
-          <el-input placeholder="Input URL" v-model="form.url"></el-input>
-          </el-input>
+          <el-select v-model="form.post_status" style="width:100%">
+            <el-option label="Select Status" value=""></el-option>
+            <el-option v-for="item in status" v-bind:value="item.value" :key="item.value"></el-option>
+          </el-select>
         </div>
 
+        <div class="form-group">
+          <label>Post Date</label>
+          <el-date-picker v-model="form.publish_date" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" style="width:100%"></el-date-picker>
+        </div>
+
+        @if (request()->input('type') != 'page')
+        <div class="form-group">
+          <label>Categories</label>
+          @include('cms::post._category')
+        </div>
+        @endif
+
+        @if (request()->input('type') == 'page')
+        <div class="form-group">
+          <label>Template</label>
+          <el-select v-model="form.meta.template" style="display: block">
+            @foreach($templates as $template)
+            <el-option label="{{ $template }}" value="{{ $template }}"></el-option>
+            @endforeach
+          </el-select>
+        </div>
+        @endif
+
+        <div class="form-group">
+          <el-button type="primary" @click="create">Publish</el-button>
+        </div>
+
+        <hr />
 
         <div class="form-group">
           <label>Post Meta Title</label>
-          <el-input placeholder="Input Meta title" v-model="form.meta_title"></el-input>
+          <el-input placeholder="Input Meta title" v-model="form.meta.title"></el-input>
         </div>
 
         <div class="form-group">
           <label>Post Meta Description</label>
-          <el-input
-            type="textarea"
-            :rows="3"
-            placeholder="Input Meta Description"
-            v-model="form.meta_desc">
-          </el-input>
+          <el-input type="textarea" :rows="3" placeholder="Input Meta Description" v-model="form.meta.description"> </el-input>
         </div>
 
         <div class="form-group">
-          <label>Post Tags</label>
-            <li style="list-style: none">
-              <el-tag style="background-color:#ffbd28; margin: 0 5px 5px 0; "
-                :key="tag"
-                v-for="tag in form.dynamicTags"
-                :closable="true"
-                :close-transition="false"
-                @close="handleClose(tag)">
-                @{{tag}}
-              </el-tag>
-            </li>
+          <label style="display: block;">Post Tags</label>
+          <el-tag style="background-color:#ffbd28; margin: 0 5px 5px 0; "
+            :key="tag"
+            v-for="tag in form.tags"
+            :closable="true"
+            :close-transition="false"
+            @close="handleClose(tag)">
+            @{{tag}}
+          </el-tag>
 
             <li style="list-style: none">
               <el-input
                 class="input-new-tag"
-                v-if="form.inputVisible"
-                v-model="form.tags"
+                v-if="tag.visible"
+                v-model="tag.input"
                 ref="saveTagInput"
                 size="small"
                 @keyup.enter.native="handleInputConfirm"
@@ -92,44 +140,6 @@
               </el-input>
               <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
             </li>
-        </div>
-
-        <div class="form-group">
-          <label>Status</label>
-          <el-select v-model="form.status" style="width:100%">
-            <el-option label="Select Status" value=""></el-option>
-            <el-option
-              v-for="item in status" v-bind:value="item.value" :key="item.value">
-            </el-option>
-          </el-select>
-        </div>
-
-        <div class="form-group">
-          <label>Post Date</label>
-          <el-date-picker
-            v-model="form.publish_date"
-            type="datetime"
-            placeholder="Select date and time" style="width:100%">
-          </el-date-picker>
-        </div>
-
-        <div class="form-group">
-          <label>Categories</label>
-          <ul style="overflow-Y:scroll; height:200px; list-style: none; border: 1px solid #bfcbd9; padding: 11px;">
-            @foreach ($categories as $category)
-            <li>
-              <el-checkbox
-                v-model="form.categories_id"
-                value="{{ $category->id}}"
-                label="{{ $category->name }}">
-              </el-checkbox>
-            </li>
-            @endforeach
-          </ul>
-        </div>
-
-        <div class="form-group">
-          <el-button type="primary" @click="create">Publish</el-button>
         </div>
 
       </div>
@@ -142,23 +152,26 @@
       data: function () {
         return {
           form: {
-            title: { en:'' , id:''},
-            content: { en: '', id: ''},
-            excerpt: { en: '', id: ''},
-            url:'',
-            meta_title:'',
-            meta_desc:'',
-            status:'',
+            title: Object.assign({}, STORY.locales),
+            content: Object.assign({}, STORY.locales),
+            excerpt: Object.assign({}, STORY.locales),
+            meta: { title: '', description: '', template: 'page'},
+            post_status:'',
             publish_date:'',
-            categories_id: [],
-            tags:'',
-            dynamicTags: [],
-            inputVisible: false,
+            categories: [],
+            tags:[],
+            type: '{{ request()->input('type') ? : 'post'}}'
+          },
+          tag: {
+            input: '',
+            visible: false
           },
           status: [
-            { value: 'Draft' },
-            { value: 'Pending Review' },
+            { label: 'Draft', value: 'draft' },
+            { label: 'Pending Review', value: 'pending' },
+            { label: 'Publish', value: 'publish' }
           ],
+          loading: false,
           errors: {},
           locale: '{{ App::getLocale() }}',
         }
@@ -175,7 +188,6 @@
           this.$http.post('post', this.form, function(response) {
             Bus.$emit('post-created', response.data.data)
             that.loading = false
-            that.modal = false
             that.form= { content: {en: 'Content', id: 'Kontent'}, url:'', tags:'', excerpt:'', select: '' }
           },
           function(error) {
@@ -208,23 +220,22 @@
         },
 
         handleClose: function (tag) {
-          this.form.dynamicTags.splice(this.form.dynamicTags.indexOf(tag), 1);
+          this.form.tags.splice(this.form.tags.indexOf(tag), 1);
         },
 
         showInput: function () {
-          this.form.inputVisible = true;
+          this.tag.visible = true;
           this.$nextTick(function () {
             this.$refs.saveTagInput.$refs.input.focus();
           });
         },
 
         handleInputConfirm: function () {
-          var tags = this.form.tags;
-          if (tags) {
-            this.form.dynamicTags.push(tags);
+          if (this.tag.input) {
+            this.form.tags.push(this.tag.input);
           }
-          this.form.inputVisible = false;
-          this.form.tags = '';
+          this.tag.visible = false;
+          this.tag.input = '';
         },
       }
     })

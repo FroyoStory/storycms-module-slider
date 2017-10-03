@@ -36,6 +36,6 @@ class MediaRepository extends Repository implements StoryPostRepository
             ->where('type', $this->posts::TYPE_ATTACHMENT)
             ->paginate();
 
-        return $this->paginator($posts);
+        return $posts ? $this->paginator($posts) : null;
     }
 }

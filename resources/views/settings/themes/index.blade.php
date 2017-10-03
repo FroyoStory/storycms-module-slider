@@ -57,7 +57,7 @@
       methods: {
         activate: function (theme) {
           var self = this
-          self.$http.post('theme', {key: theme}, function (response) {
+          self.$http.post('setting/theme', {key: theme}, function (response) {
             self.theme = theme
           }, function (error) {
 

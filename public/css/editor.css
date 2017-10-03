@@ -1850,7 +1850,7 @@ i.mce-i-wp_code:before {
 }
 
 .wp-editor-tools {
-  position: relative;
+  /*position: relative;*/
   z-index: 1;
 }
 

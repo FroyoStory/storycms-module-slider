@@ -26,7 +26,7 @@
         <div class="form-group">
           <div class="row">
             <div class="col-md-3">
-              <el-radio class="radio" v-model="form.site_permalink" label="/{year}/{month}{postname}/">Mont and name</el-radio>
+              <el-radio class="radio" v-model="form.site_permalink" label="/{year}/{month}/{postname}/">Mont and name</el-radio>
             </div>
             <div class="col-md-9"><p style="margin: 10px 0">https://domain.id/2017/09/sample-post/</p></div>
           </div>

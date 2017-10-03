@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Story\Cms\Models\Post;
+use Story\Cms\Contracts\StoryPost;
 use Illuminate\Http\Request;
 
 class PostCreated
@@ -24,7 +24,7 @@ class PostCreated
      *
      * @return void
      */
-    public function __construct(Post $post, Request $request)
+    public function __construct(StoryPost $post, Request $request)
     {
         $this->post = $post;
         $this->request = $request;

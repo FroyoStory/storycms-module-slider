@@ -2,9 +2,11 @@
 
 namespace Story\Cms\Backend\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Story\Cms\Contracts\StoryPostRepository;
 use Story\Cms\Contracts\StoryCategoryRepository;
+use Theme;
 
 class PostController extends Controller
 {
@@ -43,9 +45,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if ($request->has('type')) {
-            $posts = $this->post->findByType($request->input('type'));
+            $posts = $this->post->getAllByType($request->input('type'));
         } else {
-            $posts = $this->post->findByType('post');
+            $posts = $this->post->getAllByType('post');
         }
 
         return $this->view('cms::post.index', compact('posts'));
@@ -58,9 +60,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->all();
+        $categories = $this->category->toTree();
+        $templates = Theme::templates();
 
-        return $this->view('cms::post.create', compact('categories'));
+        return $this->view('cms::post.create', compact('categories', 'templates'));
     }
 
     /**
@@ -72,23 +75,28 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'slug'  => 'required|unique:posts,slug',
-            'content' => 'required',
+            'title' => 'translatable_required',
+            'post_status' => 'required',
+            'content' => 'translatable_required',
         ]);
 
         $request->merge([
-            'user_id' => $request->user()->id
+            'user_id' => $request->user()->id,
+            'slug' => str_slug(array_first($request->input('title'))),
+            'comment_status' => $request->input('comment_status') ? : 'closed',
+            'publish_date' => $request->input('publish_date') ? Carbon::parse($request->input('publish_date')) : Carbon::now()->format('Y-m-d H:i:s'),
+            'type' => $request->input('type') ? : 'post'
         ]);
 
         $data = $request->only(
-            'title', 'slug', 'content', 'post_status',
-            'comment_status', 'type', 'categories', 'user_id'
+            'title', 'slug', 'content', 'excerpt', 'post_status', 'publish_date',
+            'comment_status', 'type', 'categories', 'user_id', 'meta', 'tags'
         );
 
-        $post = $this->post->create($data);
+        if ($post = $this->post->create($data)) {
 
-        if ($post) {
+            event(new \Story\Cms\Events\PostCreated($post, $request));
+
             return response()->json([
                 'data' => $post,
                 'meta' => ['message' => 'Post is ctreated.']
@@ -110,9 +118,10 @@ class PostController extends Controller
     public function edit(Request $request, int $id)
     {
         $post = $this->post->findById($id);
-        $categories = $this->category->all();
+        $categories = $this->category->toTree();
+        $templates = Theme::templates();
 
-        return $this->view('post.edit', compact('categories', 'post'));
+        return $this->view('cms::post.edit', compact('categories', 'post', 'templates'));
     }
 
     /**
@@ -125,21 +134,35 @@ class PostController extends Controller
     public function update(Request $request, int $id)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'slug'  => 'required',
-            'content' => 'required',
+            'title' => 'translatable_required',
+            'post_status' => 'required',
+            'slug' => 'required|unique:posts,slug,'.$id,
+            'content' => 'translatable_required',
         ]);
 
-        $post = $this->post->findById($id);
-        $post = $this->post->update($post, $request);
+        $request->merge([
+            'user_id' => $request->user()->id,
+            'comment_status' => $request->input('comment_status') ? : 'closed',
+        ]);
 
-        if (!$post) {
-            session()->flash('message', 'Unable to create post');
-        } else {
-            session()->flash('info', 'Post was updated');
+        $data = $request->only(
+            'title', 'slug', 'content', 'excerpt', 'post_status', 'publish_date',
+            'comment_status', 'type', 'categories', 'user_id', 'meta', 'tags'
+        );
+
+        if ($post = $this->post->update($this->post->findById($id), $data)) {
+
+            event(new \Story\Cms\Events\PostUpdated($post, $request));
+
+            return response()->json([
+                'data' => $post,
+                'meta' => ['message' => 'Post is updated.']
+            ]);
         }
 
-        return redirect()->back();
+        return response()->json([
+            'meta' => ['message' => 'Unable to update post.']
+        ], 422);
     }
 
     /**

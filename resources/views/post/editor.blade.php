@@ -1,8 +1,9 @@
 @include('cms::media.browser')
 <script type="text/x-template" id="editor">
   <div id="wp-content-wrap" class="wp-core-ui wp-editor-wrap has-dfw" :class="html_editor == true ? 'tmce-active': 'html-active'">
-    <media-browser v-on:image-selected="handleImageSelected"></media-browser>
+
     <div id="wp-content-editor-tools" class="wp-editor-tools hide-if-no-js">
+        <media-browser v-on:image-selected="handleImageSelected"></media-browser>
         {{-- <div id="wp-content-media-buttons" class="wp-media-buttons">
           <button type="button" id="insert-media-button" class="button insert-media add_media" data-editor="content"><span class="wp-media-buttons-icon"></span> Add Media</button>
         </div> --}}

@@ -57,7 +57,7 @@ class Theme
      */
     public function templates()
     {
-        $paths = glob(public_path().'/themes/'.$this->current().'/layouts/*.php');
+        $paths = glob(public_path().'/themes/'.$this->current().'/pages/*.php');
 
         return collect($paths)->map(function($item) {
             return str_replace('.blade.php', '', basename($item));

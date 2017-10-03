@@ -3,13 +3,17 @@
 namespace Story\Cms;
 
 use Configuration;
+use Cartalyst\Tags\TaggableTrait;
+use Cartalyst\Tags\TaggableInterface;
 use Laravel\Scout\Searchable;
+use Spatie\Tags\HasTags;
 use Story\Cms\Contracts\StoryPost;
 use Themsaid\Multilingual\Translatable;
 
-class Post extends Model implements StoryPost
+
+class Post extends Model implements StoryPost, TaggableInterface
 {
-    use Translatable, Searchable;
+    use TaggableTrait, Searchable, Translatable;
 
     const POST_PUBLISHED = 'publish';
     const POST_DRAFT = 'draft';
@@ -21,15 +25,13 @@ class Post extends Model implements StoryPost
 
     protected $table = 'posts';
     protected $fillable = [
-        'title', 'slug', 'content', 'post_status', 'comment_status', 'type', 'mime_type',
-        'user_id', 'parent_id'
+        'title', 'slug', 'content', 'excerpt', 'post_status', 'comment_status', 'type',
+        'mime_type', 'user_id', 'parent_id', 'publish_date'
     ];
+    protected $dates = ['publish_date'];
 
     public $translatable = ['title', 'content'];
-    public $casts = [
-        'title' => 'array',
-        'content' => 'array'
-    ];
+    public $casts = ['title' => 'array','content' => 'array', 'excerpt' => 'array'];
     public $asYouType = true;
 
     /**
@@ -108,7 +110,12 @@ class Post extends Model implements StoryPost
     public function toSearchableArray()
     {
         if (!in_array($this->type, ['attachment'])) {
-            return $this->toArray();
+            return [
+                'id' => $this->id,
+                'title' => json_encode($this->title),
+                'content' => json_encode($this->content),
+                'slug' => $this->slug
+            ];
         }
         return [];
     }

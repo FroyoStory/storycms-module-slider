@@ -46,6 +46,20 @@ class PostRepository extends Repository implements StoryPostRepository
         $post = $this->posts->create($data);
 
         if ($post) {
+            // save categories
+            if ($categories = $data['categories']) {
+                $post->category()->sync($categories);
+            }
+            if ($tags = $data['tags']) {
+                $post->setTags($tags);
+            }
+
+            // save meta data
+            foreach ($data['meta'] as $key => $value) {
+                $post->meta->{$key} = $value ? : '';
+            }
+            $post->meta->save();
+
             return $post;
         }
         return false;
@@ -61,10 +75,27 @@ class PostRepository extends Repository implements StoryPostRepository
     public function update(StoryPost $post, array $data)
     {
         foreach ($data as $key => $value) {
-            $post->{$key} = $value;
+            if ($post->isFillable($key)) {
+                $post->{$key} = $value;
+            }
         }
 
         if ($post->save()) {
+            // save categories
+            if ($categories = $data['categories']) {
+                $post->category()->sync($categories);
+            }
+            if ($tags = $data['tags']) {
+                $post->setTags($tags);
+            }
+
+            // save meta data
+            $meta = $post->meta;
+            foreach ($data['meta'] as $key => $value) {
+                $meta->{$key} = $value;
+            }
+            $meta->save();
+
             return $post;
         }
         return false;
@@ -121,21 +152,9 @@ class PostRepository extends Repository implements StoryPostRepository
      * @param  string $type
      * @return \Story\Cms\Contracts\StoryPost
      */
-    public function findByType(string $type)
+    public function getAllByType(string $type)
     {
         return $this->posts->where('type', $type)->paginate();
-    }
-
-    /**
-     * Synchronize hasMany Relation
-     *
-     * @param  string $type
-     * @return \Story\Cms\Contracts\StoryPost
-     */
-    public function sync(array $categories)
-    {
-        $post = resolve(\Story\Cms\Contracts\StoryPost::class)->create($data);
-        return $post->category()->sync($categories);
     }
 
     /**
