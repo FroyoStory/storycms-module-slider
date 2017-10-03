@@ -118,6 +118,8 @@
 
         <hr />
 
+        @include('cms::post._thumbnail')
+
         <div class="form-group">
           <label>Post Meta Title</label>
           <el-input placeholder="Input Meta title" v-model="form.meta.title"></el-input>
@@ -234,6 +236,10 @@
 
         handleClose: function (tag) {
           this.form.tags.splice(this.form.tags.indexOf(tag), 1);
+        },
+
+        handleImageSelected: function (image) {
+          this.form.meta.featured_image = image.slug
         },
 
         showInput: function () {

@@ -87,6 +87,7 @@
             type: 'warning'
           });
         } else {
+          this.modal = false
           this.$emit('image-selected', this.image)
         }
       }

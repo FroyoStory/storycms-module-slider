@@ -47,18 +47,21 @@ class PostRepository extends Repository implements StoryPostRepository
 
         if ($post) {
             // save categories
-            if ($categories = $data['categories']) {
-                $post->category()->sync($categories);
+            if (isset($data['categories'])) {
+                $post->category()->sync($data['categories']);
             }
-            if ($tags = $data['tags']) {
-                $post->setTags($tags);
+            if (isset($data['tags'])) {
+                $post->setTags($data['tags']);
             }
 
             // save meta data
-            foreach ($data['meta'] as $key => $value) {
-                $post->meta->{$key} = $value ? : '';
+            if (isset($data['meta'])) {
+                $meta = $post->meta;
+                foreach ($data['meta'] as $key => $value) {
+                    $meta->{$key} = $value ? : '';
+                }
+                $meta->save();
             }
-            $post->meta->save();
 
             return $post;
         }
@@ -82,19 +85,21 @@ class PostRepository extends Repository implements StoryPostRepository
 
         if ($post->save()) {
             // save categories
-            if ($categories = $data['categories']) {
-                $post->category()->sync($categories);
+            if (isset($data['categories'])) {
+                $post->category()->sync($data['categories']);
             }
-            if ($tags = $data['tags']) {
-                $post->setTags($tags);
+            if (isset($data['tags'])) {
+                $post->setTags($data['tags']);
             }
 
             // save meta data
-            $meta = $post->meta;
-            foreach ($data['meta'] as $key => $value) {
-                $meta->{$key} = $value;
+            if (isset($data['meta'])) {
+                $meta = $post->meta;
+                foreach ($data['meta'] as $key => $value) {
+                    $meta->{$key} = $value;
+                }
+                $meta->save();
             }
-            $meta->save();
 
             return $post;
         }
