@@ -1,10 +1,9 @@
 <script type="text/x-template" id="menu-index">
   <div>
-    <draggable :list="menus">
-      <transition-group>
-        <list-item v-for="(menu, menuIndex) in menus" :key="menuIndex" :menu="menu" :menus="lists" />
-      </transition-group>
-    </draggable>
+    <vddl-list :list="menus" effect-allowed="move" :external-source="true" style="padding: 10px; border: 1px solid #DEDEDE">
+      <list-item v-for="(menu, menuIndex) in menus" :key="menu.id" :menu="menu" :menus="lists" :index="menuIndex"/>
+    </vddl-list>
+    <br />
     <menu-create :menus="lists" />
   </div>
 </script>
@@ -22,6 +21,7 @@
       Bus.$on('menu-created', this.menuCreated)
       Bus.$on('menu-updated', this.menuUpdated)
       Bus.$on('menu-destroyed', this.menuDestroyed)
+      Bus.$on('menu-list-item-moved', this.menuTreeMoved)
     },
     methods: {
       menuCreated: function (data) {
@@ -34,6 +34,14 @@
       menuDestroyed: function (data) {
         var index = this.menus.indexOf(data)
         this.menus.splice(index, 1)
+      },
+      menuTreeMoved: function () {
+        var self = this
+        self.$http.post('menu/arrange', { menus: this.menus }, function(response) {
+            console.log(response)
+        }, function(error) {
+            console.log(error)
+        })
       }
     }
   })

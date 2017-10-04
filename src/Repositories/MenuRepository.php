@@ -63,6 +63,28 @@ class MenuRepository extends Repository implements StoryMenuRepository
     }
 
     /**
+     * Build tree from menu data
+     *
+     * @return \Kalnoy\Nestedset\Collection
+     */
+    public function toTree()
+    {
+        return array_first($this->menu->defaultOrder()->get()->toTree())->children;
+    }
+
+    /**
+     * Rebuild tree data by given categories collection
+     *
+     * @param  array  $data
+     * @return \Kalnoy\Nestedset\Collection
+     */
+    public function rebuildTree(array $data)
+    {
+        $root = $this->findById(1);
+        return $this->menu->rebuildSubtree($root, $data['menus']);
+    }
+
+    /**
      * Update a menu by given menu Id
      *
      * @param  StoryMenu $menu

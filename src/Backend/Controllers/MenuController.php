@@ -31,7 +31,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = $this->menu->allExceptRoot();
+        $menus = $this->menu->toTree();
         $lists = $this->menu->all();
         return $this->view('cms::menu.index', compact('menus', 'lists'));
     }
@@ -98,6 +98,28 @@ class MenuController extends Controller
         return response()->json([
             'data' => [],
             'meta' => ['message' => 'Unable to found menu']
+        ], 422);
+    }
+
+    /**
+     * Rebuild the tree
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function arrange(Request $request)
+    {
+        $this->validate($request, ['menus' => 'required']);
+
+        if ($this->menu->rebuildTree($request->only('menus'))) {
+            return response()->json([
+                'data' => [],
+                'meta' => ['message' => 'Menu was updated']
+            ]);
+        }
+        return response()->json([
+            'data' => [],
+            'meta' => ['message' => 'Unable to update menu']
         ], 422);
     }
 
