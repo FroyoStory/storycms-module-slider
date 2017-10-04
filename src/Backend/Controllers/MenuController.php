@@ -49,11 +49,11 @@ class MenuController extends Controller
         ]);
 
         $request->merge([
-            'parent_id' => 1
+            'parent_id' => 1,
+            'user_id' => $request->user()->id
         ]);
 
-        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
-        $data = array_merge($data, [ 'user_id' => $request->user()->id ]);
+        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'user_id', 'active');
 
         $menu = $this->menu->create($data);
 
@@ -83,8 +83,11 @@ class MenuController extends Controller
             'url'  => 'required'
         ]);
 
+        $request->merge([
+            'user_id' => $request->user()->id
+        ]);
+
         $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
-        $data = array_merge($data, [ 'user_id' => $request->user()->id ]);
 
         if ($menu = $this->menu->findById($id)) {
             $menu = $this->menu->update($menu, $data);
