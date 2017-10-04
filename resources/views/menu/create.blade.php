@@ -30,7 +30,7 @@
         <span class="help-block text-danger" v-if="errors.post_id">@{{ errors.post_id.toString() }}</span>
       </div>
       <div class="form-group">
-        <label>Active?</label>
+        <label>Active?   </label>
         <el-switch
           v-model="form.active"
           on-color="#13ce66"
@@ -52,7 +52,7 @@
     data: function () {
       return {
         locale: 'en',
-        form: { name: {}, parent_id: 1, url: '', post_id: '', active: 1},
+        form: { name: {}, parent_id: 1, url: '', post_id: '', active: '1'},
         errors: {},
         modal: false,
         loading: false

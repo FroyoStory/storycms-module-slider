@@ -1,18 +1,21 @@
 <script type="text/x-template" id="list-item">
   <vddl-draggable :draggable="menu" effect-allowed="move" :index="index" :wrapper="menus" :dragend="moved">
     <vddl-nodrag class="nodrag">
-      <vddl-handle :handle-left="20" :handle-top="20" class="handle"> <i class="material-icons font-size-14">menu</i> </vddl-handle>
-      <div class="media-body">
-          <div class="row" style="margin-bottom: 20px">
-            <div class="col-md-2">@{{ menu.name.en }}</div>
-            <div class="col-md-2">@{{ menu.url }}</div>
-            <div class="col-md-2">@{{ menu.active == 1 ? 'Active' : 'Not Active'}}</div>
-            <div class="col-md-2"><menu-update :form="menu" :menus="menus" /></div>
-          </div>
-        <vddl-list :list="menu.children" :external-source="true" style="margin-left: 20px; min-height: 5px;" :dragend="moved">
-          <list-item v-for="(item, childindex) in menu.children" :key="item.id" :menu="item" :menus="menus" :index="childindex"></list-item>
-        </vddl-list>
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-2"><vddl-handle :handle-left="20" :handle-top="20" class="handle"> <i class="material-icons font-size-14">menu</i> </vddl-handle></div>
+        <div class="col-md-2">@{{ menu.name.en }}</div>
+        <div class="col-md-2">@{{ menu.url }}</div>
+        <div class="col-md-2">@{{ menu.active == 1 ? 'Active' : 'Not Active'}}</div>
+        <div class="col-md-2"><menu-update :form="menu" :menus="menus" /></div>
       </div>
+      <vddl-list :list="menu.children" :external-source="true" style="margin-left: 20px; min-height: 5px;" :dragend="moved">
+        <list-item v-for="(item, childindex) in menu.children"
+        :menus="menu.children"
+        :menu="item"
+        :index="childindex"
+        :key="item.id">
+        </list-item>
+      </vddl-list>
     </vddl-nodrag>
   </vddl-draggable>
 </script>

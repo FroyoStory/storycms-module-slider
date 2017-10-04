@@ -1,7 +1,7 @@
 <script type="text/x-template" id="menu-index">
   <div>
     <vddl-list :list="menus" effect-allowed="move" :external-source="true" style="padding: 10px; border: 1px solid #DEDEDE">
-      <list-item v-for="(menu, menuIndex) in menus" :key="menu.id" :menu="menu" :menus="lists" :index="menuIndex"/>
+      <list-item v-for="(menu, menuIndex) in menus" :key="menu.id" :menus="menus" :menu="menu" :index="menuIndex"/>
     </vddl-list>
     <br />
     <menu-create :menus="lists" />
@@ -12,7 +12,7 @@
     template: '#menu-index',
     data: function () {
       return {
-        menus: {!! $menus ? json_encode($menus) : '[]' !!},
+        menus: {!! $menus ? : '[]' !!},
         lists: {!! $lists ? json_encode($lists->items) : '{}' !!},
         modal: { create: false, update: false }
       }
@@ -38,9 +38,9 @@
       menuTreeMoved: function () {
         var self = this
         self.$http.post('menu/arrange', { menus: this.menus }, function(response) {
-            console.log(response)
+
         }, function(error) {
-            console.log(error)
+
         })
       }
     }

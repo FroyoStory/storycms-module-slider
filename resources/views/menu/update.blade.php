@@ -29,13 +29,13 @@
         <span class="help-block text-danger" v-if="errors.post_id">@{{ errors.post_id.toString() }}</span>
       </div>
       <div class="form-group">
-        <label>Active?</label>
+        <label>Active?   </label>
         <el-switch
           v-model="form.active"
           on-color="#13ce66"
           off-color="#ff4949"
-          on-value="1"
-          off-value="0">
+          :on-value="1"
+          :off-value="0">
         </el-switch>
       </div>
       <span slot="footer" class="dialog-footer">
