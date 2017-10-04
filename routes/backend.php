@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('user', 'UserController', ['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('role', 'RoleController', ['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('menu', 'MenuController', ['only' => ['index', 'store', 'update', 'destroy']]);
-    Route::post('menu/arrange', 'MenuController@arrange')->name('menu.arrange');
+    Route::post('menu/rebuild', 'MenuController@rebuild')->name('menu.rebuild');
     Route::resource('profile', 'ProfileController', ['only' => ['index', 'store']]);
     Route::resource('post', 'PostController');
     Route::resource('media', 'MediaController');

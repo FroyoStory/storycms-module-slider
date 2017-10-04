@@ -36,11 +36,6 @@ class MenuRepository extends Repository implements StoryMenuRepository
         return $this->paginator($menus);
     }
 
-    public function allExceptRoot()
-    {
-        return $this->menu->whereNotNull('parent_id')->get()->toTree();
-    }
-
     /**
      * Fetch Menu by given id
      * @param  int $id

@@ -32,8 +32,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = $this->menu->toTree();
-        $lists = $this->menu->all();
-        return $this->view('cms::menu.index', compact('menus', 'lists'));
+        return $this->view('cms::menu.index', compact('menus'));
     }
 
     /**
@@ -107,7 +106,7 @@ class MenuController extends Controller
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function arrange(Request $request)
+    public function rebuild(Request $request)
     {
         $this->validate($request, ['menus' => 'required']);
 
