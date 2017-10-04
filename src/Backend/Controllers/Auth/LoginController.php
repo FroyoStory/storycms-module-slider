@@ -27,7 +27,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('cms::auth.login');
+        return view('cms::auth.backend.login');
     }
 
     /**

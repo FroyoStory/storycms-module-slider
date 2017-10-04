@@ -74,6 +74,7 @@ class PostController extends Controller
             }
         }
 
-        return $this->view('404');
+        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
     }
 }

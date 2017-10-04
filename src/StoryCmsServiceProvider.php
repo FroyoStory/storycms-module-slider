@@ -134,6 +134,8 @@ class StoryCmsServiceProvider extends ServiceProvider
     protected function registerServices()
     {
         $this->app->register(Config\ConfigServiceProvider::class);
+        $this->app->register(Providers\BladeServiceProvider::class);
+
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
         $this->app->register(\Cartalyst\Tags\TagsServiceProvider::class);

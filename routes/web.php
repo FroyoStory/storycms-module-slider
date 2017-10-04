@@ -1,5 +1,7 @@
 <?php
 
+Route::get('auth', 'Auth\LoginController@showLoginForm');
+
 Route::get('/', 'HomeController@index');
 Route::get('search', 'SearchController@index');
 Route::get('category/{category}', 'CategoryController@show');
