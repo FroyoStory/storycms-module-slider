@@ -1,30 +1,10 @@
 <script type="text/x-template" id="menu-index">
   <div>
-    <table class="table table-stripped">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Url</th>
-          <th>Parent ID</th>
-          <th>Active</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="menu in menus">
-          <th>@{{ menu.id }}</th>
-          <td>@{{ menu.name.en }}</td>
-          <td>@{{ menu.url }}</td>
-          <td>@{{ menu.parent_id }}</td>
-          <td>@{{ menu.active == 1 ? 'Active' : 'Not Active'}}</td>
-          <td>
-            <menu-update :form="menu" :menus="menus" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <menu-create :menus="menus" />
+    <vddl-list :list="menus" effect-allowed="move" :external-source="true" style="padding: 10px; border: 1px solid #DEDEDE">
+      <list-item v-for="(menu, menuIndex) in menus" :key="menu.id" :menus="menus" :menu="menu" :index="menuIndex"/>
+    </vddl-list>
+    <br />
+    <menu-create />
   </div>
 </script>
 <script>
@@ -32,7 +12,7 @@
     template: '#menu-index',
     data: function () {
       return {
-        menus: {!! $menus ? json_encode($menus->items) : '{}' !!},
+        menus: {!! $menus ? : '[]' !!},
         modal: { create: false, update: false }
       }
     },
@@ -40,6 +20,7 @@
       Bus.$on('menu-created', this.menuCreated)
       Bus.$on('menu-updated', this.menuUpdated)
       Bus.$on('menu-destroyed', this.menuDestroyed)
+      Bus.$on('menu-list-item-moved', this.menuTreeMoved)
     },
     methods: {
       menuCreated: function (data) {
@@ -52,6 +33,14 @@
       menuDestroyed: function (data) {
         var index = this.menus.indexOf(data)
         this.menus.splice(index, 1)
+      },
+      menuTreeMoved: function () {
+        var self = this
+        self.$http.post('menu/rebuild', { menus: this.menus }, function(response) {
+
+        }, function(error) {
+
+        })
       }
     }
   })

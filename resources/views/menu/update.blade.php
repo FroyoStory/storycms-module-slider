@@ -1,6 +1,6 @@
 <script type="text/x-template" id="menu-update">
   <div>
-    <el-button type="primary" :disabled="isDisabled" @click="modal = true">EDIT</el-button>
+    <el-button type="primary" @click="modal = true">EDIT</el-button>
     <el-dialog title="Update menu" :visible.sync="modal" v-loading.body="loading">
       <div class="form-group">
         <label>Menu Name</label>
@@ -24,33 +24,18 @@
         <span class="help-block text-danger" v-if="errors.url">@{{ errors.url.toString() }}</span>
       </div>
       <div class="form-group">
-        <label>Parent Menu</label>
-        <div>
-          <el-select v-model="form.parent_id" placeholder="Select Parent">
-            <el-option value="" label="Select parent menu"></el-option>
-            <el-option
-              v-for="item in menus"
-              :key="item.id"
-              :label="item.name[locale]"
-              :value="item.id">
-            </el-option>
-          </el-select>
-          <span class="help-block text-danger" v-if="errors.name">@{{ errors.parent_id.toString() }}</span>
-        </div>
-      </div>
-      <div class="form-group">
         <label>Post ID</label>
         <el-input type="text" v-model="form.post_id" placeholder="Post Id"></el-input>
         <span class="help-block text-danger" v-if="errors.post_id">@{{ errors.post_id.toString() }}</span>
       </div>
       <div class="form-group">
-        <label>Active?</label>
+        <label>Active?   </label>
         <el-switch
           v-model="form.active"
           on-color="#13ce66"
           off-color="#ff4949"
-          on-value="1"
-          off-value="0">
+          :on-value="1"
+          :off-value="0">
         </el-switch>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -100,15 +85,6 @@
           that.errors = error.response.data
           that.loading = false
         })
-      }
-    },
-    computed: {
-      isDisabled: function() {
-        if (this.form.id != 1) {
-          return false;
-        } else {
-          return true;
-        }
       }
     }
   })

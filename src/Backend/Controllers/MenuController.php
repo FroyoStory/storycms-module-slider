@@ -31,7 +31,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = $this->menu->all();
+        $menus = $this->menu->toTree();
         return $this->view('cms::menu.index', compact('menus'));
     }
 
@@ -48,8 +48,12 @@ class MenuController extends Controller
             'url'  => 'required'
         ]);
 
-        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
-        $data = array_merge($data, [ 'user_id' => $request->user()->id ]);
+        $request->merge([
+            'parent_id' => 1,
+            'user_id' => $request->user()->id
+        ]);
+
+        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'user_id', 'active');
 
         $menu = $this->menu->create($data);
 
@@ -79,8 +83,11 @@ class MenuController extends Controller
             'url'  => 'required'
         ]);
 
-        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
-        $data = array_merge($data, [ 'user_id' => $request->user()->id ]);
+        $request->merge([
+            'user_id' => $request->user()->id
+        ]);
+
+        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'user_id', 'active');
 
         if ($menu = $this->menu->findById($id)) {
             $menu = $this->menu->update($menu, $data);
@@ -97,6 +104,28 @@ class MenuController extends Controller
         return response()->json([
             'data' => [],
             'meta' => ['message' => 'Unable to found menu']
+        ], 422);
+    }
+
+    /**
+     * Rebuild the tree
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function rebuild(Request $request)
+    {
+        $this->validate($request, ['menus' => 'required']);
+
+        if ($this->menu->rebuildTree($request->only('menus'))) {
+            return response()->json([
+                'data' => [],
+                'meta' => ['message' => 'Menu was updated']
+            ]);
+        }
+        return response()->json([
+            'data' => [],
+            'meta' => ['message' => 'Unable to update menu']
         ], 422);
     }
 
