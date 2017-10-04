@@ -87,7 +87,7 @@ class MenuController extends Controller
             'user_id' => $request->user()->id
         ]);
 
-        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
+        $data = $request->only('name', 'url', 'parent_id', 'post_id', 'user_id', 'active');
 
         if ($menu = $this->menu->findById($id)) {
             $menu = $this->menu->update($menu, $data);
