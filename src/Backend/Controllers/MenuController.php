@@ -48,6 +48,10 @@ class MenuController extends Controller
             'url'  => 'required'
         ]);
 
+        $request->merge([
+            'parent_id' => 1
+        ]);
+
         $data = $request->only('name', 'url', 'parent_id', 'post_id', 'active');
         $data = array_merge($data, [ 'user_id' => $request->user()->id ]);
 

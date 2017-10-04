@@ -23,7 +23,6 @@
         <el-input type="text" v-model="form.url" placeholder="Url"></el-input>
         <span class="help-block text-danger" v-if="errors.url">@{{ errors.url.toString() }}</span>
       </div>
-      <el-input type="hidden" v-model="form.parent_id" value="1"></el-input>
       <div class="form-group">
         <label>Post ID</label>
         <el-input type="text" v-model="form.post_id" placeholder="Post Id"></el-input>
@@ -52,7 +51,7 @@
     data: function () {
       return {
         locale: 'en',
-        form: { name: {}, parent_id: 1, url: '', post_id: '', active: '1'},
+        form: { name: {}, url: '', post_id: '', active: '1'},
         errors: {},
         modal: false,
         loading: false
@@ -69,7 +68,7 @@
           Bus.$emit('menu-created', response.data.data)
           that.loading = false
           that.modal = false
-          that.form = { name: {}, parent_id: 1, url: '', post_id: '', active: 1}
+          that.form = { name: {}, url: '', post_id: '', active: 1}
         }, function(error) {
           that.loading = false
           that.errors = error.response.data
