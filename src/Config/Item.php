@@ -60,7 +60,7 @@ class Item implements Arrayable, Jsonable, JsonSerializable
             return $json;
         }
 
-        return $this->attribute;
+        return $this->attribute ? : '';
     }
 
     /**

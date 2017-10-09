@@ -28,5 +28,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('media', 'Settings\\MediaController', ['only' => ['index', 'store']]);
         Route::resource('permalink', 'Settings\\PermalinkController', ['only' => ['index', 'store']]);
         Route::resource('theme', 'Settings\\ThemeController', ['only' => ['index', 'store']]);
+        Route::resource('social', 'Settings\\SocialController', ['only' => ['index', 'store']]);
     });
 });

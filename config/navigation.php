@@ -37,6 +37,7 @@ return [
         'items' => [
             [ 'name' => 'General', 'link' => '/backend/setting/general' ],
             [ 'name' => 'Media', 'link' => '/backend/setting/media' ],
+            [ 'name' => 'Social', 'link' => '/backend/setting/social' ],
             [ 'name' => 'Navigation', 'link' => '/backend/setting/navigation' ],
             [ 'name' => 'Permalink', 'link' => '/backend/setting/permalink' ],
             [ 'name' => 'Theme', 'link' => '/backend/setting/theme' ]
