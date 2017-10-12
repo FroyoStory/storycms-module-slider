@@ -98,7 +98,7 @@
             tw_consumer_secret: '{{ $config->TW_CONSUMER_SECRET}}',
             insta_username: '{{ $config->INSTA_USERNAME}}',
             insta_password: '{{ $config->INSTA_PASSWORD}}',
-            switch: {{ $config->switch ? 1 : 0 }}
+            switch: {{ $config->SWITCH ? 1 : 0 }}
           }
         }
       },

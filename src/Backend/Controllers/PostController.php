@@ -99,7 +99,7 @@ class PostController extends Controller
 
             return response()->json([
                 'data' => $post,
-                'meta' => ['message' => 'Post is ctreated.']
+                'meta' => ['message' => 'Post is created.']
             ]);
         }
 

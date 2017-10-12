@@ -2,8 +2,10 @@
 
 namespace Story\Cms\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use log;
 
 class SocialServiceProvider extends ServiceProvider
 {

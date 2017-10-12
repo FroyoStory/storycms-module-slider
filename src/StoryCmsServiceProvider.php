@@ -135,6 +135,7 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         $this->app->register(Config\ConfigServiceProvider::class);
         $this->app->register(Providers\BladeServiceProvider::class);
+        $this->app->register(Providers\SocialServiceProvider::class);
 
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
