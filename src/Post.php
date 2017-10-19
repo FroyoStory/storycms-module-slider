@@ -30,7 +30,7 @@ class Post extends Model implements StoryPost, TaggableInterface
     ];
     protected $dates = ['publish_date'];
 
-    public $translatable = ['title', 'content'];
+    public $translatable = ['title', 'content', 'excerpt'];
     public $casts = ['title' => 'array','content' => 'array', 'excerpt' => 'array'];
     public $asYouType = true;
 

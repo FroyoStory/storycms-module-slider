@@ -143,6 +143,7 @@ class StoryCmsServiceProvider extends ServiceProvider
         $this->app->register(\Laravel\Scout\ScoutServiceProvider::class);
         $this->app->register(\TeamTNT\Scout\TNTSearchScoutServiceProvider::class);
         $this->app->register(\Themsaid\Multilingual\MultilingualServiceProvider::class);
+        $this->app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
 
         // Register core service bindings
         foreach (config('mapping') as $key => $value) {

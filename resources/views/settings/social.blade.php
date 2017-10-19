@@ -12,16 +12,17 @@
   @parent
   <script type="text/x-template" id="setting-social">
     <div class="row">
-      <label>Enable Post to Social Media after publish</label>
-      <el-switch
-      v-model="form.switch"
-      on-color="#13ce66"
-      off-color="#ff4949"
-      :on-value="1"
-      :off-value="0">
-      </el-switch>
-      <br />
-      <div class="col-md-6">
+      <div class="col-md-12">
+        <label>Enable Post to Social Media after publish</label>
+        <el-switch
+        v-model="form.switch"
+        on-color="#13ce66"
+        off-color="#ff4949"
+        :on-value="1"
+        :off-value="0">
+        </el-switch>
+      </div>
+      <div class="col-md-12">
         <div class="title"><i class="material-icons">indeterminate_check_box</i><strong>Facebook</strong></div><br />
         <div class="form-group">
           <label>App ID</label>
@@ -35,12 +36,15 @@
         </div>
         <div class="form-group">
           <label>Access Token</label>
-          <el-input type="text" v-model="form.fb_access_token"></el-input>
+          <el-input type="text" v-model="form.fb_access_token" :disabled="true"></el-input>
           <small class="help-block">Facebook Access Token</small>
+        </div>
+        <div class="form-group">
+          <a href="/backend/fblogin">Get Access Token</a>
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="title"><i class="material-icons">indeterminate_check_box</i><strong>Twitter</strong></div><br />
         <div class="form-group">
           <label>Access Token</label>
@@ -64,7 +68,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="title"><i class="material-icons">indeterminate_check_box</i><strong>Instagram</strong></div><br />
         <div class="form-group">
           <label>Username</label>

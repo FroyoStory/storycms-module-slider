@@ -9,5 +9,5 @@ return [
 
     'route' => true,
 
-    'plugin_path' => base_path('bootstrap/cache/plugins.php')
+    'plugin_path' => base_path('bootstrap/cache/plugins.php'),
 ];
