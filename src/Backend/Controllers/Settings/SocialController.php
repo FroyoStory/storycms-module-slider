@@ -48,7 +48,7 @@ class SocialController extends Controller
             Configuration::set('INSTA_PASSWORD', trim($request->input('insta_password')));
         }
 
-        Configuration::set('switch', $request->input('switch'));
+        Configuration::set('SWITCH', $request->input('switch'));
 
         return response()->json([
             'meta' => [

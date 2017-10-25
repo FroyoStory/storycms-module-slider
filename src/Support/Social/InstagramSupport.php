@@ -29,7 +29,8 @@ class InstagramSupport
         $metadata = [
             'caption' => $title ."\n". $excerpt . "\n" . $tagstring,
         ];
-
-        $posting = $this->ig->timeline->uploadPhoto($path, $metadata);
+        if ($path != '') {
+            $posting = $this->ig->timeline->uploadPhoto($path, $metadata);
+        }
     }
 }

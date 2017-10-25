@@ -30,24 +30,28 @@ class TwitterSupport
     {
                 $requestMethod = 'POST';
 
-                $imagefield = array(
-                    'media_data' => base64_encode(file_get_contents($path))
-                );
+                if ($path != '') {
+                    $imagefield = array(
+                        'media_data' => base64_encode(file_get_contents($path))
+                    );
 
-                $twitterimage = new TwitterAPIExchange($this->setting);
-                $imgfile = $twitterimage->buildOauth($this->uploadurl, $requestMethod)
-                                        ->setPostfields($imagefield)
-                                        ->performRequest();
+                    $twitterimage = new TwitterAPIExchange($this->setting);
+                    $imgfile = $twitterimage->buildOauth($this->uploadurl, $requestMethod)
+                                            ->setPostfields($imagefield)
+                                            ->performRequest();
 
-                $image = json_decode($imgfile);
-
-                $postfields = array(
-                    'status'    => $title. ' ' .$url,
-                    'media_ids' => $image->media_id_string
-                );
+                    $image = json_decode($imgfile);
+                    $postfields = array(
+                        'status'    => $title. ' ' .$url,
+                        'media_ids' => $image->media_id_string
+                    );
+                } else {
+                    $postfields = array(
+                        'status'    => $title. ' ' .$url
+                    );
+                }
 
                 $twitter = new TwitterAPIExchange($this->setting);
-
                 $twitter->buildOauth($this->url, $requestMethod)
                         ->setPostfields($postfields)
                         ->performRequest();

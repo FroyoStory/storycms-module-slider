@@ -21,6 +21,6 @@ class SocialServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        //
     }
 }
