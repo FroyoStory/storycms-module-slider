@@ -17,7 +17,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('profile', 'ProfileController', ['only' => ['index', 'store']]);
     Route::resource('post', 'PostController');
     Route::resource('media', 'MediaController');
-    //Route::resource('test', 'SandboxController', ['only' => ['index']]);
     Route::get('fblogin', 'Settings\FbLoginController@index');
     Route::get('fblogin/callback', 'Settings\FbLoginController@callback');
     Route::get('plugins', 'PluginController@index')->name('plugin.index');
