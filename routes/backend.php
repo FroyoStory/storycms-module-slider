@@ -17,7 +17,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('profile', 'ProfileController', ['only' => ['index', 'store']]);
     Route::resource('post', 'PostController');
     Route::resource('media', 'MediaController');
-
+    Route::get('fblogin', 'Settings\FbLoginController@index');
+    Route::get('fblogin/callback', 'Settings\FbLoginController@callback');
     Route::get('plugins', 'PluginController@index')->name('plugin.index');
     Route::post('plugins', 'PluginController@store')->name('plugin.store');
     Route::delete('plugins', 'PluginController@destroy')->name('plugin.destroy');
@@ -28,5 +29,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('media', 'Settings\\MediaController', ['only' => ['index', 'store']]);
         Route::resource('permalink', 'Settings\\PermalinkController', ['only' => ['index', 'store']]);
         Route::resource('theme', 'Settings\\ThemeController', ['only' => ['index', 'store']]);
+        Route::resource('social', 'Settings\\SocialController', ['only' => ['index', 'store']]);
     });
 });

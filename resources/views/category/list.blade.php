@@ -4,7 +4,6 @@
       <category-item v-for="(category, index) in categories" :key="category.id" :categories="categories" :category="category" :index="index"></category-item>
     </vddl-list>
     <br />
-
     <category-create :categories="categories" />
   </div>
 </script>

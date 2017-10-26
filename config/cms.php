@@ -3,11 +3,11 @@
 return [
     'images' => [
         'thumbnail' => [ 'height' => 150, 'width' => 150 ],
-        'medium' => [ 'height' => 300, 'width' => 300 ],
-        'large' => [ 'height' => 1024, 'width' => 1024 ],
+        'medium'    => [ 'height' => 300, 'width' => 300 ],
+        'large'     => [ 'height' => 1024, 'width' => 1024 ],
     ],
 
     'route' => true,
 
-    'plugin_path' => base_path('bootstrap/cache/plugins.php')
+    'plugin_path' => base_path('bootstrap/cache/plugins.php'),
 ];
