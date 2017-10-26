@@ -2,17 +2,15 @@
 
 namespace Story\Cms\Backend\Controllers\Settings;
 
-use Story\Cms\Support\Social\FacebookSupport;
 use Story\Cms\Backend\Controllers\Controller;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
 use Configuration;
 
 class SocialController extends Controller
 {
     public function __construct()
     {
-        if(Configuration::instance()->FB_APP_REDIRECT == '') {
+        if (Configuration::instance()->FB_APP_REDIRECT == '') {
             Configuration::set('FB_APP_REDIRECT', url('/').'/backend/fblogin/callback');
         }
     }
@@ -37,7 +35,7 @@ class SocialController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->input('switch') == 1) {
+        if ($request->input('switch') == 1) {
             Configuration::set('FB_APP_ID', trim($request->input('fb_app_id')));
             Configuration::set('FB_APP_SECRET', trim($request->input('fb_app_secret')));
             Configuration::set('TW_ACCESS_TOKEN', trim($request->input('tw_access_token')));

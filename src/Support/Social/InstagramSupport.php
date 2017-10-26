@@ -4,10 +4,10 @@ namespace Story\Cms\Support\Social;
 
 use Configuration;
 use InstagramAPI\Instagram;
+use Story\Cms\Contracts\StorySocial;
 
-class InstagramSupport
+class InstagramSupport implements StorySocial
 {
-
     protected $ig;
 
     public function __construct()
@@ -15,22 +15,30 @@ class InstagramSupport
         $this->ig = new Instagram();
     }
 
-    public function post($tags = array(), $title, $excerpt, $path)
+    public function post($tags = array(), $title, $excerpt, $url = '', $path)
     {
-        $loginResponse = $this->ig->login((string) Configuration::instance()->INSTA_USERNAME, (string) Configuration::instance()->INSTA_PASSWORD);
+        if ($this->validate()) {
+            $loginResponse = $this->ig->login((string) Configuration::instance()->INSTA_USERNAME, (string) Configuration::instance()->INSTA_PASSWORD);
 
-        if (count($tags) == 0 || $tags == '') {
-            $tagstring = '';
-        } else {
-            $stripspace = str_replace(' ', '_', $tags);
-            $tagstring = '#'.implode(" #", $stripspace);
-        }
+            if ($path != '') {
+                if (count($tags) == 0 || $tags == '') {
+                    $tagstring = '';
+                } else {
+                    $stripspace = str_replace(' ', '_', $tags);
+                    $tagstring = '#'.implode(" #", $stripspace);
+                }
 
-        $metadata = [
-            'caption' => $title ."\n". $excerpt . "\n" . $tagstring,
-        ];
-        if ($path != '') {
-            $posting = $this->ig->timeline->uploadPhoto($path, $metadata);
+                $metadata = [
+                    'caption' => $title ."\n". $excerpt . "\n" . $tagstring,
+                ];
+
+                $posting = $this->ig->timeline->uploadPhoto($path, $metadata);
+            }
         }
+    }
+
+    public function validate()
+    {
+        return Configuration::instance()->INSTA_USERNAME != '' && Configuration::instance()->INSTA_PASSWORD != '';
     }
 }

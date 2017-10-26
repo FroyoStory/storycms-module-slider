@@ -4,13 +4,12 @@ namespace Story\Cms\Support\Social;
 
 use Configuration;
 use TwitterAPIExchange;
+use Story\Cms\Contracts\StorySocial;
 
-class TwitterSupport
+class TwitterSupport implements StorySocial
 {
     protected $setting;
-
     protected $url;
-
     protected $uploadurl;
 
     public function __construct()
@@ -26,34 +25,41 @@ class TwitterSupport
         $this->uploadurl = 'https://upload.twitter.com/1.1/media/upload.json';
     }
 
-    public function post($path, $title, $url)
+    public function post($tags = array(), $title, $excerpt = '', $url, $path)
     {
-                $requestMethod = 'POST';
+        if ($this->validate()) {
+            $requestMethod = 'POST';
 
-                if ($path != '') {
-                    $imagefield = array(
-                        'media_data' => base64_encode(file_get_contents($path))
-                    );
+            if ($path != '') {
+                $imagefield = array(
+                    'media_data' => base64_encode(file_get_contents($path))
+                );
 
-                    $twitterimage = new TwitterAPIExchange($this->setting);
-                    $imgfile = $twitterimage->buildOauth($this->uploadurl, $requestMethod)
-                                            ->setPostfields($imagefield)
-                                            ->performRequest();
+                $twitterimage = new TwitterAPIExchange($this->setting);
+                $imgfile = $twitterimage->buildOauth($this->uploadurl, $requestMethod)
+                                        ->setPostfields($imagefield)
+                                        ->performRequest();
 
-                    $image = json_decode($imgfile);
-                    $postfields = array(
-                        'status'    => $title. ' ' .$url,
-                        'media_ids' => $image->media_id_string
-                    );
-                } else {
-                    $postfields = array(
-                        'status'    => $title. ' ' .$url
-                    );
-                }
+                $image = json_decode($imgfile);
+                $postfields = array(
+                    'status'    => $title. ' ' .$url,
+                    'media_ids' => $image->media_id_string
+                );
+            } else {
+                $postfields = array(
+                    'status'    => $title. ' ' .$url
+                );
+            }
 
-                $twitter = new TwitterAPIExchange($this->setting);
-                $twitter->buildOauth($this->url, $requestMethod)
-                        ->setPostfields($postfields)
-                        ->performRequest();
+            $twitter = new TwitterAPIExchange($this->setting);
+            $twitter->buildOauth($this->url, $requestMethod)
+                    ->setPostfields($postfields)
+                    ->performRequest();
+        }
+    }
+
+    public function validate()
+    {
+        return Configuration::instance()->TW_ACCESS_TOKEN != '' && Configuration::instance()->TW_ACCESS_TOKEN_SECRET != '' && Configuration::instance()->TW_CONSUMER_KEY != '' && Configuration::instance()->TW_CONSUMER_SECRET != '';
     }
 }
