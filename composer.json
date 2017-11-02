@@ -1,22 +1,17 @@
 {
-    "name": "storycms/cms",
+    "name": "storycms/framework",
     "description": "Full-featured Laravel web shop package and e-commerce solution for high performance shops",
     "homepage": "http://froyostory.co.id",
     "license": "MIT",
     "keywords": ["laravel", "laravel-packages", "storycms", "cms"],
     "support": {
-        "source": "https://github.com/froyostory/story-cms",
-        "issues": "https://github.com/froyostory/story-cms/issues"
+        "source": "https://github.com/storycms/framework",
+        "issues": "https://github.com/storycms/framework/issues"
     },
     "authors": [
-        {
-            "name": "PT Froyo Kreatif Indonesia",
-            "email": "hello@froyo.co.id"
-        },
-        {
-            "name": "Purwandi",
-            "email": "purwandi@froyo.co.id"
-        }
+        { "name": "PT Froyo Kreatif Indonesia", "email": "hello@froyo.co.id" },
+        { "name": "Purwandi", "email": "purwandi@froyo.co.id" },
+        { "name": "Aviant Ferarry", "email": "aviant@froyo.co.id" }
     ],
     "require": {
         "php": ">=5.6.3",
