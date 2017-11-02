@@ -14,7 +14,7 @@
         { "name": "Aviant Ferarry", "email": "aviant@froyo.co.id" }
     ],
     "require": {
-        "php": ">=5.6.3",
+        "php": ">=7.0.0",
         "cartalyst/tags": "^4.0.1",
         "intervention/image": "^2.4",
         "laravel/framework": "5.4.*|5.5.*",
