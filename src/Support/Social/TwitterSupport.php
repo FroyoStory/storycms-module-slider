@@ -1,10 +1,10 @@
 <?php
 
-namespace Story\Cms\Support\Social;
+namespace Story\Framework\Support\Social;
 
 use Configuration;
 use TwitterAPIExchange;
-use Story\Cms\Contracts\StorySocial;
+use Story\Framework\Contracts\StorySocial;
 
 class TwitterSupport implements StorySocial
 {
@@ -25,7 +25,7 @@ class TwitterSupport implements StorySocial
         $this->uploadurl = 'https://upload.twitter.com/1.1/media/upload.json';
     }
 
-    public function post($tags = array(), $title, $excerpt = '', $url, $path)
+    public function post($title, $excerpt = '', $url, $path, $tags = array())
     {
         if ($this->validate()) {
             $requestMethod = 'POST';

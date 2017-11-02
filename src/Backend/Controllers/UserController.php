@@ -1,24 +1,24 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Illuminate\Http\Request;
-use Story\Cms\Repositories\UserRepository;
-use Story\Cms\Repositories\RoleRepository;
+use Story\Framework\Repositories\UserRepository;
+use Story\Framework\Repositories\RoleRepository;
 
 class UserController extends Controller
 {
     /**
      * The UserRepository implementation.
      *
-     * @var \Story\Cms\Repositories\UserRepository
+     * @var \Story\Framework\Repositories\UserRepository
      */
     protected $user;
 
     /**
      * The RoleRepository implementation.
      *
-     * @var Story\Cms\Repositories\RoleRepository
+     * @var Story\Framework\Repositories\RoleRepository
      */
     protected $roles;
 

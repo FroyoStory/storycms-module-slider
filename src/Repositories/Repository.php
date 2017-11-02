@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Repositories;
+namespace Story\Framework\Repositories;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 

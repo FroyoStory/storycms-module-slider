@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms\Support\Plugins;
+namespace Story\Framework\Support\Plugins;
 
-use Story\Cms\Model;
+use Story\Framework\Model;
 
 class Plugin extends Model
 {

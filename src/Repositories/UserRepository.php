@@ -1,9 +1,9 @@
 <?php
 
-namespace Story\Cms\Repositories;
+namespace Story\Framework\Repositories;
 
-use Story\Cms\Contracts\StoryUserRepository;
-use Story\Cms\Contracts\StoryUser;
+use Story\Framework\Contracts\StoryUserRepository;
+use Story\Framework\Contracts\StoryUser;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends Repository implements StoryUserRepository
@@ -11,7 +11,7 @@ class UserRepository extends Repository implements StoryUserRepository
     /**
      * THe StoryUser implmentation.
      *
-     * @var Story\Cms\Contracts\StoryUser
+     * @var Story\Framework\Contracts\StoryUser
      */
     protected $users;
 

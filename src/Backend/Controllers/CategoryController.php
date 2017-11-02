@@ -1,17 +1,17 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Illuminate\Http\Request;
-use Story\Cms\Contracts\StoryCategoryRepository;
-use Story\Cms\Backend\Requests\CategoryRequest;
+use Story\Framework\Contracts\StoryCategoryRepository;
+use Story\Framework\Backend\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
     /**
      * The StoryCategoryRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryCategoryRepository
+     * @var Story\Framework\Contracts\StoryCategoryRepository
      */
     protected $categories;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Story\Cms\Contracts\StoryPostRepository;
-use Story\Cms\Contracts\StoryCategoryRepository;
+use Story\Framework\Contracts\StoryPostRepository;
+use Story\Framework\Contracts\StoryCategoryRepository;
 use Theme;
 
 class PostController extends Controller
@@ -13,14 +13,14 @@ class PostController extends Controller
     /**
      * The StoryPostRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryPostRepository
+     * @var Story\Framework\Contracts\StoryPostRepository
      */
     protected $post;
 
     /**
      * The StoryCategoryRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryCategoryRepository
+     * @var Story\Framework\Contracts\StoryCategoryRepository
      */
     protected $category;
 

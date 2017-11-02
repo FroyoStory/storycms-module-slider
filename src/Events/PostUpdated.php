@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Events;
+namespace Story\Framework\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Story\Cms\Contracts\StoryPost;
+use Story\Framework\Contracts\StoryPost;
 use Illuminate\Http\Request;
 
 class PostUpdated

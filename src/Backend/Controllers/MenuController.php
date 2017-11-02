@@ -1,16 +1,16 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Illuminate\Http\Request;
-use Story\Cms\Contracts\StoryMenuRepository;
+use Story\Framework\Contracts\StoryMenuRepository;
 
 class MenuController extends Controller
 {
     /**
      * The StoryMeuRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryMenuRepository
+     * @var Story\Framework\Contracts\StoryMenuRepository
      */
     protected $menu;
 

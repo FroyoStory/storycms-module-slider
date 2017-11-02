@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Story\Cms\Contracts\StoryMenu;
+use Story\Framework\Contracts\StoryMenu;
 use Kalnoy\Nestedset\NestedSet;
 
 class CreateMenuTable extends Migration

@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms\Config;
+namespace Story\Framework\Config;
 
-use Story\Cms\Model;
+use Story\Framework\Model;
 
 class Config extends Model
 {

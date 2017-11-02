@@ -1,24 +1,24 @@
 <?php
 
-namespace Story\Cms\Support\Social;
+namespace Story\Framework\Support\Social;
 
 use Configuration;
 use InstagramAPI\Instagram;
-use Story\Cms\Contracts\StorySocial;
+use Story\Framework\Contracts\StorySocial;
 
 class InstagramSupport implements StorySocial
 {
-    protected $ig;
+    protected $instagram;
 
     public function __construct()
     {
-        $this->ig = new Instagram();
+        $this->instagram = new Instagram();
     }
 
-    public function post($tags = array(), $title, $excerpt, $url = '', $path)
+    public function post($title, $excerpt, $url = '', $path, $tags = array())
     {
         if ($this->validate()) {
-            $loginResponse = $this->ig->login((string) Configuration::instance()->INSTA_USERNAME, (string) Configuration::instance()->INSTA_PASSWORD);
+            $loginResponse = $this->instagram->login((string) Configuration::instance()->INSTA_USERNAME, (string) Configuration::instance()->INSTA_PASSWORD);
 
             if ($path != '') {
                 if (count($tags) == 0 || $tags == '') {
@@ -32,7 +32,7 @@ class InstagramSupport implements StorySocial
                     'caption' => $title ."\n". $excerpt . "\n" . $tagstring,
                 ];
 
-                $posting = $this->ig->timeline->uploadPhoto($path, $metadata);
+                $posting = $this->instagram->timeline->uploadPhoto($path, $metadata);
             }
         }
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 
-class StoryCmsServiceProvider extends ServiceProvider
+class StoryFrameworkServiceProvider extends ServiceProvider
 {
 
     /**
@@ -15,7 +15,7 @@ class StoryCmsServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Story\\Cms';
+    protected $namespace = 'Story\\Framework';
 
     /**
      * Bootstrap any application services.
@@ -177,9 +177,9 @@ class StoryCmsServiceProvider extends ServiceProvider
     {
         $loader = AliasLoader::getInstance();
 
-        $loader->alias('Configuration', \Story\Cms\Support\Facades\Configuration::class);
-        $loader->alias('Plugin', \Story\Cms\Support\Facades\Plugin::class);
-        $loader->alias('SEO', \Story\Cms\Support\Facades\SEO::class);
-        $loader->alias('Theme', \Story\Cms\Support\Facades\Theme::class);
+        $loader->alias('Configuration', \Story\Framework\Support\Facades\Configuration::class);
+        $loader->alias('Plugin', \Story\Framework\Support\Facades\Plugin::class);
+        $loader->alias('SEO', \Story\Framework\Support\Facades\SEO::class);
+        $loader->alias('Theme', \Story\Framework\Support\Facades\Theme::class);
     }
 }

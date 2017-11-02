@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers\Auth;
+namespace Story\Framework\Backend\Controllers\Auth;
 
-use Story\Cms\Backend\Controllers\Controller;
+use Story\Framework\Backend\Controllers\Controller;
 
 class ForgotController extends Controller
 {

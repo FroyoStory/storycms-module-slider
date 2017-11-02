@@ -1,10 +1,10 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers\Settings;
+namespace Story\Framework\Backend\Controllers\Settings;
 
 use Configuration;
-use Story\Cms\Support\Theme;
-use Story\Cms\Backend\Controllers\Controller;
+use Story\Framework\Support\Theme;
+use Story\Framework\Backend\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ThemeController extends Controller
@@ -12,7 +12,7 @@ class ThemeController extends Controller
     /**
      * The theme class implementation.
      *
-     * @var Story\Cms\Support\Theme
+     * @var Story\Framework\Support\Theme
      */
     protected $themes;
 

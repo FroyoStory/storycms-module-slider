@@ -1,17 +1,17 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers\Settings;
+namespace Story\Framework\Backend\Controllers\Settings;
 
 use Illuminate\Http\Request;
-use Story\Cms\Backend\Controllers\Controller;
-use Story\Cms\Models\Repositories\NavigationRepository;
+use Story\Framework\Backend\Controllers\Controller;
+use Story\Framework\Models\Repositories\NavigationRepository;
 
 class NavigationController extends Controller
 {
     /**
      * The NavigationRepository implementation repository
      *
-     * @var \Story\Cms\Models\Repositories\NavigationRepository
+     * @var \Story\Framework\Models\Repositories\NavigationRepository
      */
     protected $navigation;
 

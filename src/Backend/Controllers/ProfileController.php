@@ -1,17 +1,17 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Story\Cms\Contracts\StoryUserRepository;
+use Story\Framework\Contracts\StoryUserRepository;
 
 class ProfileController extends Controller
 {
     /**
      * The StoryUserRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryUserRepository
+     * @var Story\Framework\Contracts\StoryUserRepository
      */
     protected $user;
 

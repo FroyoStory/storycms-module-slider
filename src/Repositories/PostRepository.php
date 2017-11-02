@@ -1,17 +1,17 @@
 <?php
 
-namespace Story\Cms\Repositories;
+namespace Story\Framework\Repositories;
 
-use Story\Cms\Contracts\StoryCategory;
-use Story\Cms\Contracts\StoryPost;
-use Story\Cms\Contracts\StoryPostRepository;
+use Story\Framework\Contracts\StoryCategory;
+use Story\Framework\Contracts\StoryPost;
+use Story\Framework\Contracts\StoryPostRepository;
 
 class PostRepository extends Repository implements StoryPostRepository
 {
     /**
      * The StoryPost implementation.
      *
-     * @var Story\Cms\Contracts\StoryPost
+     * @var Story\Framework\Contracts\StoryPost
      */
     protected $posts;
 

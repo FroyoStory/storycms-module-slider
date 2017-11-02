@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
-use Story\Cms\Contracts\StoryPost;
+use Story\Framework\Contracts\StoryPost;
 use JsonSerializable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
@@ -12,7 +12,7 @@ class PostAttribute implements JsonSerializable, Jsonable, Arrayable
     /**
      * The StoryPost implementation.
      *
-     * @var Story\Cms\Contracts\StoryPost
+     * @var Story\Framework\Contracts\StoryPost
      */
     protected $post;
 

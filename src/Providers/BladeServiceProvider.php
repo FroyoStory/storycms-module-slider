@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Providers;
+namespace Story\Framework\Providers;
 
 use Theme;
 use Illuminate\Support\Facades\Blade;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
 class Story
 {

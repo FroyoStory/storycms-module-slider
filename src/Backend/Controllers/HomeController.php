@@ -1,15 +1,15 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
-// use Story\Cms\Models\Repositories\StatsRepository;
+// use Story\Framework\Models\Repositories\StatsRepository;
 
 class HomeController extends Controller
 {
     /**
      * The StatsRepository implementation
      *
-     * @var \Story\Cms\Models\Repository\StatsRepository
+     * @var \Story\Framework\Models\Repository\StatsRepository
      */
     protected $stats;
 

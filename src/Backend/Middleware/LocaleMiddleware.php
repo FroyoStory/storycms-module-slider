@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Backend\Middleware;
+namespace Story\Framework\Backend\Middleware;
 
 use App;
 use Closure;

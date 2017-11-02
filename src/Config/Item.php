@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Config;
+namespace Story\Framework\Config;
 
 use JsonSerializable;
 use Illuminate\Contracts\Support\Jsonable;

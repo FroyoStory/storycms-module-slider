@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers\Settings;
+namespace Story\Framework\Backend\Controllers\Settings;
 
-use Story\Cms\Backend\Controllers\Controller;
+use Story\Framework\Backend\Controllers\Controller;
 use Illuminate\Http\Request;
 use Configuration;
 

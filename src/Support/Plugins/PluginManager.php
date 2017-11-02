@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Support\Plugins;
+namespace Story\Framework\Support\Plugins;
 
 use Exception;
 use Illuminate\Support\Facades\Artisan;

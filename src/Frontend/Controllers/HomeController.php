@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Frontend\Controllers;
+namespace Story\Framework\Frontend\Controllers;
 
 use SEO;
 use Configuration;

@@ -1,16 +1,16 @@
 <?php
 
-namespace Story\Cms\Repositories;
+namespace Story\Framework\Repositories;
 
-use Story\Cms\Contracts\StoryRole;
-use Story\Cms\Contracts\StoryRoleRepository;
+use Story\Framework\Contracts\StoryRole;
+use Story\Framework\Contracts\StoryRoleRepository;
 
 class RoleRepository extends Repository implements StoryRoleRepository
 {
     /**
      * The StoryRole implementation.
      *
-     * @var Story\Cms\Contracts\StoryRole
+     * @var Story\Framework\Contracts\StoryRole
      */
     protected $roles;
 

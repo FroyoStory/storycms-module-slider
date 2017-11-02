@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
-use Story\Cms\Contracts\StoryUser;
+use Story\Framework\Contracts\StoryUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -31,7 +31,7 @@ class User extends Authenticatable implements StoryUser
     /**
      * Get role relationship
      *
-     * @return Story\Cms\Contracts\StoryRole
+     * @return Story\Framework\Contracts\StoryRole
      */
     public function role()
     {

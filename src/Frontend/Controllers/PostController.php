@@ -1,16 +1,16 @@
 <?php
 
-namespace Story\Cms\Frontend\Controllers;
+namespace Story\Framework\Frontend\Controllers;
 
 use SEO;
-use Story\Cms\Contracts\StoryPostRepository;
+use Story\Framework\Contracts\StoryPostRepository;
 
 class PostController extends Controller
 {
     /**
      * The StoryPostRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryPostRepository
+     * @var Story\Framework\Contracts\StoryPostRepository
      */
     protected $posts;
 

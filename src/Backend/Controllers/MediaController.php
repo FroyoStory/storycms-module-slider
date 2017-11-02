@@ -1,11 +1,11 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Jenssegers\Date\Date;
-use Story\Cms\Contracts\StoryPost;
-use Story\Cms\Contracts\StoryPostRepository;
-use Story\Cms\Support\Facades\Configuration;
+use Story\Framework\Contracts\StoryPost;
+use Story\Framework\Contracts\StoryPostRepository;
+use Story\Framework\Support\Facades\Configuration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -15,7 +15,7 @@ class MediaController extends Controller
     /**
      * The Media StoryPost implementation.
      *
-     * @var Story\Cms\Contracts\StoryPostRepository
+     * @var Story\Framework\Contracts\StoryPostRepository
      */
     protected $post;
 

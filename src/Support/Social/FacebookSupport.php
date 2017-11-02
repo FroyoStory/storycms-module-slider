@@ -1,20 +1,20 @@
 <?php
 
-namespace Story\Cms\Support\Social;
+namespace Story\Framework\Support\Social;
 
 use Configuration;
 use Facebook\Facebook;
 use Laravel\Socialite\Facades\Socialite as Socialite;
-use Story\Cms\Contracts\StorySocial;
+use Story\Framework\Contracts\StorySocial;
 
 class FacebookSupport implements StorySocial
 {
-    protected $fb;
+    protected $facebook;
     protected $access_token;
 
     public function __construct()
     {
-        $this->fb = new Facebook([
+        $this->facebook = new Facebook([
           'app_id' => config('services.facebook.client_id'),
           'app_secret' => config('services.facebook.client_secret'),
           'default_graph_version' => 'v2.10'
@@ -23,17 +23,17 @@ class FacebookSupport implements StorySocial
         $this->access_token = (string) Configuration::instance()->FB_ACCESS_TOKEN;
     }
 
-    public function post($tags = array(), $title, $excerpt = '', $url, $path = '')
+    public function post($title, $excerpt = '', $url, $path = '', $tags = array())
     {
         if ($this->validate()) {
             if ($this->access_token != '') {
-                $this->fb->setDefaultAccessToken($this->access_token);
+                $this->facebook->setDefaultAccessToken($this->access_token);
 
                 // post on behalf of page
-                $pages = $this->fb->get('/me/accounts');
+                $pages = $this->facebook->get('/me/accounts');
                 $pages = $pages->getGraphEdge()->asArray();
                 foreach ($pages as $key) {
-                     $post = $this->fb->post('/' . $key['id'] . '/feed', array(
+                     $post = $this->facebook->post('/' . $key['id'] . '/feed', array(
                         'message' => $title,
                         'link' => $url
                     ), $key['access_token']);

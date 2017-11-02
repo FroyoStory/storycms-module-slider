@@ -1,16 +1,16 @@
 <?php
 
-namespace Story\Cms\Repositories;
+namespace Story\Framework\Repositories;
 
-use Story\Cms\Contracts\StoryMenu;
-use Story\Cms\Contracts\StoryMenuRepository;
+use Story\Framework\Contracts\StoryMenu;
+use Story\Framework\Contracts\StoryMenuRepository;
 
 class MenuRepository extends Repository implements StoryMenuRepository
 {
     /**
      * The StoryMenu model implementation.
      *
-     * @var Story\Cms\Contracts\StoryMenu
+     * @var Story\Framework\Contracts\StoryMenu
      */
     protected $menu;
 

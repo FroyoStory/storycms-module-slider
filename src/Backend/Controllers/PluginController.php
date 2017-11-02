@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Plugin;
 use Illuminate\Http\Request;

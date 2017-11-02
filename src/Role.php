@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
-use Story\Cms\Contracts\StoryRole;
+use Story\Framework\Contracts\StoryRole;
 
 class Role extends Model implements StoryRole
 {

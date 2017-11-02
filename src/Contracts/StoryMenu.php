@@ -1,5 +1,5 @@
 <?php
 
-namespace Story\Cms\Contracts;
+namespace Story\Framework\Contracts;
 
 interface StoryMenu {}

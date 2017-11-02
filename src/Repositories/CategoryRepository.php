@@ -1,16 +1,16 @@
 <?php
 
-namespace Story\Cms\Repositories;
+namespace Story\Framework\Repositories;
 
-use Story\Cms\Contracts\StoryCategory;
-use Story\Cms\Contracts\StoryCategoryRepository;
+use Story\Framework\Contracts\StoryCategory;
+use Story\Framework\Contracts\StoryCategoryRepository;
 
 class CategoryRepository extends Repository implements StoryCategoryRepository
 {
     /**
      * The StoryCategory model implementation.
      *
-     * @var Story\Cms\Contracts\StoryCategory
+     * @var Story\Framework\Contracts\StoryCategory
      */
     protected $category;
 

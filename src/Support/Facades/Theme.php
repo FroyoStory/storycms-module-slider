@@ -1,11 +1,11 @@
 <?php
 
-namespace Story\Cms\Support\Facades;
+namespace Story\Framework\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Story\Cms\Support\Theme
+ * @see \Story\Framework\Support\Theme
  */
 class Theme extends Facade
 {

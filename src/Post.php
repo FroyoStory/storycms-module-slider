@@ -1,13 +1,13 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
 use Configuration;
 use Cartalyst\Tags\TaggableTrait;
 use Cartalyst\Tags\TaggableInterface;
 use Laravel\Scout\Searchable;
 use Spatie\Tags\HasTags;
-use Story\Cms\Contracts\StoryPost;
+use Story\Framework\Contracts\StoryPost;
 use Themsaid\Multilingual\Translatable;
 
 

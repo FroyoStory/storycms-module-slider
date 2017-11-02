@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
-use Story\Cms\Contracts\StoryCategory;
+use Story\Framework\Contracts\StoryCategory;
 use Themsaid\Multilingual\Translatable;
 use Kalnoy\Nestedset\NodeTrait;
 

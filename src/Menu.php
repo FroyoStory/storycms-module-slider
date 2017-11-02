@@ -1,9 +1,9 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
 use Kalnoy\Nestedset\NodeTrait;
-use Story\Cms\Contracts\StoryMenu;
+use Story\Framework\Contracts\StoryMenu;
 use Themsaid\Multilingual\Translatable;
 
 

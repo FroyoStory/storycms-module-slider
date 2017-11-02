@@ -1,10 +1,10 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers\Auth;
+namespace Story\Framework\Backend\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Story\Cms\Backend\Controllers\Controller;
+use Story\Framework\Backend\Controllers\Controller;
 
 class LoginController extends Controller
 {

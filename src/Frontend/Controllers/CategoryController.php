@@ -1,23 +1,23 @@
 <?php
 
-namespace Story\Cms\Frontend\Controllers;
+namespace Story\Framework\Frontend\Controllers;
 
-use Story\Cms\Contracts\StoryCategoryRepository;
-use Story\Cms\Contracts\StoryPostRepository;
+use Story\Framework\Contracts\StoryCategoryRepository;
+use Story\Framework\Contracts\StoryPostRepository;
 
 class CategoryController extends Controller
 {
     /**
      * The StoryCategoryRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryCategoryRepository
+     * @var Story\Framework\Contracts\StoryCategoryRepository
      */
     protected $categories;
 
     /**
      * The StoryPostRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryPostRepositor
+     * @var Story\Framework\Contracts\StoryPostRepositor
      */
     protected $posts;
 

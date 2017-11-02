@@ -1,17 +1,17 @@
 <?php
 
-namespace Story\Cms\Repositories\PostType;
+namespace Story\Framework\Repositories\PostType;
 
-use Story\Cms\Repositories\Repository;
-use Story\Cms\Contracts\StoryPost;
-use Story\Cms\Contracts\StoryPostRepository;
+use Story\Framework\Repositories\Repository;
+use Story\Framework\Contracts\StoryPost;
+use Story\Framework\Contracts\StoryPostRepository;
 
 class MediaRepository extends Repository implements StoryPostRepository
 {
     /**
      * The media repository instance
      *
-     * @var Story\Cms\Contracts\StoryPost
+     * @var Story\Framework\Contracts\StoryPost
      */
     protected $posts;
 

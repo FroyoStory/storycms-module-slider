@@ -1,16 +1,16 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers;
+namespace Story\Framework\Backend\Controllers;
 
 use Illuminate\Http\Request;
-use Story\Cms\Contracts\StoryRoleRepository;
+use Story\Framework\Contracts\StoryRoleRepository;
 
 class RoleController extends Controller
 {
     /**
      * The StoryRoleRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryRoleRepository
+     * @var Story\Framework\Contracts\StoryRoleRepository
      */
     protected $roles;
 

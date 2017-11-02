@@ -1,10 +1,10 @@
 <?php
 
-namespace Story\Cms\Frontend\Controllers\Auth;
+namespace Story\Framework\Frontend\Controllers\Auth;
 
 use SEO;
 use Configuration;
-use Story\Cms\Frontend\Controllers\Controller;
+use Story\Framework\Frontend\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller

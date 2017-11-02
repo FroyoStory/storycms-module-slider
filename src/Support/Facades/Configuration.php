@@ -1,11 +1,11 @@
 <?php
 
-namespace Story\Cms\Support\Facades;
+namespace Story\Framework\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Story\Cms\Config\ConfigManager
+ * @see \Story\Framework\Config\ConfigManager
  */
 class Configuration extends Facade
 {

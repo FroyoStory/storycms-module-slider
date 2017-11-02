@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
-use Story\Cms\Contracts\StoryPostmeta;
+use Story\Framework\Contracts\StoryPostmeta;
 
 class PostMeta extends Model implements StoryPostmeta
 {

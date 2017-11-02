@@ -1,8 +1,8 @@
 <?php
 
-namespace Story\Cms\Frontend\Controllers;
+namespace Story\Framework\Frontend\Controllers;
 
-use Story\Cms\Contracts\StoryPostRepository;
+use Story\Framework\Contracts\StoryPostRepository;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -10,7 +10,7 @@ class SearchController extends Controller
     /**
      * The StoryPostRepository implementation.
      *
-     * @var Story\Cms\Contracts\StoryPostRepository
+     * @var Story\Framework\Contracts\StoryPostRepository
      */
     protected $post;
 

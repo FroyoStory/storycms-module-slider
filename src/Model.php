@@ -1,6 +1,6 @@
 <?php
 
-namespace Story\Cms;
+namespace Story\Framework;
 
 use Jenssegers\Date\Date;
 use Illuminate\Database\Eloquent\Model as Eloquent;

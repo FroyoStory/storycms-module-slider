@@ -1,10 +1,10 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers\Settings;
+namespace Story\Framework\Backend\Controllers\Settings;
 
 use Illuminate\Http\Request;
-use Story\Cms\Backend\Controllers\Controller;
-use Story\Cms\Support\Social\FacebookSupport;
+use Story\Framework\Backend\Controllers\Controller;
+use Story\Framework\Support\Social\FacebookSupport;
 use Configuration;
 use Laravel\Socialite\Facades\Socialite as Socialite;
 

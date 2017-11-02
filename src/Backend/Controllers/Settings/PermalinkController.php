@@ -1,9 +1,9 @@
 <?php
 
-namespace Story\Cms\Backend\Controllers\Settings;
+namespace Story\Framework\Backend\Controllers\Settings;
 
 use Configuration;
-use Story\Cms\Backend\Controllers\Controller;
+use Story\Framework\Backend\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PermalinkController extends Controller
