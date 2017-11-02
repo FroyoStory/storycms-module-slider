@@ -6,6 +6,9 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('auth/forgot', 'Auth\ForgotController@index');
 Route::post('auth/forgot', 'Auth\ForgotController@store');
 
+Route::get('installer', 'InstallerController@index');
+Route::post('installer', 'InstallerController@store');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
     Route::resource('category', 'CategoryController', ['only' => ['index', 'store', 'update', 'destroy']]);

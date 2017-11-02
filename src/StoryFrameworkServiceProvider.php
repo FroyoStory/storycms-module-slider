@@ -138,6 +138,7 @@ class StoryFrameworkServiceProvider extends ServiceProvider
         $this->app->register(Providers\SocialServiceProvider::class);
 
         $this->app->register(\Intervention\Image\ImageServiceProvider::class);
+        $this->app->register(\Jackiedo\DotenvEditor\DotenvEditorServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
         $this->app->register(\Cartalyst\Tags\TagsServiceProvider::class);
         $this->app->register(\Laravel\Scout\ScoutServiceProvider::class);
@@ -181,5 +182,6 @@ class StoryFrameworkServiceProvider extends ServiceProvider
         $loader->alias('Plugin', \Story\Framework\Support\Facades\Plugin::class);
         $loader->alias('SEO', \Story\Framework\Support\Facades\SEO::class);
         $loader->alias('Theme', \Story\Framework\Support\Facades\Theme::class);
+        $loader->alias('DotenvEditor', \Jackiedo\DotenvEditor\Facades\DotenvEditor::class);
     }
 }
